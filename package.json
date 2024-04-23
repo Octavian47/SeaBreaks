@@ -1,0 +1,37 @@
+{
+  "name": "SeaBreaks",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-google-maps/api": "^2.19.2",
+    "gumshoejs": "^5.1.2",
+    "jquery": "3.4.1",
+    "nouislider": "^15.7.1",
+    "react": "^18.2.0",
+    "react-bootstrap": "^1.6.8",
+    "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.4",
+    "react-native": "^0.73.7",
+    "react-router-dom": "^6.21.1",
+    "react-slick": "^0.30.2",
+    "select2": "^4.1.0-rc.0",
+    "slick-carousel": "^1.8.1",
+    "slick-slider": "^1.8.2",
+    "swiper": "^6.8.4",
+    "wow.js": "^1.2.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "vite": "^5.1.0"
+  }
+}

@@ -1,0 +1,194 @@
+/* ===================================
+    About
+====================================== */
+
+/*
+    Theme Name: MegaOne
+    Theme URI:
+    Author: Themes Industry
+    Author URI:
+    Description: One Page Parallax Template
+    Tags: one page, multipurpose, parallax, creative, html5
+ */
+
+/* ===================================
+    Table of Content
+====================================== */
+
+/*  - Fonts
+    - General
+    - Header
+    - Side Menu
+    - Page Piling
+    - Banner
+    - All Products
+    - Reviews
+    - Contact
+    - Loader
+    - Media Queries   */
+
+/* ===================================
+    Google font
+====================================== */
+
+
+/* ===================================
+   Banner
+====================================== */
+
+
+
+/* ===================================
+   ALL PRODUCTS
+====================================== */
+
+.all-products{
+    background-image: url("../images/products_bg.jpg");
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 95%;
+    margin-left: 5%;
+}
+
+.all-products h2 {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.parallax-box{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.parallax-box h2{
+    font-size: 38px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.parallax-box h5{
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.owl-products{
+    text-align: center;
+}
+
+.team-box{
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    background-color: #ffffff;
+    -webkit-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    transition: 0.5s ease;
+    position: relative;
+    -webkit-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    transform: scale(0.7);
+}
+
+.team-box .team-image{
+    position: relative;
+    overflow: hidden;
+}
+
+.team-box .team-text{
+    text-align: center;
+    font-size: 14px;
+    padding: 2rem 0 0 0;
+    opacity: 0;
+    transition: .25ms;
+}
+
+.team-box .team-text .btn-medium {
+    font-size: 16px;
+    padding: 8px 36px;
+    cursor: pointer;
+}
+
+.owl-products .owl-item.center .item{
+    transform: scale(1.0);
+}
+
+.owl-products .owl-item.center .team-box .team-text h5 {
+    font-size: 28px;
+    color: #464646;
+    font-weight: bold;
+}
+
+.owl-products .owl-item.center .item .team-text {
+    opacity: 1;
+    transition: .5s ease;
+}
+
+.all-products .circle{
+    position: absolute;
+    z-index: 1111;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.all-products .circle:hover i {
+    color: #ed2d34;
+    transition: .5s ease;
+}
+
+.all-products .circle i {
+    font-size: 42px;
+    z-index: 1111;
+    color: #464646;
+    opacity: .7;
+    transition: .5s ease;
+
+}
+
+.all-products #team-circle-right {
+    top: 50%;
+    right: -8%;
+    transform: translateY(-50%);
+    transition: .5s ease;
+}
+
+.all-products #team-circle-left{
+    top: 50%;
+    left: -8%;
+    transform: translateY(-50%);
+    transition: .5s ease;
+}
+
+
+/* ===================================
+   Media Queries
+====================================== */
+
+@media screen and (max-width: 991px) and (min-width: 768px){
+
+    /* All Products */
+    .all-products h2 {
+        font-size: 38px;
+    }
+
+    /* Contact */
+    .contact-sec .heading {
+        font-size: 42px;
+    }
+    .contact-sec .contact-details .text {
+        text-align: left;
+    }
+    .contact-form {
+        padding-top: 10%;
+    }
+
+    /* Modal Window */
+
+}
