@@ -12,10 +12,11 @@
   "dependencies": {
     "@react-google-maps/api": "^2.19.2",
     "gumshoejs": "^5.1.2",
-    "jquery": "3.4.1",
+    "jquery": "^3.7.1",
     "nouislider": "^15.7.1",
     "react": "^18.2.0",
     "react-bootstrap": "^1.6.8",
+    "react-datepicker": "^6.9.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.4",
     "react-native": "^0.73.7",

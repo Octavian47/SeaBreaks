@@ -15,9 +15,9 @@ const LocationSlider = () => {
     // ... other settings
   };
 
-  return (
+  /*return (
     
-  );
+  );*/
 };
 
 export default LocationSlider;
