@@ -74,10 +74,17 @@ const ProductViewModals = () => {
     setTimeOption(event.target.value);
   };
   const [premiumYachtChecked, setPremiumYachtChecked] = useState(false);
+  const [getpremiumYacht, setPremiumYacht] = useState(0);
   const [photographerChecked, setPhotographerChecked] = useState(false);
 
   const handlePremiumYachtChange = (event) => {
     setPremiumYachtChecked(event.target.checked);
+    if(event.target.checked){
+      setPremiumYacht(event.target.value);
+    }
+    else{
+      setPremiumYacht(0);
+    }
   };
 
   const handlePhotographerChange = (event) => {
@@ -148,6 +155,7 @@ const ProductViewModals = () => {
     setTimeout(function () {
       $(".loader").removeClass('load');
     }, 800);
+    packageSlider();
   }
 
   //Next_window
@@ -204,6 +212,15 @@ const ProductViewModals = () => {
     numberInputCounter();
     handleClose();
   }, []);
+
+  function packageSlider(){
+    $(".products").owlCarousel({
+      items: 1,
+      autoPlay: 1500, //Set AutoPlay to 3 seconds
+      dots: true,
+      loop: true
+    });
+  }
   return <div id="data-modal">
 
       <div className="modal-window" id="morphic-window1">
@@ -569,37 +586,17 @@ const ProductViewModals = () => {
           <Container>
             <div className="row main-morphic-body ">
               <Col xs={12} md={12} className="morphic-img">
-
-                <div id="carousel-thumb3" className="carousel slide carousel-fade carousel-thumbnails"
-                     data-ride="carousel">
-
-                  <div className="carousel-inner" role="listbox">
-                    <div className="carousel-item active">
+                 <div className="products owl-carousel owl-theme">
+                    <div className="item active">
                       <img className="d-block w-100" src={classicproduct} alt="First slide"/>
                     </div>
-                    <div className="carousel-item">
+                    <div className="item">
                       <img className="d-block w-100" src={modalWindowImg5} alt="Second slide"/>
                     </div>
-                    <div className="carousel-item">
+                    <div className="item">
                       <img className="d-block w-100" src={modalWindowImg2} alt="Third slide"/>
                     </div>
                   </div>
-
-                  <ol className="carousel-indicators">
-                    <li data-target="#carousel-thumb3" data-slide-to={0} className="active">
-                      <img className="d-block w-100 img-fluid" src={classicproductsub1} alt="First slide"/>
-                    </li>
-                    <li data-target="#carousel-thumb3" data-slide-to={1}>
-                      <img className="d-block w-100 img-fluid" src={classicproductsub2} alt="Second slide"/>
-                    </li>
-                    <li data-target="#carousel-thumb3" data-slide-to={2}>
-                      <img className="d-block w-100 img-fluid" src={classicproductsub3} alt="Third slide"/>
-                    </li>
-                    <li data-target="#carousel-thumb4" data-slide-to={3}>
-                      <img className="d-block w-100 img-fluid" src={classicproductsub4} alt="Third slide"/>
-                    </li>
-                  </ol>
-                </div>
                 <div className="product-description">
                   <strong>DESCRIPTION</strong>
                   <p> Embark on a two-day yachting retreat, beginning with pick-up and transfer to the yacht, where
@@ -739,7 +736,7 @@ const ProductViewModals = () => {
                   </Col>
                 </Row>
                 <Row className="model-bottom">
-                  <Col xs={12} className="price-modal"><h1>€{getPrice-getDiscount}</h1></Col>
+                  <Col xs={12} className="price-modal"><h1>€{(Number(getPrice)+Number(getpremiumYacht))-getDiscount}</h1></Col>
                   <Col xs={12} className="modal-btn">
                     <a href="#" className="btn btn-medium btn-rounded btn-trans text-capitalize">PROCEED</a></Col>
                 </Row>
