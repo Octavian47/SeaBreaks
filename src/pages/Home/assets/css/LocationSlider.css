@@ -1,0 +1,55 @@
+
+.custom-carousel-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+    margin-top:80px;
+    background-color: transparent;
+  }
+  
+  .custom-carousel-container {
+    width: 100%;
+    max-width: 720px;
+  }
+  
+  .custom-carousel-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .custom-carousel-item h3 {
+    font-size: 0.8em;
+    opacity: 0.5;
+    text-align: center;
+    margin: 0;
+    padding: 0.5em;
+    text-decoration: none;
+  }
+  
+  .custom-carousel-item h3.selected {
+    font-size: 1em;
+    opacity: 1;
+    text-decoration: underline;
+  }
+  
+  .custom-slick-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #02aeb3;
+  }
+  
+  .custom-slick-prev {
+    left: -50px;
+  }
+  
+  .custom-slick-next {
+    right: -50px;
+  }

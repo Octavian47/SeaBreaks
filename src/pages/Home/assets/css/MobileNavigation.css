@@ -1,0 +1,151 @@
+
+  
+  header.header-appear {
+    padding: 10px 0 !important; /* Smaller padding when scrolled */
+  }
+  
+  .navbar {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  
+  .logo-white {
+    max-height: 50px !important; /* Adjust as necessary */
+    transition: max-height 0.3s ease-in-out !important;
+  }
+  
+  header.header-appear .logo-white {
+    max-height: 50px !important; /* Smaller logo when scrolled */
+    
+  }
+
+
+  .fas.fa-phone {
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out !important;
+  }
+  
+  header.header-appear .fas.fa-phone {
+    transform: scale(0.8) !important; /* Slightly smaller icon when scrolled */
+  }
+
+  
+  
+  /* Add your styles for .side-menu and other elements */
+
+  .flag-dropdown-menu {
+    position: relative; /* This makes sure dropdown is positioned relative to the button */
+    cursor: pointer; /* Indicates the dropdown can be interacted with */
+  }
+  
+  .dropdown-content-menu {
+    display: none; /* Hidden by default */
+    position: absolute; /* Absolute positioning to float over other content */
+    background-color: #f9f9f9; /* Light background for the dropdown */
+    min-width: 160px; /* Minimum width */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Shadow for dropdown */
+    z-index: 1; /* Makes sure the dropdown is above other content */
+  }
+  
+  .dropdown-content-menu.open {
+    display: block; /* Show dropdown when 'open' class is added */
+  }
+  
+  .dropdown-content-menu div {
+    color: black; /* Text color */
+    padding: 12px 16px; /* Padding for items */
+    text-decoration: none; /* No underline */
+    display: block; /* Makes each item a block for better click area */
+  }
+  
+  .dropdown-content-menu div:hover {
+    background-color: #f1f1f1; /* Hover background color */
+  }
+
+
+  .language-select-menu img {
+    width: 24px; /* Example size */
+    height: auto; /* Maintain aspect ratio */
+    /* Add any additional styling needed for alignment or spacing */
+  }
+  
+  .dropdown-content-menu img {
+    width: 20px; /* Smaller for dropdown */
+    height: auto;
+    /* Additional styles as needed */
+  }
+
+  .language-flag {
+    width: 30px; /* or the size that fits your design */
+    height: auto;
+    margin-right: 5px;
+  }
+
+/* MODAL */
+.language-modal .modal-dialog {
+  margin: auto;
+  width: 60%; /* Set the desired width of the modal */
+}
+
+/* Ensure that the modal content is also centered within the dialog */
+.language-modal .modal-content {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+/* Style the unordered list */
+.language-list {
+  list-style: none; /* Remove default list styling */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margins */
+}
+
+/* Style each list item */
+.language-list-item {
+  margin-bottom: 10px; /* Space between list items */
+}
+
+/* Style the button within the list item */
+.language-modal-button {
+  display: block;
+  width: 100%;
+  color: #02aeb3; /* Text color */
+  border-color: #02aeb3; /* Border color */
+  background-color: white; /* Background color */
+  text-align: left; /* Align text to the left */
+  border-radius: 0.25rem; /* Optional: for rounded corners */
+  padding: 0.5rem; /* Padding inside the button */
+}
+
+/* Remove the hover background color change */
+.language-modal-button:hover {
+  background-color: transparent; /* Keep the background transparent */
+  color: #02aeb3; /* Keep the text color the same as non-hover */
+}
+
+/* If you want to keep the hover effect for the border only */
+.language-modal-button:hover {
+  border-color: #02aeb3; /* Change the border color on hover if desired */
+}
+
+/* Style the flag images */
+.language-modal-flag {
+  width: 25px; /* Adjust as needed */
+  height: auto; /* Keep aspect ratio */
+  vertical-align: middle; /* Align with text */
+  margin-right: 10px; /* Space between flag and text */
+}
+
+/* Styles for the modal itself */
+.language-modal-dialog {
+  max-width: 300px; /* Adjust the width as needed */
+}
+
+/* Style the close button and title specifically for this modal */
+.language-modal .close,
+.language-modal .modal-title {
+  color: #02aeb3;
+}

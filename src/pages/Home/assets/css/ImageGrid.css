@@ -1,0 +1,210 @@
+.image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Maintain space between elements */
+    justify-content: center; /* Center the items in the grid */
+    padding: 20px; /* Padding around the grid */
+  }
+  
+  .image-container {
+    width: 45%; /* Increase width for a larger card */
+    border: 1px solid #ddd; /* Border to the card */
+    border-radius: 5px; /* Round corners */
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  }
+  
+  .image-container img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    height: 300px; /* Increase height to maintain aspect ratio with wider cards */
+  }
+  
+  .image-description {
+    padding: 15px; /* Increase padding for more space */
+    background: #fff;
+  }
+  
+  .name-and-book {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px; /* More space above the details */
+  }
+  
+  .name-and-book h3 {
+    margin: 0;
+    font-size: 1.4rem; /* Larger font size for the yacht name */
+  }
+
+  .book-now-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .book-now-btn {
+    padding: 10px 20px; /* Larger button */
+    background: #02aeb3;
+    color: white;
+    border: none;
+    border-radius: 25px; /* Rounder corners */
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .details-row {
+    display: flex;
+    border-top: 1px solid #ddd;
+    padding-top: 15px; /* More space above the details */
+  }
+  
+  .details-row p {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    padding: 0 10px; /* More padding so text doesn't touch borders */
+    font-size: 1.1rem; /* Increase the font size for better readability */
+    position: relative;
+  }
+  
+  .details-row p:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #ddd;
+  }
+
+  @media (max-width: 768px) {
+    .image-grid {
+      justify-content: space-around; /* Ensures cards are centered and spaced out evenly */
+    }
+  
+    .image-container {
+      width: 48%; /* Adjust the width so two items fit per row on mobile, considering some margin */
+      margin-bottom: 15px; /* Space between the cards */
+    }
+  
+    .image-container img {
+      height: 180px; /* Adjust height as needed for mobile */
+    }
+  
+    .name-and-book h3 {
+      font-size: 1rem; /* Smaller font size for yacht name */
+    }
+  
+    .book-now-btn {
+      font-size: 0.8rem; /* Smaller font size for the button */
+      padding: 5px 10px; /* Adjust button padding for mobile */
+    }
+  
+    .details-row p {
+      font-size: 0.8rem; /* Smaller font size for details */
+      padding: 0 2px; /* Adjust padding to fit text */
+    }
+  
+    /* Add additional styling if needed */
+  }
+
+  @media (max-width: 550px) {
+    .image-grid {
+      justify-content: space-around;
+      padding: 10px;
+    }
+
+    .book-now-btn {
+      padding: 5px 10px; /* Adjusted button padding for smaller screens */
+    }
+  
+    .image-container {
+      width: calc(50% - 20px);
+      margin-bottom: 15px;
+    }
+  
+    .image-container img {
+      height: 180px;
+    }
+  
+    .name-and-book h3 {
+      font-size: 0.9rem;
+    }
+  
+    .book-now-btn {
+      font-size: 0.7rem; /* Smaller font size for the button text */
+      padding: 5px 10px; /* Smaller padding to reduce button size */
+      border-radius: 15px; /* Adjusted border radius for smaller button */
+    }
+  
+    .details-row p {
+      font-size: 0.8rem;
+      padding: 3px;
+    }
+  
+    .details-row p:not(:last-child)::after {
+      width: 1px;
+      background-color: #ddd;
+      height: 60%;
+      margin: auto 0;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .image-grid {
+      padding: 5px; /* Adjust padding as necessary */
+    }
+
+    .book-now-btn {
+      padding: 2px 5px; /* Adjusted button padding for smaller screens */
+    }
+
+    .name-and-book {
+      flex-direction: column; /* Stack elements vertically */
+      align-items: flex-start; /* Align items to the left */
+  }
+
+    .book-now-btn {
+        width: 100%; /* Full width button */
+        margin-top: 10px; /* Space between title and button */
+    }
+  
+    .image-container {
+      width: calc(50% - 10px); /* Subtract twice the gap size (5px on each side) */
+      margin-bottom: 10px; /* Adjust the margin between rows as necessary */
+    }
+  
+    .image-container img {
+      height: auto; /* You can also use 'auto' to maintain the aspect ratio */
+    }
+  
+    .name-and-book h3 {
+      font-size: 0.85rem; /* Adjust the font size of the title if necessary */
+    }
+  
+    .book-now-btn {
+      padding: 5px 10px; /* Reduce padding to decrease button size */
+      font-size: 0.75rem; /* Reduce font size of the button text */
+    }
+  
+    .details-row p {
+      font-size: 0.75rem; /* Reduce the font size for the details */
+      padding: 2px; /* Adjust padding to align text within the available space */
+    }
+  
+    .details-row p:not(:last-child)::after {
+      /* If you have vertical dividers between details, adjust as needed */
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 12px; /* Height of the divider line */
+      width: 1px;
+      background-color: #ddd;
+    }
+  }
+  
+  
+  
