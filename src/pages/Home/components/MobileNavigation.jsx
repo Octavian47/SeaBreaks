@@ -6,7 +6,7 @@ import logo from '../assets/img/sea-breaks-logo.png';
 import LanguageModal from './LanguageModal';
 
 // First, import the flag images
-import USA_Round from '../assets/img/Flags/USA_Round.png';
+import UK_Round from '../assets/img/Flags/United_Kingdom_Round.png';
 import Spain_Round from '../assets/img/Flags/Spain_Round.png';
 import Italy_Round from '../assets/img/Flags/Italy_Round.png';
 import Germany_Round from '../assets/img/Flags/Germany_Round.png';
@@ -19,7 +19,7 @@ const MobileNavigationBar = ({ headerClassName }) => {
   const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   const languages = {
-    en: { name: "English", flag: USA_Round },
+    en: { name: "English", flag: UK_Round },
     es: { name: "Spanish", flag: Spain_Round },
     de: { name: "German", flag: Germany_Round },
     fr: { name: "French", flag: France_Round },
@@ -108,11 +108,11 @@ const MobileNavigationBar = ({ headerClassName }) => {
           </div>
 
           <Link to="/" title="Logo" className="mx-auto">
-            <img src={logo} alt="logo" className="logo-white" style={{ maxHeight: '140px', width: 'auto', marginLeft: '5px' }} />
+            <img src={logo} alt="logo" className="logo-white" style={{ width: 'auto', marginLeft: '13px' }} />
           </Link>
 
           <div className="language-select-menu">
-            <button onClick={handleOpenModal} className="btn btn-link">
+            <button onClick={handleOpenModal} className="btn btn-link" style={{paddingRight: '0px'}} >
               {/* Use an img tag to display the selected flag */}
               <img src={languages[selectedLanguage].flag} alt="Selected Language" />
             </button>

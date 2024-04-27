@@ -21,11 +21,6 @@
     
   }
 
-
-  .fas.fa-phone {
-    font-size: 24px;
-    transition: transform 0.3s ease-in-out !important;
-  }
   
   header.header-appear .fas.fa-phone {
     transform: scale(0.8) !important; /* Slightly smaller icon when scrolled */
@@ -38,6 +33,7 @@
   .flag-dropdown-menu {
     position: relative; /* This makes sure dropdown is positioned relative to the button */
     cursor: pointer; /* Indicates the dropdown can be interacted with */
+    margin-left: 10px;
   }
   
   .dropdown-content-menu {
