@@ -1,13 +1,62 @@
-import { useEffect } from 'react';
-import LocationSlider from './LocationSlider';
-//import logoWhite from '../assets/img/logo-white.png';
-import logo from '../assets/img/sea-breaks-logo.png';
+import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-const MobileNavigationBar = ({
-  headerClassName
-}) => {
+import '../assets/css/MobileNavigation.css';
+import logo from '../assets/img/sea-breaks-logo.png';
+import LanguageModal from './LanguageModal';
+
+// First, import the flag images
+import USA_Round from '../assets/img/Flags/USA_Round.png';
+import Spain_Round from '../assets/img/Flags/Spain_Round.png';
+import Italy_Round from '../assets/img/Flags/Italy_Round.png';
+import Germany_Round from '../assets/img/Flags/Germany_Round.png';
+import France_Round from '../assets/img/Flags/France_Round.png';
+
+
+const MobileNavigationBar = ({ headerClassName }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
+
+  const languages = {
+    en: { name: "English", flag: USA_Round },
+    es: { name: "Spanish", flag: Spain_Round },
+    de: { name: "German", flag: Germany_Round },
+    fr: { name: "French", flag: France_Round },
+    it: { name: "Italian", flag: Italy_Round }
+  };
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleSelectLanguage = (language) => {
+    setSelectedLanguage(language);
+    handleCloseModal();
+  };
+
+  const handleScroll = () => {
+    const offset = window.pageYOffset;
+    setIsScrolled(offset > 260);
+  };
+
+  const handleNavLinkClick = (e) => {
+    e.preventDefault();
+    const href = e.currentTarget.getAttribute('href');
+    const offsetTop = document.querySelector(href).offsetTop;
+  
+    window.scrollTo({
+      top: offsetTop,
+      behavior: "smooth"
+    });
+  };
+
   useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
     $('.side-menu').removeClass('hidden');
     $('.navbar-collapse .navbar-nav .nav-link:nth-child(1)').addClass('active');
     $('.navbar-collapse .navbar-nav .nav-link:nth-child(2)').removeClass('active');
@@ -40,11 +89,17 @@ const MobileNavigationBar = ({
         $(".side-menu").removeClass("side-menu-active"), $("#close_side_menu").fadeOut(200), $(".pushwrap").removeClass("active");
       });
     }
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  return <header className={headerClassName}>
+
+  const headerClass = isScrolled ? `${headerClassName} header-appear` : headerClassName;
+
+  return (
+    <header className={headerClass}>
       <nav className="navbar navbar-top-default navbar-expand-lg navbar-simple nav-line">
         <Container className="d-flex justify-content-between align-items-center">
-          <div className="d-flex align-items-center">       
+        <div className="d-flex align-items-center">       
             <Link to="" className="sidemenu_btn" id="sidemenu_toggle" >
               <span />
               <span />
@@ -56,43 +111,43 @@ const MobileNavigationBar = ({
             <img src={logo} alt="logo" className="logo-white" style={{ maxHeight: '140px', width: 'auto', marginLeft: '5px' }} />
           </Link>
 
-          <Link to="tel:+14245325777" className="d-flex align-items-center">
-            <i className="fas fa-phone" style={{ fontSize: '24px' }}></i>
-          </Link>
+          <div className="language-select-menu">
+            <button onClick={handleOpenModal} className="btn btn-link">
+              {/* Use an img tag to display the selected flag */}
+              <img src={languages[selectedLanguage].flag} alt="Selected Language" />
+            </button>
+          </div>
         </Container>
+        
       </nav>
-      <div>
-      
-      </div>
-      
       <div className="side-menu hidden">
         <div className="inner-wrapper">
           <span className="btn-close" id="btn_sideNavClose"><i /><i /></span>
           <nav className="side-nav w-100">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link scroll" href="#revo_main_wrapper">Home</a>
+                <a className="nav-link scroll" href="" onClick={handleNavLinkClick}>Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#about-us">About Us</a>
+                <a className="nav-link scroll" href="#about-us" onClick={handleNavLinkClick}>About Us</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#app">Services</a>
+                <a className="nav-link scroll" href="#packages" onClick={handleNavLinkClick}>Services</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#team-section">Yacht Gateways</a>
+                <a className="nav-link scroll" href="#team-section" onClick={handleNavLinkClick}>Yacht Gateways</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#portfolio-sec">Showcases</a>
+                <a className="nav-link scroll" href="#showcases" onClick={handleNavLinkClick}>Showcases</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#testimonial-sec">Reviews</a>
+                <a className="nav-link scroll" href="#reviews" onClick={handleNavLinkClick}>Reviews</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#contact">Contact</a>
+                <a className="nav-link scroll" href="#contact" onClick={handleNavLinkClick}>Contact</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#contact">Events</a>
+                <a className="nav-link scroll" href="#contact" onClick={handleNavLinkClick}>Events</a>
               </li>
             </ul>
           </nav>
@@ -107,7 +162,13 @@ const MobileNavigationBar = ({
         </div>
       </div>
       <a id="close_side_menu" href="" />
-    </header>;
-    
+      <LanguageModal 
+          isOpen={modalOpen} 
+          onClose={handleCloseModal} 
+          onSelectLanguage={handleSelectLanguage} 
+      />
+    </header>
+  );
 };
+
 export default MobileNavigationBar;

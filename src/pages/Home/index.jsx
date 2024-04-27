@@ -4,13 +4,14 @@ import WOW from 'wow.js';
 import Preloader from './components/Preloader';
 import MobileNavigation from './components/MobileNavigation';
 import NavigationBar from './components/NavigationBar';
-import LocationSlider from './components/LocationSlider';
+import LocationCarousel from './components/LocationCarousel';
 import HeroSlider from './components/HeroSlider';
 import AboutUs from './components/AboutUs';
 import Advertisement from './components/Advertisement';
 import Features from './components/Features';
 import ReadMoreParallax from './components/ReadMoreParallax';
-import ProductSwiper from './components/ProductSwiper';  
+import SideContactBar from './components/SideContactBar';
+import ImageGrid from './components/ImageGrid';  
 import ProductViewModals from './components/ProductViewModals'; 
 import Showcase from './components/Showcase';
 import Testimonials from './components/Testimonials';
@@ -27,7 +28,6 @@ const Home = () => {
 
   const handleResize = () => {
     const isMobileNow = window.innerWidth < 768;
-    console.log('Is mobile:', isMobileNow); // Logs the value on resize
     setIsMobile(isMobileNow);
   };
 
@@ -58,34 +58,50 @@ const Home = () => {
   }, []);
   return <>
       <Preloader />
-
       {isMobile ? <MobileNavigation /> : <NavigationBar />}
-
-      <LocationSlider />
-
+      
+      
       <HeroSlider />
 
-      <AboutUs />
+      <LocationCarousel />
+
+      
+
+      <div id="about-us">
+       <AboutUs />
+      </div>
 
       <Advertisement />
 
       <Features />
 
+      
+
       <ReadMoreParallax />
 
-      <ProductSwiper />
 
-      <Showcase />
+      <div id="packages">
+       <ImageGrid />
+      </div>
+     
+      <div id="showcases">
+       <Showcase />
+      </div>
 
-      <Testimonials />
+      <div id="reviews">
+       <Testimonials />
+      </div>
 
       <ClientsSlider />
 
-      <ContactUsForm />
+      <div id="contact">
+       <ContactUsForm />
+      </div>
 
-      <ProductViewModals />
-
+    
       <Footer />
+
+      <SideContactBar />
 
       <BackToTop />
     </>;
