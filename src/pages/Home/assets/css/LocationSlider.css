@@ -1,13 +1,16 @@
 
 .custom-carousel-section {
+    position: absolute;
+    z-index: 100;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    position: relative;
+    justify-content: space-between;
     padding: 20px;
     margin-top:80px;
     background-color: transparent;
+    width: 100%;
   }
   
   .custom-carousel-container {
@@ -27,6 +30,7 @@
     margin: 0;
     padding: 0.5em;
     text-decoration: none;
+    color: #ffffff;
   }
   
   .custom-carousel-item h3.selected {

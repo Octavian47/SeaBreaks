@@ -45,7 +45,7 @@ const LocationCarousel = () => {
 
   return (
     <section className="custom-carousel-section">
-      <div className="custom-carousel-container">
+      <div className="container">
         <Slider {...settings}>
           {locations.map((location) => (
             <div key={location} className="custom-carousel-item" onClick={() => handleLocationClick(location)}>

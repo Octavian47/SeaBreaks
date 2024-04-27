@@ -59,11 +59,10 @@ const Home = () => {
   return <>
       <Preloader />
       {isMobile ? <MobileNavigation /> : <NavigationBar />}
-      
-      
+      <LocationCarousel />
+
       <HeroSlider />
 
-      <LocationCarousel />
 
       
 
