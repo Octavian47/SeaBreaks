@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 //import logoWhite from '../assets/img/logo-white.png';
 import logo from '../assets/img/sea-breaks-logo.png';
 import { Container } from 'react-bootstrap';
@@ -6,6 +6,24 @@ import { Link } from 'react-router-dom';
 const NavigationBar = ({
   headerClassName
 }) => {
+
+  const [activeLink, setActiveLink] = useState('#slider-section'); // Default active link
+
+  const handleNavLinkClick = (e) => {
+    e.preventDefault();
+    const href = e.currentTarget.getAttribute('href');
+    setActiveLink(href); // Update the active link
+    const offsetTop = document.querySelector(href)?.offsetTop;
+
+    if (offsetTop) {
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth"
+      });
+    }
+  };
+
+
   useEffect(() => {
     $('.side-menu').removeClass('hidden');
     $('.navbar-collapse .navbar-nav .nav-link:nth-child(1)').addClass('active');
@@ -48,14 +66,22 @@ const NavigationBar = ({
           </Link>
           <div className="collapse navbar-collapse" id="megaone">
             <div className="navbar-nav ml-auto">
-              <a className="nav-link scroll" href="#slider-section">Home</a>
-              <a className="nav-link scroll" href="#about-us">About Us</a>
-              <a className="nav-link scroll" href="#app">Services</a>
-              <a className="nav-link scroll" href="#team-section">Yacht Gateways</a>
-              <a className="nav-link scroll" href="#portfolio-sec">Showcases</a>
-              <a className="nav-link scroll" href="#testimonial-sec">Reviews</a>
-              <a className="nav-link scroll" href="#contact">Contact</a>
-              <a className="nav-link scroll" href="#contact">Events</a>
+              <a className={`nav-link scroll ${activeLink === '#slider-section' ? 'active' : ''}`}
+                 href="#slider-section" onClick={handleNavLinkClick}>Home</a>
+              <a className={`nav-link scroll ${activeLink === '#about-us' ? 'active' : ''}`}
+                 href="#about-us" onClick={handleNavLinkClick}>About Us</a>
+              <a className={`nav-link scroll ${activeLink === '#packages' ? 'active' : ''}`}
+                 href="#packages" onClick={handleNavLinkClick}>Services</a>
+              <a className={`nav-link scroll ${activeLink === '#team-section' ? 'active' : ''}`}
+                 href="#team-section" onClick={handleNavLinkClick}>Yacht Gateways</a>
+              <a className={`nav-link scroll ${activeLink === '#showcases' ? 'active' : ''}`}
+                 href="#showcases" onClick={handleNavLinkClick}>Showcases</a>
+              <a className={`nav-link scroll ${activeLink === '#reviews' ? 'active' : ''}`}
+                 href="#reviews" onClick={handleNavLinkClick}>Reviews</a>
+              <a className={`nav-link scroll ${activeLink === '#contact' ? 'active' : ''}`}
+                 href="#contact" onClick={handleNavLinkClick}>Contact</a>
+              <a className={`nav-link scroll ${activeLink === '#events' ? 'active' : ''}`}
+                 href="#events" onClick={handleNavLinkClick}>Events</a>
             </div>
           </div>
           <Link to="" className="sidemenu_btn" id="sidemenu_toggle">
@@ -69,27 +95,30 @@ const NavigationBar = ({
         <div className="inner-wrapper">
           <span className="btn-close" id="btn_sideNavClose"><i /><i /></span>
           <nav className="side-nav w-100">
-            <ul className="navbar-nav">
+          <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link scroll" href="#revo_main_wrapper">Home</a>
+                <a className="nav-link scroll" href="" onClick={handleNavLinkClick}>Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#about-us">About Us</a>
+                <a className="nav-link scroll" href="#about-us" onClick={handleNavLinkClick}>About Us</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#app">Services</a>
+                <a className="nav-link scroll" href="#packages" onClick={handleNavLinkClick}>Services</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#team-section">Our Crew</a>
+                <a className="nav-link scroll" href="#team-section" onClick={handleNavLinkClick}>Yacht Gateways</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#portfolio-sec">Showcases</a>
+                <a className="nav-link scroll" href="#showcases" onClick={handleNavLinkClick}>Showcases</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#testimonial-sec">Testimonials</a>
+                <a className="nav-link scroll" href="#reviews" onClick={handleNavLinkClick}>Reviews</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#contact">Contact Us</a>
+                <a className="nav-link scroll" href="#contact" onClick={handleNavLinkClick}>Contact</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link scroll" href="#contact" onClick={handleNavLinkClick}>Events</a>
               </li>
             </ul>
           </nav>
