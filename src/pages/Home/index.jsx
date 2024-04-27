@@ -103,6 +103,8 @@ const Home = () => {
 
       <SideContactBar />
 
+      <ProductViewModals />
+
       <BackToTop />
     </>;
 };
