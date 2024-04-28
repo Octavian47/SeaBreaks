@@ -43,8 +43,7 @@ import { Col, Container, Row, Form, Button} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-
-
+import Checkout from '../components/Checkout';
 
 const ProductViewModals = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -52,6 +51,7 @@ const ProductViewModals = () => {
     setSelectedDate(date);
   }
   const [selectedOption, setSelectedOption] = useState(null);
+  const [showDetailPage, setShowDetailPage] = useState(false);
 
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
@@ -68,7 +68,6 @@ const ProductViewModals = () => {
   const [getDiscountDropDown, setDiscountDropDown] = useState(false);
   const [getOptionDiscount, setOptionDiscount] = useState('');
   const [getDiscount, setDiscount] = useState(0);
-
 
   const timeChange = (event) => {
     setTimeOption(event.target.value);
@@ -110,7 +109,6 @@ const ProductViewModals = () => {
     const handleSubmit = e => {
       e.preventDefault();
       // You can handle form submission here, like sending data to a server or printing it
-      console.log(formData);
       // Reset form after submission
       setFormData({
         name: '',
@@ -199,18 +197,16 @@ const ProductViewModals = () => {
 
   // Function to close the modal
   const handleClose = () => {
-    $('.close-modal').on('click', function() {
-      $(this).closest('.modal-window').fadeOut(300, function() {
+      $('.modal-window').fadeOut(100, function() {
         $(this).removeClass('modal-view');
         $('body').removeClass('body-overlay');
-      });
     });
+    setShowDetailPage(false);
   };
 
 
   useEffect(() => {
     numberInputCounter();
-    handleClose();
   }, []);
 
   function packageSlider(){
@@ -221,6 +217,9 @@ const ProductViewModals = () => {
       loop: true
     });
   }
+  const handleProceed = () => {
+    setShowDetailPage(true);
+  };
   return <div id="data-modal">
 
       <div className="modal-window" id="morphic-window1">
@@ -580,9 +579,10 @@ const ProductViewModals = () => {
     <div className="modal-window" id="morphic-window3">
       <div className="modal-body">
         <header>
-          <span className="close-modal"><i/><i/></span>
+          <span className="close-modal"  onClick={handleClose}><i/><i/></span>
         </header>
         <div className="morphic-body">
+          {!showDetailPage ? (
           <Container>
             <div className="row main-morphic-body ">
               <Col xs={12} md={12} className="morphic-img">
@@ -738,11 +738,14 @@ const ProductViewModals = () => {
                 <Row className="model-bottom">
                   <Col xs={12} className="price-modal"><h1>€{(Number(getPrice)+Number(getpremiumYacht))-getDiscount}</h1></Col>
                   <Col xs={12} className="modal-btn">
-                    <a href="#" className="btn btn-medium btn-rounded btn-trans text-capitalize">PROCEED</a></Col>
+                    <a href="#"  onClick={handleProceed} className="btn btn-medium btn-rounded btn-trans text-capitalize">PROCEED</a></Col>
                 </Row>
               </Col>
             </div>
             </Container>
+          ) : (
+              <Checkout price={(Number(getPrice)+Number(getpremiumYacht))-getDiscount} date={selectedDate} />
+          )}
           </div>
         </div>
       </div>
