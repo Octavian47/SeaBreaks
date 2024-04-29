@@ -2276,3 +2276,206 @@ input, select, textarea{
     opacity: 0.5;
     width: 12px;
 }
+/* checkout page css */
+
+.detail-page .color-selection h6{
+    white-space: nowrap;
+    text-align: right;
+    background-color: #020b3b;
+    font-family: Arial-BoldMT;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 12px;
+    padding: 6px;
+    width: 7rem;
+    margin-right: 5px;
+    text-transform: capitalize !important;
+}
+.detail-page .morphic-title {
+    padding-bottom: 0px;
+}
+.detail-page .morphic-title .col-12{
+    display: flex;
+}
+.detail-page .black-text-datepicker,.detail-page input{
+    padding: 0px 5px;
+    color: #000;
+}
+.detail-page .select-opacity select{
+    padding: 3px 5px;
+}
+.detail-page .passenger-detail,.detail-page .date-picker,.detail-page input,.detail-page .select-duration,.detail-page .departure-point{
+    width: 100%;
+}
+.passenger-detail{
+    display: flex;
+}
+.passenger-detail input{
+    height: 27px;
+}
+.detail-page h3{
+    text-align: center;
+    font-size: 18px;
+}
+
+.react-time-picker__inputGroup input,.react-time-picker__inputGroup__amPm {
+    width: 33% !important;
+    height: 40px;
+}
+.react-time-picker__inputGroup__amPm{
+    color: #000;
+}
+.react-time-picker__button{
+    display: none;
+}
+.divider{
+    width: 100%;
+    background-color: #020b3b;
+    border-radius: 50px 0 0 50px;
+    margin: .26667rem auto;
+    position: relative;
+    padding-left: 2rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.divider:before{
+    content: "";
+    width: 20px;
+    height: 20px;;
+    background-color: #ffcc69;
+    border-radius: 50%;
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.divider span{
+    color: #fff;
+}
+.menu-divider {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.menu-title{
+    width: 100%;
+}
+.menu-title ul{
+    list-style: none;
+    display: flex;
+    margin-bottom: 0px;
+}
+
+.menu-title li:nth-child(1){
+    width: 40%;
+    text-align: left;
+}
+.menu-title li{
+    width: 20%;
+    font-weight: 600;
+    text-align: center
+}
+.menu-list-detail .checkbox{
+    width: 40%;
+    display: flex;
+}
+
+.menu-list-detail,.menu-list-detail li{
+    width: 100%;
+    list-style: none;
+}
+.menu-list-detail label{
+    display: flex;
+}
+.menu-list-detail .checkbox input{
+    width: auto;
+}
+.menu-list-detail div{
+    width: 20%;
+    text-align: center;
+    font-size: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.menu-list-detail .checkbox div{
+    width: 40%;
+    text-align: left;
+    font-style: italic;
+}
+.menu-list-detail .price{
+    font-weight: 700;
+}
+.menu-list-detail li label{
+    margin-top: .2rem;
+    margin-bottom: .2rem;
+}
+.menu-list-detail li{
+    border-bottom: 1px solid rgb(204, 204, 204);
+}
+.booking-detail {
+    background-color: #020b3b;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+.detail-page .booking-detail .color-selection h6{
+    background-color: #ffcc69;
+    color: #000;
+}
+.booking-detail .col-12{
+    display: flex;
+
+}
+.checkout-detail{
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+.checkout-detail .total{
+    width: 100%;
+}
+.checkout-btn img{
+    width: auto;
+    height: 18px;
+    margin-right: 5px;
+}
+.checkout-detail li{
+    display: flex;
+    list-style: none;
+    color: #fff;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 14px;
+}
+.total li:last-child{
+    color: #ffcc69;
+}
+.payment-method {
+    display: flex;
+    align-items: center;
+}
+.payment-method p{
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+.payment-method img{
+    width: 100px;
+    max-width: 100%;
+    margin-left: 5px;
+}
+.btn-checkout .checkout-btn{
+    align-items: center;
+    display: flex;
+
+}
+.btn-checkout .col-12{
+    justify-content: center;
+}
+.checkout-btn p{
+    color: #ffcc69;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 20px;
+}
+/* checkout page css end */
