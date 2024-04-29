@@ -96,21 +96,20 @@
   }
 
   .custom-carousel-container {
-      margin-left: 5px;
+      margin-left: -5px;
   }
 
   .custom-carousel-item h3 {
-      font-size: 0.8em;
+      font-size: 1em;
   }
   .custom-carousel-item h3.selected {
-    font-size: 0.9em;
-    margin-bottom: 5px;
+    font-size: 1em;
 }
 
   .custom-slick-prev, .custom-slick-next {
       display: block; /* Ensure arrows are visible */
-      font-size: 12px; /* Adjust font size for better visibility */
-      color: #02aeb3; /* Adjust color if needed for visibility */
+      font-size: 13px; /* Adjust font size for better visibility */
+      color: white; /* Adjust color if needed for visibility */
   }
 
   .custom-slick-prev {

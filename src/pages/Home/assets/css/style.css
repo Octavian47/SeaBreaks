@@ -672,6 +672,7 @@ header a.logo img {
 
 .slider-section{
     overflow-x: hidden;
+    position: relative;
 }
 
 .slider-section .slider-overlay{
@@ -1070,6 +1071,35 @@ header a.logo img {
 .portfolio-sec .portfolio-items .item:hover .portfolio-overlay .overlay-inner-content{
     opacity: 1;
 }
+
+.portfolio-sec .owl-carousel .owl-dots {
+    justify-content: center;
+    display: flex;
+    margin-top: 20px;
+}
+
+.portfolio-sec .owl-carousel .owl-dots .owl-dot {
+    background: rgba(43, 43, 43, 0.81);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 5px; /* Adjust margin as needed to space out the dots */
+    transition: background 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.portfolio-sec .owl-carousel .owl-dots .owl-dot.active {
+    width: 25px;
+    height: 12px;
+    border-radius: 25%;
+    background: #02aeb3;
+}
+
+.portfolio-sec .owl-carousel .owl-dots .owl-dot:hover {
+    background: #02aeb3;
+}
+
+
+
 
 
 /* ===================================

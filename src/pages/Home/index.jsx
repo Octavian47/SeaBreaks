@@ -91,7 +91,7 @@ const Home = () => {
        <Testimonials />
       </div>
 
-      <ClientsSlider />
+      
 
       <div id="contact">
        <ContactUsForm />

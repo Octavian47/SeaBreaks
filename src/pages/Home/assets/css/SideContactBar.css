@@ -126,11 +126,11 @@
   
   @media (max-width: 420px) {
     .side-contact-bar {
-      width: 20px; /* Narrowest for small phones */
-      padding: 5px 2px; /* Minimal padding to conserve space */
+      width: 30px; /* Narrowest for small phones */
+      padding: 2px 2px; /* Minimal padding to conserve space */
     }
     .side-contact-bar a, .side-contact-bar .flag-dropdown {
-      margin: 14px 0; /* Minimal margin to conserve space */
+      margin: 8px 0; /* Minimal margin to conserve space */
     }
     .side-contact-bar img, .side-contact-bar svg {
       width: 18px; /* Smallest icons to maintain usability */
