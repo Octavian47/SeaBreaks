@@ -5,13 +5,13 @@ import "slick-carousel/slick/slick-theme.css";
 import '../assets/css/LocationSlider.css';
 
 const LocationCarousel = () => {
-  const [selectedLocation, setSelectedLocation] = useState('LOS ANGELES');
+  const [selectedLocation, setSelectedLocation] = useState('IBIZA');
 
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [
       {
@@ -29,7 +29,7 @@ const LocationCarousel = () => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 3,
         },
       },
     ],
@@ -37,7 +37,7 @@ const LocationCarousel = () => {
     prevArrow: <CustomPrevArrow />,
   };
 
-  const locations = ['DUBAI', 'MIAMI', 'LOS ANGELES', 'LONG BEACH', 'NEWPORT BEACH'];
+  const locations = ['DUBAI', 'IBIZA', 'MONTE-CARLO'];
 
   const handleLocationClick = (location) => {
     setSelectedLocation(location);
@@ -45,7 +45,7 @@ const LocationCarousel = () => {
 
   return (
     <section className="custom-carousel-section">
-      <div className="container">
+      <div className="custom-carousel-container">
         <Slider {...settings}>
           {locations.map((location) => (
             <div key={location} className="custom-carousel-item" onClick={() => handleLocationClick(location)}>
