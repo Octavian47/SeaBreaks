@@ -111,12 +111,6 @@ const HeroSlider = () => {
         stroke: '#ffffff'
       }} d="M-40,95.6C20.3,95.6,20.1,56,80,56s60,40,120,40s59.9-40,120-40s60.3,40,120,40s60.3-40,120-40 s60.2,40,120,40s60.1-40,120-40s60.5,40,120,40s60-40,120-40s60.4,40,120,40s59.9-40,120-40s60.3,40,120,40s60.2-40,120-40 s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z" />
       </svg>
-      <ul className="social-icons social-icons-simple revicon white d-none d-md-block d-lg-block">
-        <li className="d-table"><a href=""><i className="fab fa-facebook-f" /></a> </li>
-        <li className="d-table"><a href=""><i className="fab fa-twitter" /> </a> </li>
-        <li className="d-table"><a href=""><i className="fab fa-linkedin-in" /> </a> </li>
-        <li className="d-table"><a href=""><i className="fab fa-instagram" /> </a> </li>
-      </ul>
     </div>;
 };
 export default HeroSlider;

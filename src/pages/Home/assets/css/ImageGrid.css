@@ -151,9 +151,10 @@
     }
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 480px) {
     .image-grid {
-      padding: 5px; /* Adjust padding as necessary */
+      gap: 0px;
+
     }
 
     .book-now-btn {

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import workImg1 from '../assets/img/work-1.jpg';
 import workImg2 from '../assets/img/work-2.jpg';
 import workImg3 from '../assets/img/work-3.jpg';
@@ -11,14 +11,15 @@ import { Col, Row } from 'react-bootstrap';
 const Showcase = () => {
   useEffect(() => {
     $('.portfolio-items').owlCarousel({
-      items: 4,
-      autoplay: 1500,
+      items: 2,
+      autoplay: true,
+      autoplayTimeout: 3000,
       smartSpeed: 1500,
       autoplayHoverPause: true,
       slideBy: 1,
-      loop: false,
-      margin: 10,
-      dots: false,
+      loop: true,
+      margin: 0,
+      dots: true,
       nav: false,
       responsive: {
         1200: {

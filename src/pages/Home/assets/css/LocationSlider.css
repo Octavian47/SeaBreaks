@@ -1,59 +1,122 @@
-
 .custom-carousel-section {
-    position: absolute;
-    z-index: 100;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    margin-top:80px;
-    background-color: transparent;
-    width: 100%;
-  }
-  
+  position: absolute;
+  z-index: 100;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  margin-top: 80px;
+  background-color: transparent;
+  width: 100%;
+}
+
+.custom-carousel-container {
+  width: 100%;
+  margin-left: 60px;
+  max-width: 520px;
+}
+
+.custom-carousel-item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.custom-carousel-item h3 {
+  font-size: 0.6em;
+  opacity: 0.5;
+  text-align: center;
+  margin: 0;
+  padding: 0.5em;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.custom-carousel-item h3.selected {
+  font-size: 0.7em;
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.custom-slick-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #02aeb3;
+}
+
+.custom-slick-prev {
+  left: -50px;
+}
+
+.custom-slick-next {
+  right: -50px;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 1024px) { /* For tablets and below */
   .custom-carousel-container {
-    width: 100%;
-    max-width: 720px;
+      margin-left: 20px;
   }
-  
-  .custom-carousel-item {
-    cursor: pointer;
-    transition: all 0.3s ease;
+
+  .custom-slick-prev {
+      left: -30px;
   }
-  
+
+  .custom-slick-next {
+      right: -30px;
+  }
+}
+
+@media (max-width: 768px) { /* For small tablets and large phones */
+  .custom-carousel-container {
+      margin-left: 10px;
+      max-width: 400px;
+  }
+
   .custom-carousel-item h3 {
-    font-size: 0.8em;
-    opacity: 0.5;
-    text-align: center;
-    margin: 0;
-    padding: 0.5em;
-    text-decoration: none;
-    color: #ffffff;
+      font-size: 0.5em;
   }
-  
+
+  .custom-slick-prev, .custom-slick-next {
+      display: none; /* Hide arrows if screen is too small */
+  }
+}
+
+@media (max-width: 480px) { /* For mobile phones */
+  .custom-carousel-section {
+      padding: 10px;
+      margin-top: 70px;
+  }
+
+  .custom-carousel-container {
+      margin-left: -5px;
+  }
+
+  .custom-carousel-item h3 {
+      font-size: 1em;
+  }
   .custom-carousel-item h3.selected {
     font-size: 1em;
-    opacity: 1;
-    text-decoration: underline;
+}
+
+  .custom-slick-prev, .custom-slick-next {
+      display: block; /* Ensure arrows are visible */
+      font-size: 13px; /* Adjust font size for better visibility */
+      color: white; /* Adjust color if needed for visibility */
   }
-  
-  .custom-slick-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    background: none;
-    border: none;
-    font-size: 16px;
-    color: #02aeb3;
-  }
-  
+
   .custom-slick-prev {
-    left: -50px;
+      left: 5px; /* Adjust position to fit within the view */
   }
-  
+
   .custom-slick-next {
-    right: -50px;
+      right: -5px; /* Adjust position to fit within the view */
   }
+}
