@@ -44,6 +44,7 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import Checkout from '../components/Checkout';
+import {Link} from "react-router-dom";
 
 const ProductViewModals = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -51,7 +52,6 @@ const ProductViewModals = () => {
     setSelectedDate(date);
   }
   const [selectedOption, setSelectedOption] = useState(null);
-  const [showDetailPage, setShowDetailPage] = useState(false);
 
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
@@ -201,7 +201,6 @@ const ProductViewModals = () => {
         $(this).removeClass('modal-view');
         $('body').removeClass('body-overlay');
     });
-    setShowDetailPage(false);
   };
 
 
@@ -218,7 +217,6 @@ const ProductViewModals = () => {
     });
   }
   const handleProceed = () => {
-    setShowDetailPage(true);
   };
   return <div id="data-modal">
 
@@ -582,7 +580,6 @@ const ProductViewModals = () => {
           <span className="close-modal"  onClick={handleClose}><i/><i/></span>
         </header>
         <div className="morphic-body">
-          {!showDetailPage ? (
           <Container>
             <div className="row main-morphic-body ">
               <Col xs={12} md={12} className="morphic-img">
@@ -738,14 +735,11 @@ const ProductViewModals = () => {
                 <Row className="model-bottom">
                   <Col xs={12} className="price-modal"><h1>€{(Number(getPrice)+Number(getpremiumYacht))-getDiscount}</h1></Col>
                   <Col xs={12} className="modal-btn">
-                    <a href="#"  onClick={handleProceed} className="btn btn-medium btn-rounded btn-trans text-capitalize">PROCEED</a></Col>
+                    <Link to={'/checkout'} state ={{ price: (Number(getPrice)+Number(getpremiumYacht))-getDiscount, date:selectedDate }} className="btn btn-medium btn-rounded btn-trans text-capitalize">PROCEED</Link></Col>
                 </Row>
               </Col>
             </div>
             </Container>
-          ) : (
-              <Checkout price={(Number(getPrice)+Number(getpremiumYacht))-getDiscount} date={selectedDate} />
-          )}
           </div>
         </div>
       </div>
