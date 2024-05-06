@@ -117,9 +117,9 @@ const Checkout = () => {
         };
   }, []);
 
-    const getStripSecret = async (amount) => {
+    const getStripSecret = async (amount, email = '') => {
         setClientSecret('')
-        const response = await fetch('http://localhost:4242/secret?price='+amount);
+        const response = await fetch('https://react.sea-breaks.com/stripe/secret?price='+amount+'&email='+email);
         let {client_secret: secret} = await response.json();
         setClientSecret(secret)
     }
@@ -136,6 +136,7 @@ const Checkout = () => {
     };
     const handleEmail = (event) => {
         setInputEmail(event.target.value);
+        getStripSecret(price+getCatering+getExtra, event.target.value);
     };
     const handleAdult = (event) => {
         setInputAdult(event.target.value);

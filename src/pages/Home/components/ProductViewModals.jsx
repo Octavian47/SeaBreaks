@@ -43,11 +43,10 @@ import { Col, Container, Row, Form, Button} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import Checkout from '../components/Checkout';
 import {Link} from "react-router-dom";
 
 const ProductViewModals = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const handleDateChange = (date) =>{
     setSelectedDate(date);
   }
