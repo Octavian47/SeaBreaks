@@ -259,10 +259,6 @@ const Checkout = () => {
     return (
         <>
       <Preloader />
-      {isMobile ? <MobileNavigation /> : <NavigationBar />}
-      <LocationCarousel />
-
-      <HeroSlider />
       <div id="checkout">
           <Container>
               <Row className="main-morphic-body detail-page ">
@@ -809,10 +805,6 @@ const Checkout = () => {
                   </Col>
               </Row>
           </Container>
-      </div>
-
-      <div id="contact">
-       <ContactUsForm />
       </div>
       <Footer />
       <SideContactBar />
