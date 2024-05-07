@@ -62,10 +62,6 @@ const Home = () => {
       <LocationCarousel />
 
       <HeroSlider />
-
-
-      
-
       <div id="about-us">
        <AboutUs />
       </div>
@@ -74,10 +70,7 @@ const Home = () => {
 
       <Features />
 
-      
-
       <ReadMoreParallax />
-
 
       <div id="packages">
        <ImageGrid />

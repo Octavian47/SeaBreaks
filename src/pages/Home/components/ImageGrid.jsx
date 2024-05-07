@@ -20,9 +20,18 @@ const ImageGrid = () => {
     if (modalElement) {
       modalElement.style.display = 'block'; // Or another method to display the modal
       document.body.classList.add('show-modal'); // Optionally add a class to body to show modal is active
+      packageSlider();
     }
   };
 
+  function packageSlider(){
+    $(".products").owlCarousel({
+      items: 1,
+      autoPlay: 1500, //Set AutoPlay to 3 seconds
+      dots: true,
+      loop: true
+    });
+  }
   return (
     <div className="image-grid">
       {yachtInfo.map((yacht, index) => {

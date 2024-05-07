@@ -25,6 +25,8 @@ import {loadStripe} from "@stripe/stripe-js";
 import {Elements} from "@stripe/react-stripe-js";
 import CheckoutForm from "./components/CheckoutForm";
 import '@/pages/Home/assets/css/style.css';
+import modalWindowImg5 from "@/pages/Home/assets/img/model-windows/modal-img-5.png";
+import modalWindowImg2 from "@/pages/Home/assets/img/model-windows/modal-img-2.png";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -255,7 +257,12 @@ const Checkout = () => {
         clientSecret,
         appearance,
     };
-
+    $(".products").owlCarousel({
+        items: 3,
+        autoPlay: 1500, //Set AutoPlay to 3 seconds
+        dots: true,
+        loop: true
+    });
     return (
         <>
       <Preloader />
@@ -263,18 +270,15 @@ const Checkout = () => {
           <Container>
               <Row className="main-morphic-body detail-page ">
                   <Col xs={12} md={12} className="morphic-img">
-                      <div id="carousel-thumb" className="carousel slide carousel-fade carousel-thumbnails"
-                           data-ride="carousel">
-                          <div className="carousel-inner" role="listbox">
-                              <div className="carousel-item active text-center">
-                                  <img src={expressProduct} alt="First slide"/>
-                              </div>
-                              <div className="carousel-item">
-                                  <img className="d-block w-100" src={classicproduct} alt="Second slide"/>
-                              </div>
-                              <div className="carousel-item">
-                                  <img className="d-block w-100" src={modalWindowImg6} alt="Third slide"/>
-                              </div>
+                      <div className="products owl-carousel owl-theme">
+                          <div className="item active">
+                              <img className="d-block" src={classicproduct} alt="First slide"/>
+                          </div>
+                          <div className="item">
+                              <img className="d-block" src={modalWindowImg5} alt="Second slide"/>
+                          </div>
+                          <div className="item">
+                              <img className="d-block" src={modalWindowImg2} alt="Third slide"/>
                           </div>
                       </div>
                   </Col>
@@ -790,8 +794,7 @@ const Checkout = () => {
                                   </ul>
                                   <div className="payment-method">
                                       <div>
-                                      <p>Secure payment powered by</p>
-                                      <img src={paymentMethod} />
+                                          <p>Secure payment powered by <img src={paymentMethod}/></p>
                                       </div>
                                       {(clientSecret) && (
                                           <Elements stripe={stripePromise} options={options}>

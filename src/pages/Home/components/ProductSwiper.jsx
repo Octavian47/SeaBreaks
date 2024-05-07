@@ -7,7 +7,7 @@ import "@vendor/css/owl.carousel.min.css";
 import { Col, Container, Row } from 'react-bootstrap';
 const ProductSwiper = () => {
   function morphicWindow(x) {
-    openModal(x);
+    //openModal(x);
   }
   function openModal(x) {
     setTimeout(function () {
@@ -16,6 +16,7 @@ const ProductSwiper = () => {
     setTimeout(function () {
       $('body').addClass('show-modal').fadeIn(800);
     }, 50);
+    packageSlider();
   }
   function owlCarousel() {
     $(".owl-products").owlCarousel({
@@ -56,6 +57,16 @@ const ProductSwiper = () => {
   useEffect(() => {
     owlCarousel();
   }, []);
+
+  function packageSlider(){
+    $(".products").owlCarousel({
+      items: 1,
+      autoPlay: 1500, //Set AutoPlay to 3 seconds
+      dots: true,
+      loop: true
+    });
+    console.log('ffdfdf')
+  }
   return <section className="section slide2 all-products" id="all-products">
       <Container className="expand-container position-relative">
         <Row className="align-items-center mb-3 mb-md-5 section-heading">

@@ -152,7 +152,6 @@ const ProductViewModals = () => {
     setTimeout(function () {
       $(".loader").removeClass('load');
     }, 800);
-    packageSlider();
   }
 
   //Next_window
@@ -206,15 +205,6 @@ const ProductViewModals = () => {
   useEffect(() => {
     numberInputCounter();
   }, []);
-
-  function packageSlider(){
-    $(".products").owlCarousel({
-      items: 1,
-      autoPlay: 1500, //Set AutoPlay to 3 seconds
-      dots: true,
-      loop: true
-    });
-  }
   const handleProceed = () => {
   };
   return <div id="data-modal">
