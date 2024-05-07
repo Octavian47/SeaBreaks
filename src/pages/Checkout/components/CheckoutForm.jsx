@@ -23,7 +23,7 @@ const CheckoutForm = () => {
             //`Elements` instance that was used to create the Payment Element
             elements,
             confirmParams: {
-                return_url: "https://react.sea-breaks.com/stripe",
+                return_url: "https://react.sea-breaks.com",
             },
         });
 
