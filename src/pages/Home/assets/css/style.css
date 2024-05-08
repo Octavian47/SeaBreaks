@@ -1873,15 +1873,11 @@ header a.logo img {
         width: 100%;
     }
 
-    .payment-method{
+    .booking-detail{
         flex-wrap: wrap;
-        justify-content: center !important;
     }
-    .checkout-btn{
-        left: 2px !important;
-    }
-    .checkout-detail .total{
-        height: 83vh !important;
+    .booking-detail span{
+        display: inline;
     }
 }
 
@@ -2257,7 +2253,7 @@ input[type=checkbox]{
 .morphic-body .carousel-item img{
     width: 500px !important;
 }
-.modal-body{
+#morphic-window3 .modal-body{
     max-width: 500px;
 }
 .morphic-img {
@@ -2453,33 +2449,45 @@ input, select, textarea{
     border-bottom: 1px solid rgb(204, 204, 204);
 }
 .booking-detail {
-    background-color: #ffc967;
+    background-color: #020b3b;
     padding-top: 15px;
     padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
 }
 .detail-page .booking-detail .color-selection h6{
-    background-color: #020b3b;
-    color: #fff;
+    background-color: #ffc967;
+    color: #020b3b;
     font-family: sans-serif;
 }
 .booking-detail .col-12{
     display: flex;
+    justify-content: space-between;
 
 }
-.checkout-detail{
-    margin-top: 10px;
+.checkout-summary{
+    padding-left: 20px;
     padding-bottom: 10px;
 }
-.checkout-detail .total{
+.checkout-summary .total{
     width: 100%;
-    height: 79vh;
+}
+.checkout-summarydetail .total ul{
+    margin-bottom: 0;
 }
 .checkout-btn img{
     width: auto;
     height: 18px;
     margin-right: 5px;
 }
-.checkout-detail li{
+.checkout-summary .total-amount{
+    border-top: 1px solid #ffffff;
+    color:#ffc967;
+}
+.checkout-summary .total-amount span span{
+    font-size: 10px;
+}
+.checkout-summary li{
     display: flex;
     list-style: none;
     color: #fff;
@@ -2487,19 +2495,28 @@ input, select, textarea{
     font-weight: 700;
     font-size: 14px;
 }
-.checkout-detail li > span:first-child {
-    background: #000b3b;
-    padding: 10px;
-    width: 165px;
-    border-bottom: 1px solid #fff;
+.checkout-summary li > span:first-child {
+   text-transform: uppercase;
+}
+.van-checkbox{
+    flex-wrap: wrap;
+    color: #ffffff;
+    font-size: 13px;
+    padding: 0;
+}
+.van-checkbox div{
+    display: flex;
+}
+.van-checkbox input[type=checkbox]{
+    width: auto;
+}
+.van-checkbox .text span{
+    color:#ffc967;
+    font-weight: bold;
 }
 .payment-method {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-.payment-method form{
-    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 .payment-method p{
     color: #fff;
@@ -2508,17 +2525,33 @@ input, select, textarea{
     margin-bottom: 0px;
 }
 .payment-method img{
-    width: 100px;
     max-width: 100%;
     margin-left: 5px;
 }
-.btn-checkout .checkout-btn{
-    align-items: center;
-    display: flex;
-
+.checkout-detail {
+    padding: 10px 0 0 0;
+    margin-top: 10px;
+    background-color: #030d3c;
+    color:#fff;
 }
-.btn-checkout .col-12{
+.border-white{
+    height: 5px;
+    background: #ffffff;
+    margin-top: 10px;
+}
+.checkout-btn{
+    display: flex;
     justify-content: center;
+    align-items: center;
+    background-color: #030d3c;
+    border-radius: 0px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    color: #d1b36f;
+    width: 100%;
+    text-transform: uppercase !important;
+    font-family: 'Roboto', sans-serif !important;
+
 }
 #payment-message {
     color: rgb(105, 115, 134);
@@ -2595,18 +2628,11 @@ input, select, textarea{
         transform: rotate(360deg);
     }
 }
-.checkout-btn{
-    background-color: #030d3c;
-    border-radius: 0px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    color: #d1b36f;
-    width: 96%;
-    text-transform: uppercase !important;
-    font-family: 'Roboto', sans-serif !important;
-    margin-top: 15px;
-    position: absolute;
-    left: 5px;
+#checkout .owl-carousel .owl-item img{
+    width: auto;
+    margin: auto;
 }
-
+#checkout .owl-carousel .owl-stage-outer{
+    height: 410px;
+}
 /* checkout page css end */

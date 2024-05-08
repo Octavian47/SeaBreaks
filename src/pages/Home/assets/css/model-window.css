@@ -123,8 +123,8 @@
 .close-modal{
     z-index: 111111;
     position: absolute;
-    right: 30px;
-    top: 20px;
+    right: 17px;
+    top: 6px;
     height: 30px;
     width: 30px;
     cursor: pointer;

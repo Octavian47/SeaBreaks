@@ -1,5 +1,6 @@
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import {useState} from "react";
+import paymentValet from "@/pages/Home/assets/img/payment-valet.png";
 
 const CheckoutForm = () => {
     const stripe = useStripe();
@@ -39,12 +40,25 @@ const CheckoutForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
+            <div className="payment-method">
             <PaymentElement />
+            </div>
             {message && <div id="payment-message">{message}</div>}
+            <div className={'border-white'}></div>
             <button disabled={isLoading || !stripe || !elements} className={'checkout-btn'}>
-                  <span id="button-text">
-                {isLoading ? <div className="spinner" id="spinner"></div> : "Proceed To Checkout"}
-                </span>
+                {(isLoading)?
+                    (
+                        <span id="button-text">
+                        <div className="spinner" id="spinner"></div>
+                        </span>
+                    )
+                    : (
+                        <>
+                        <img src={paymentValet} width={'36'}/><span id="button-text"> Proceed To Checkout</span>
+                        </>
+                    )
+                }
+
             </button>
         </form>
     )

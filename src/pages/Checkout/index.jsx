@@ -17,7 +17,6 @@ import expressProduct from "@/pages/Home/assets/img/model-windows/classic-produc
 import classicproduct from "@/pages/Home/assets/img/model-windows/classic-product.jpg";
 import modalWindowImg6 from "@/pages/Home/assets/img/model-windows/modal-img-6.png";
 import paymentMethod from "@/pages/Home/assets/img/payment-img.png";
-import paymentValet from "@/pages/Home/assets/img/payment-valet.png";
 import SideContactBar from "@/pages/Home/components/SideContactBar";
 import {useLocation} from "react-router-dom";
 import moment from "moment";
@@ -258,7 +257,7 @@ const Checkout = () => {
         appearance,
     };
     $(".products").owlCarousel({
-        items: 3,
+        items: 1,
         autoPlay: 1500, //Set AutoPlay to 3 seconds
         dots: true,
         loop: true
@@ -284,72 +283,6 @@ const Checkout = () => {
                   </Col>
                   <Col xs={12} md={12} className="morphic-title">
                       <h3>CLASSIC SEA BREAK: 2 DAYS</h3>
-                      <Row className="pb-md-4">
-                          <Col xs={12}>
-                              <div className="color-selection">
-                                  <h6 className="text-center text-md-left">Departure Date</h6>
-                              </div>
-                              <div className="color-picker date-picker text-center text-md-left">
-                                  <input
-                                      type={'text'}
-                                      value={date}
-                                      readOnly={true}
-                                  />
-                              </div>
-                          </Col>
-                      </Row>
-
-                      <Row className="pb-md-4">
-                          <Col xs={12}>
-                              <div className="color-selection">
-                                  <h6 className="text-center text-md-left">Duration</h6>
-                              </div>
-                              <div className="color-picker select-duration text-center text-md-left">
-                                  <input
-                                      type="text"
-                                      value={selectedTime}
-                                      onChange={handleTime}
-                                      placeholder=""
-                                  />
-                              </div>
-                          </Col>
-                      </Row>
-                      <Row className="pb-md-4">
-                          <Col xs={12}>
-                              <div className="color-selection">
-                                  <h6 className="text-center text-md-left">Departure Point</h6>
-                              </div>
-                              <div className="color-picker departure-point text-center text-md-left">
-                                  <input
-                                      type="text"
-                                      value={inputDep}
-                                      onChange={handleDeparture}
-                                      placeholder="Enter Location..."
-                                  />
-                              </div>
-                          </Col>
-                      </Row>
-                      <Row className="pb-md-4">
-                          <Col xs={12}>
-                              <div className="color-selection">
-                                  <h6 className="text-center text-md-left">Adult/Childs</h6>
-                              </div>
-                              <div className="color-picker passenger-detail text-center text-md-left">
-                                  <div className="passenger-detail">
-                                      <input
-                                          type="number"
-                                          value={inputAdult}
-                                          onChange={handleAdult}
-                                      />
-                                      <input
-                                          type="number"
-                                          value={inputChild}
-                                          onChange={handleChild}
-                                      />
-                                  </div>
-                              </div>
-                          </Col>
-                      </Row>
                   </Col>
                   <Col  xs={12} md={12}>
                       <Row className="menu-divider">
@@ -723,96 +656,177 @@ const Checkout = () => {
                       </Row>
 
                   </Col>
-                  <Col className="booking-detail"  xs={12} md={12}>
-                      <Row>
-                          <Col xs={12}>
-                              <div className="color-selection">
-                                  <h6 className="text-center text-md-left">Name</h6>
-                              </div>
-                              <div className="color-picker date-picker text-center text-md-left">
-                                  <input
-                                      type="text"
-                                      value={inputName}
-                                      onChange={handleFullName}
-                                      placeholder="Enter Full Name..."
-                                  />
-                              </div>
-                          </Col>
-                      </Row>
-                      <Row>
-                          <Col xs={12}>
-                              <div className="color-selection">
-                                  <h6 className="text-center text-md-left">Phone</h6>
-                              </div>
-                              <div className="color-picker date-picker text-center text-md-left">
-                                  <input
-                                      type="number"
-                                      value={inputPhone}
-                                      onChange={handlePhone}
-                                      placeholder="Enter Phone..."
-                                  />
-                              </div>
-                          </Col>
-                      </Row>
-                      <Row>
-                          <Col xs={12}>
-                              <div className="color-selection">
-                                  <h6 className="text-center text-md-left">Email</h6>
-                              </div>
-                              <div className="color-picker date-picker text-center text-md-left">
-                                  <input
-                                      type="email"
-                                      value={inputEmail}
-                                      onChange={handleEmail}
-                                      placeholder="Enter Email..."
-                                  />
-                              </div>
-                          </Col>
-                      </Row>
-                  </Col>
-                  <Col className="booking-detail checkout-detail"  xs={12} md={12}>
-                      <Row>
-                          <Col xs={12}>
-                              <div className="total">
-                                  <ul>
-                                      <li>
-                                          <span>Charter</span>
-                                          <span>AED {price}</span>
-                                      </li>
-                                      <li>
-                                          <span>Catering</span>
-                                          <span>AED {getCatering}</span>
-                                      </li>
-                                      <li>
-                                          <span>Extras</span>
-                                          <span>AED {getExtra}</span>
-                                      </li>
-                                      <li>
-                                          <span>TOTAL (inc. 5% VAT)</span>
-                                          <span>AED {price+getCatering+getExtra}</span>
-                                      </li>
-                                  </ul>
-                                  <div className="payment-method">
-                                      <div>
+                  <Col className="booking-detail" xs={12} md={12}>
+                      <div className={'form'}>
+                          <Row>
+                              <Col xs={12}>
+                                  <div className="color-selection">
+                                      <h6 className="text-center text-md-left">Name</h6>
+                                  </div>
+                                  <div className="color-picker date-picker text-center text-md-left">
+                                      <input
+                                          type="text"
+                                          value={inputName}
+                                          onChange={handleFullName}
+                                          placeholder="Enter Full Name..."
+                                      />
+                                  </div>
+                              </Col>
+                          </Row>
+                          <Row>
+                              <Col xs={12}>
+                                  <div className="color-selection">
+                                      <h6 className="text-md-left">Phone</h6>
+                                  </div>
+                                  <div className="color-picker date-picker text-center text-md-left">
+                                      <input
+                                          type="number"
+                                          value={inputPhone}
+                                          onChange={handlePhone}
+                                          placeholder="Enter Phone..."
+                                      />
+                                  </div>
+                              </Col>
+                          </Row>
+                          <Row>
+                              <Col xs={12}>
+                                  <div className="color-selection">
+                                      <h6 className="text-md-left">Email</h6>
+                                  </div>
+                                  <div className="color-picker date-picker text-center text-md-left">
+                                      <input
+                                          type="email"
+                                          value={inputEmail}
+                                          onChange={handleEmail}
+                                          placeholder="Enter Email..."
+                                      />
+                                  </div>
+                              </Col>
+                          </Row>
+                          <Row>
+                              <Col xs={12}>
+                                  <div className="color-selection">
+                                      <h6 className="text-md-left">Departure Date</h6>
+                                  </div>
+                                  <div className="color-picker date-picker text-center text-md-left">
+                                      <input
+                                          type={'text'}
+                                          value={date}
+                                          readOnly={true}
+                                      />
+                                  </div>
+                              </Col>
+                          </Row>
+                          <Row>
+                              <Col xs={12}>
+                                  <div className="color-selection">
+                                      <h6 className="text-md-left">Duration</h6>
+                                  </div>
+                                  <div className="color-picker select-duration text-center text-md-left">
+                                      <input
+                                          type="text"
+                                          value={selectedTime}
+                                          onChange={handleTime}
+                                          placeholder=""
+                                      />
+                                  </div>
+                              </Col>
+                          </Row>
+                          <Row>
+                              <Col xs={12}>
+                                  <div className="color-selection">
+                                      <h6 className="text-md-left">Departure Point</h6>
+                                  </div>
+                                  <div className="color-picker departure-point text-center text-md-left">
+                                      <input
+                                          type="text"
+                                          value={inputDep}
+                                          onChange={handleDeparture}
+                                          placeholder="Enter Location..."
+                                      />
+                                  </div>
+                              </Col>
+                          </Row>
+                          <Row>
+                              <Col xs={12}>
+                                  <div className="color-selection">
+                                      <h6 className="text-md-left">Adult/Childs</h6>
+                                  </div>
+                                  <div className="color-picker passenger-detail text-center text-md-left">
+                                      <div className="passenger-detail">
+                                          <input
+                                              type="number"
+                                              value={inputAdult}
+                                              onChange={handleAdult}
+                                          />
+                                          <input
+                                              type="number"
+                                              value={inputChild}
+                                              onChange={handleChild}
+                                          />
+                                      </div>
+                                  </div>
+                              </Col>
+                          </Row>
+                      </div>
+                      <div className="checkout-summary">
+                          <Row>
+                              <Col xs={12}>
+                                  <div className="total">
+                                      <ul>
+                                          <li>
+                                              <span>Charter</span>
+                                              <span>AED {price}</span>
+                                          </li>
+                                          <li>
+                                              <span>Catering</span>
+                                              <span>AED {getCatering}</span>
+                                          </li>
+                                          <li>
+                                              <span>Extras</span>
+                                              <span>AED {getExtra}</span>
+                                          </li>
+                                          <li className={'total-amount'}>
+                                              <span>TOTAL <span className={'tax'}>(inc. 5% VAT)</span></span>
+                                              <span>AED {price + getCatering + getExtra}</span>
+                                          </li>
+                                      </ul>
+                                      <div className={'col-12 van-checkbox'}>
+                                          <div>
+                                              <input type={'checkbox'} name={'terms'} value={'1'}/>
+                                              <span className="text">
+                                                  I have read &amp; agree to the <span>Terms of Service and Conditions</span>
+                                              </span>
+                                          </div>
+                                          <div>
+                                              <input type={'checkbox'} name={'cancellation-policy'} value={1}/>
+                                              <span className="text">
+                                                  I have read &amp; agree to the <span>Cancellation Policy</span>
+                                                 </span>
+                                          </div>
+                                      </div>
+                                      <div className="payment-method">
                                           <p>Secure payment powered by <img src={paymentMethod}/></p>
                                       </div>
-                                      {(clientSecret) && (
-                                          <Elements stripe={stripePromise} options={options}>
-                                              <CheckoutForm />
-                                          </Elements>
-                                      )}
                                   </div>
-                              </div>
-                          </Col>
-                      </Row>
+                              </Col>
+                          </Row>
+                      </div>
+                  </Col>
+                  <Col  className="checkout-detail" xs={12} md={12}>
+                          {(clientSecret) && (
+                              <Elements stripe={stripePromise} options={options}>
+                                  <CheckoutForm/>
+                              </Elements>
+                          )}
                   </Col>
               </Row>
           </Container>
       </div>
-      <Footer />
-      <SideContactBar />
-      <BackToTop />
-    </>
+            <Footer/>
+            <SideContactBar/>
+            <BackToTop/>
+        </>
     );
 };
 export default Checkout;
