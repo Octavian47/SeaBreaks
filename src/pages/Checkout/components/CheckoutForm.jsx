@@ -2,7 +2,7 @@ import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import {useState} from "react";
 import paymentValet from "@/pages/Home/assets/img/payment-valet.png";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({validation}) => {
     const stripe = useStripe();
     const elements = useElements();
     const [message, setMessage] = useState(null);
@@ -12,30 +12,31 @@ const CheckoutForm = () => {
         // We don't want to let default form submission happen here,
         // which would refresh the page.
         event.preventDefault();
+        if(validation()) {
+            if (!stripe || !elements) {
+                // Stripe.js hasn't yet loaded.
+                // Make sure to disable form submission until Stripe.js has loaded.
+                return;
+            }
+            setIsLoading(true);
 
-        if (!stripe || !elements) {
-            // Stripe.js hasn't yet loaded.
-            // Make sure to disable form submission until Stripe.js has loaded.
-            return;
+            const result = await stripe.confirmPayment({
+                //`Elements` instance that was used to create the Payment Element
+                elements,
+                confirmParams: {
+                    return_url: "https://react.sea-breaks.com",
+                },
+            });
+
+
+            if (result.error) {
+                // Show error to your customer (for example, payment details incomplete)
+                setMessage(result.error.message);
+            } else {
+                setMessage("An unexpected error occurred.");
+            }
+            setIsLoading(false);
         }
-        setIsLoading(true);
-
-        const result = await stripe.confirmPayment({
-            //`Elements` instance that was used to create the Payment Element
-            elements,
-            confirmParams: {
-                return_url: "https://react.sea-breaks.com",
-            },
-        });
-
-
-        if (result.error) {
-            // Show error to your customer (for example, payment details incomplete)
-            setMessage(result.error.message);
-        } else {
-            setMessage("An unexpected error occurred.");
-        }
-        setIsLoading(false);
     };
 
     return (

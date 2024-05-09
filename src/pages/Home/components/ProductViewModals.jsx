@@ -2,10 +2,6 @@ import {useEffect, useState} from "react";
 import expressProduct from "../assets/img/model-windows/classic-product.jpg";
 import modalWindowImg2 from "../assets/img/model-windows/modal-img-2.png";
 import classicproduct from "../assets/img/model-windows/classic-product.jpg";
-import classicproductsub1 from "../assets/img/model-windows/classicproductsub1.jpg";
-import classicproductsub2 from "../assets/img/model-windows/classicproductsub2.jpg";
-import classicproductsub3 from "../assets/img/model-windows/classicproductsub3.jpg";
-import classicproductsub4 from "../assets/img/model-windows/classicproductsub4.jpg";
 import expressProductSub1 from "../assets/img/model-windows/classicproductsub1.jpg";
 import expressProductSub2 from "../assets/img/model-windows/classicproductsub2.jpg";
 import expressProductSub3 from "../assets/img/model-windows/classicproductsub3.jpg";
@@ -24,20 +20,6 @@ import modalWindowImg5 from "../assets/img/model-windows/modal-img-5.png";
 import modalWindowImg6 from "../assets/img/model-windows/modal-img-6.png";
 import expressBrochure from "../assets/pdf/Express-Sea-Breaks-Brochure.pdf";
 import classicBrochure from "../assets/pdf/Classic-Sea-Breaks-Brochure.pdf";
-import modalWindowMod1Sub1 from '../assets/img/model-windows/modal1-sub1.png';
-import modalWindowMod1Sub3 from '../assets/img/model-windows/modal1-sub3.png';
-import modalWindowMod2Sub1 from '../assets/img/model-windows/modal2-sub1.png';
-import modalWindowMod2Sub2 from '../assets/img/model-windows/modal2-sub2.png';
-import modalWindowMod2Sub3 from '../assets/img/model-windows/modal2-sub3.png';
-import modalWindowMod3Sub1 from '../assets/img/model-windows/modal3-sub1.png';
-import modalWindowMod3Sub2 from '../assets/img/model-windows/modal3-sub2.png';
-import modalWindowMod4Sub1 from '../assets/img/model-windows/modal4-sub1.png';
-import modalWindowMod4Sub2 from '../assets/img/model-windows/modal4-sub2.png';
-import modalWindowMod4Sub3 from '../assets/img/model-windows/modal4-sub3.png';
-import modalWindowMod5Sub1 from '../assets/img/model-windows/modal5-sub1.png';
-import modalWindowMod5Sub2 from '../assets/img/model-windows/modal5-sub2.png';
-import modalWindowMod6Sub1 from '../assets/img/model-windows/modal6-sub1.png';
-import modalWindowMod6Sub3 from '../assets/img/model-windows/modal6-sub3.png';
 import "../assets/css/model-window.css";
 import { Col, Container, Row, Form, Button} from "react-bootstrap";
 import DatePicker from "react-datepicker";
@@ -606,8 +588,7 @@ const ProductViewModals = () => {
                   </ul>
                   <strong className="download-brochure"><a style={{color: "#d1b36f"}}
                              href={classicBrochure}
-                             target="_blank"
-                                                           rel="noopener">Download Brochure</a></strong></div>
+                             target="_blank" rel="noopener">Download Brochure</a></strong></div>
                 </div>
               </Col>
               <Col xs={12} md={12} className="morphic-title">
@@ -624,6 +605,9 @@ const ProductViewModals = () => {
                           dateFormat="MM/dd/yyyy"
                           className="black-text-datepicker"
                           minDate={new Date()}
+                          onKeyDown={(e) => {
+                            e.preventDefault();
+                          }}
                       />
                     </div>
                   </Col>

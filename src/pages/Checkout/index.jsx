@@ -2,23 +2,16 @@ import { toggleDocumentAttribute } from '@/utils';
 import { useEffect, useState } from 'react';
 import WOW from 'wow.js';
 import Preloader from '../Home/components/Preloader';
-import MobileNavigation from '../Home/components/MobileNavigation';
-import NavigationBar from '../Home/components/NavigationBar';
-import LocationCarousel from '../Home/components/LocationCarousel';
-import HeroSlider from '../Home/components/HeroSlider';
-import ContactUsForm from '../Home/components/ContactUsForm';
 import Footer from '../Home/components/Footer';
 import BackToTop from '../Home/components/BackToTop';
 import '@vendor/css/LineIcons.min.css';
 import '../Home/assets/css/style.css';
 import '../Home/assets/css/navigation.css';
 import {Col, Container, Row} from "react-bootstrap";
-import expressProduct from "@/pages/Home/assets/img/model-windows/classic-product.jpg";
 import classicproduct from "@/pages/Home/assets/img/model-windows/classic-product.jpg";
-import modalWindowImg6 from "@/pages/Home/assets/img/model-windows/modal-img-6.png";
 import paymentMethod from "@/pages/Home/assets/img/payment-img.png";
 import SideContactBar from "@/pages/Home/components/SideContactBar";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import moment from "moment";
 import {loadStripe} from "@stripe/stripe-js";
 import {Elements} from "@stripe/react-stripe-js";
@@ -26,6 +19,7 @@ import CheckoutForm from "./components/CheckoutForm";
 import '@/pages/Home/assets/css/style.css';
 import modalWindowImg5 from "@/pages/Home/assets/img/model-windows/modal-img-5.png";
 import modalWindowImg2 from "@/pages/Home/assets/img/model-windows/modal-img-2.png";
+import logo from "@/pages/Home/assets/img/sea-breaks-logo.png";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -126,32 +120,36 @@ const Checkout = () => {
     }
 
     // Event handler to update the input value when it changes
-    const handleInput = (event) => {
-        setInputValue(event.target.value);
-    };
     const handleFullName = (event) => {
         setInputName(event.target.value);
+        $("input[name='name']").removeClass('error');
     };
     const handlePhone = (event) => {
         setInputPhone(event.target.value);
+        $("input[name='phone']").removeClass('error');
     };
     const handleEmail = (event) => {
         setInputEmail(event.target.value);
         getStripSecret(price+getCatering+getExtra, event.target.value);
+        $("input[name='email']").removeClass('error');
     };
     const handleAdult = (event) => {
         setInputAdult(event.target.value);
+        $("input[name='adult']").removeClass('error');
     };
     const handleChild = (event) => {
         setInputChild(event.target.value);
+        $("input[name='child']").removeClass('error');
     };
     const handleDeparture = (event) => {
         setInputDep(event.target.value);
+        $("input[name='dep_point']").removeClass('error');
     };
 
     // Event handler to update the selected time
-    const handleTime = (time) => {
-        setSelectedTime(time);
+    const handleTime = (event) => {
+        setSelectedTime(event.target.value);
+        $("input[name='duration']").removeClass('error');
     };
 
     const calCatering = (event) => {
@@ -262,567 +260,628 @@ const Checkout = () => {
         dots: true,
         loop: true
     });
+    const validation = () => {
+        if($("input[name='name']").val() == ''){
+            $("input[name='name']").addClass('error');
+            return false;
+        }
+        else if($("input[name='phone']").val() == ''){
+            $("input[name='phone']").addClass('error');
+            return false;
+        }
+        else  if($("input[name='email']").val() == ''){
+            $("input[name='email']").addClass('error');
+            return false;
+        }
+        else if($("input[name='email']").val()){
+            let filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if (!filter.test($("input[name='email']").val())) {
+                alert('Please provide a valid email address');
+                return false;
+            }
+        }
+        else  if($("input[name='dep_date']").val() == ''){
+            $("input[name='dep_date']").addClass('error');
+            return false;
+        }
+        else  if($("input[name='duration']").val() == ''){
+            $("input[name='duration']").addClass('error');
+            return false;
+        }
+        else if($("input[name='dep_point']").val() == ''){
+            $("input[name='dep_point']").addClass('error');
+            return false;
+        }
+        else  if($("input[name='adult']").val() == ''){
+            $("input[name='adult']").addClass('error');
+            return false;
+        }
+       else if($("input[name='child']").val() == ''){
+            $("input[name='child']").addClass('error');
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     return (
         <>
-      <Preloader />
-      <div id="checkout">
-          <Container>
-              <Row className="main-morphic-body detail-page ">
-                  <Col xs={12} md={12} className="morphic-img">
-                      <div className="products owl-carousel owl-theme">
-                          <div className="item active">
-                              <img className="d-block" src={classicproduct} alt="First slide"/>
-                          </div>
-                          <div className="item">
-                              <img className="d-block" src={modalWindowImg5} alt="Second slide"/>
-                          </div>
-                          <div className="item">
-                              <img className="d-block" src={modalWindowImg2} alt="Third slide"/>
-                          </div>
-                      </div>
-                  </Col>
-                  <Col xs={12} md={12} className="morphic-title">
-                      <h3>CLASSIC SEA BREAK: 2 DAYS</h3>
-                  </Col>
-                  <Col  xs={12} md={12}>
-                      <Row className="menu-divider">
-                          <Col xs={12}>
-                              <div className="divider"><span>ON BOARD CATERING</span>
-                              </div>
-                          </Col>
-                      </Row>
-                  </Col>
-                  <Col  xs={12} md={12}>
-                      <Col xs={12}>
-                          <Row className="menu-list">
-                              <div className="menu-title">
-                                  <ul>
-                                      <li>Menus</li>
-                                      <li>Details</li>
-                                      <li>Price</li>
-                                      <li> Quantity</li>
-                                  </ul>
-                              </div>
-                          </Row>
+            <Preloader/>
+            <header>
+            <nav className="navbar navbar-top-default navbar-expand-lg navbar-simple nav-line">
+                <Container>
+                    <Link to="/" title="Logo" className="logo scroll">
+                        <img src={logo} alt="logo" className="logo-white"/>
+                    </Link>
+                </Container>
+            </nav>
+            </header>
+            <div id="checkout">
+                <Container>
+                    <Row className="main-morphic-body detail-page ">
+                        <Col xs={12} md={12} className="morphic-img">
+                            <div className="products owl-carousel owl-theme">
+                                <div className="item active">
+                                    <img className="d-block" src={classicproduct} alt="First slide"/>
+                                </div>
+                                <div className="item">
+                                    <img className="d-block" src={modalWindowImg5} alt="Second slide"/>
+                                </div>
+                                <div className="item">
+                                    <img className="d-block" src={modalWindowImg2} alt="Third slide"/>
+                                </div>
+                            </div>
+                        </Col>
+                        <Col xs={12} md={12} className="morphic-title">
+                            <h3>CLASSIC SEA BREAK: 2 DAYS</h3>
+                        </Col>
+                        <Col xs={12} md={12}>
+                            <Row className="menu-divider">
+                                <Col xs={12}>
+                                    <div className="divider"><span>ON BOARD CATERING</span>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Col>
+                        <Col xs={12} md={12}>
+                            <Col xs={12}>
+                                <Row className="menu-list">
+                                    <div className="menu-title">
+                                        <ul>
+                                            <li>Menus</li>
+                                            <li>Details</li>
+                                            <li>Price</li>
+                                            <li> Quantity</li>
+                                        </ul>
+                                    </div>
+                                </Row>
 
-                      </Col>
-                  </Col>
-                  <Col  xs={12} md={12}>
-                      <Col xs={12}>
-                          <Row>
-                              <div className="menu-list-detail">
-                                  <ul>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isBbqChecked}
-                                                      onChange={handleBBQChange}
-                                                      value={'180'}
-                                                  />
-                                                  <div>BBQ</div>
-                                              </div>
-                                              <div>Live BBQ</div>
-                                              <div className="price">AED 180pp</div>
-                                              <div>5</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isBreakfastChecked}
-                                                      onChange={handleBreakfastChange}
-                                                      value={'75'}
-                                                  />
-                                                  <div>Breakfast</div>
-                                              </div>
-                                              <div>Breakfast</div>
-                                              <div className="price">AED 75pp</div>
-                                              <div>5</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isHotDogsChecked}
-                                                      onChange={handleHotDogChange}
-                                                      value={'95'}
-                                                  />
-                                                  <div>Hotdogs & Burgers</div>
-                                              </div>
-                                              <div>Hotdogs & Burgers</div>
-                                              <div className="price">AED 95pp</div>
-                                              <div>5</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isVeggieChecked}
-                                                      onChange={handleVeggieChange}
-                                                      value={'120'}
-                                                  />
-                                                  <div>Veggie</div>
-                                              </div>
-                                              <div>Veggie</div>
-                                              <div className="price">AED 120pp</div>
-                                              <div>5</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isWrapsChecked}
-                                                      onChange={handleWrapsChange}
-                                                      value={'120'}
-                                                  />
-                                                  <div>Wraps</div>
-                                              </div>
-                                              <div>Wraps</div>
-                                              <div className="price">AED 120pp</div>
-                                              <div>5</div>
-                                          </label>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </Row>
-                      </Col>
-                  </Col>
-                  <Col  xs={12} md={12}>
-                      <Row className="menu-divider">
-                          <Col xs={12}>
-                              <div className="divider"><span>WATER SPORTS & YACHT TOYS</span>
-                              </div>
-                          </Col>
-                      </Row>
-                  </Col>
-                  <Col  xs={12} md={12}>
-                      <Col xs={12}>
-                          <Row className="menu-list">
-                              <div className="menu-title">
-                                  <ul>
-                                      <li>Water Sports</li>
-                                      <li>Unit</li>
-                                      <li>Price</li>
-                                      <li> Quantity</li>
-                                  </ul>
-                              </div>
-                          </Row>
+                            </Col>
+                        </Col>
+                        <Col xs={12} md={12}>
+                            <Col xs={12}>
+                                <Row>
+                                    <div className="menu-list-detail">
+                                        <ul>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isBbqChecked}
+                                                            onChange={handleBBQChange}
+                                                            value={'180'}
+                                                        />
+                                                        <div>BBQ</div>
+                                                    </div>
+                                                    <div>Live BBQ</div>
+                                                    <div className="price">AED 180pp</div>
+                                                    <div>5</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isBreakfastChecked}
+                                                            onChange={handleBreakfastChange}
+                                                            value={'75'}
+                                                        />
+                                                        <div>Breakfast</div>
+                                                    </div>
+                                                    <div>Breakfast</div>
+                                                    <div className="price">AED 75pp</div>
+                                                    <div>5</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isHotDogsChecked}
+                                                            onChange={handleHotDogChange}
+                                                            value={'95'}
+                                                        />
+                                                        <div>Hotdogs & Burgers</div>
+                                                    </div>
+                                                    <div>Hotdogs & Burgers</div>
+                                                    <div className="price">AED 95pp</div>
+                                                    <div>5</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isVeggieChecked}
+                                                            onChange={handleVeggieChange}
+                                                            value={'120'}
+                                                        />
+                                                        <div>Veggie</div>
+                                                    </div>
+                                                    <div>Veggie</div>
+                                                    <div className="price">AED 120pp</div>
+                                                    <div>5</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isWrapsChecked}
+                                                            onChange={handleWrapsChange}
+                                                            value={'120'}
+                                                        />
+                                                        <div>Wraps</div>
+                                                    </div>
+                                                    <div>Wraps</div>
+                                                    <div className="price">AED 120pp</div>
+                                                    <div>5</div>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </Row>
+                            </Col>
+                        </Col>
+                        <Col xs={12} md={12}>
+                            <Row className="menu-divider">
+                                <Col xs={12}>
+                                    <div className="divider"><span>WATER SPORTS & YACHT TOYS</span>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Col>
+                        <Col xs={12} md={12}>
+                            <Col xs={12}>
+                                <Row className="menu-list">
+                                    <div className="menu-title">
+                                        <ul>
+                                            <li>Water Sports</li>
+                                            <li>Unit</li>
+                                            <li>Price</li>
+                                            <li> Quantity</li>
+                                        </ul>
+                                    </div>
+                                </Row>
 
-                      </Col>
-                  </Col>
-                  <Col  xs={12} md={12}>
-                      <Col xs={12}>
-                          <Row>
-                              <div className="menu-list-detail">
-                                  <ul>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isElectricBoardChecked}
-                                                      onChange={handleElectricBoard}
-                                                      value={'500'}
-                                                  />
-                                                  <div>Electric Surfboard</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 500</div>
-                                              <div>1 Hour</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isSeaBobChecked}
-                                                      onChange={handleSeaBobChange}
-                                                      value={'200'}
-                                                  />
-                                                  <div>Sea Bob</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 200</div>
-                                              <div>1 Hour</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isWakeBoardChecked}
-                                                      onChange={handleWakeBoardChange}
-                                                      value={'700'}
-                                                  />
-                                                  <div>Wake Board/Surf</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 700</div>
-                                              <div>1 Hour</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isBananaBoatChecked}
-                                                      onChange={handleBananaBoatChange}
-                                                      value={'500'}
-                                                  />
-                                                  <div>Banana Boat</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 500</div>
-                                              <div>1 Hour</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isJetSKIChecked}
-                                                      onChange={handleJetSKIChange}
-                                                      value={'600'}
-                                                  />
-                                                  <div>Jet SKI</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 600</div>
-                                              <div>1 Hour</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isSkyWalkerChecked}
-                                                      onChange={handleSkyWalkerChange}
-                                                      value={'600'}
-                                                  />
-                                                  <div>Sky Walker Jet Skii 2</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 600</div>
-                                              <div>1 Hour</div>
-                                          </label>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </Row>
-                      </Col>
-                  </Col>
-                  <Col  xs={12} md={12}>
-                      <Col xs={12}>
-                          <Row className="menu-list">
-                              <div className="menu-title">
-                                  <ul>
-                                      <li>Yacht Toys</li>
-                                      <li>Unit</li>
-                                      <li>Price</li>
-                                      <li> Describe</li>
-                                  </ul>
-                              </div>
-                          </Row>
+                            </Col>
+                        </Col>
+                        <Col xs={12} md={12}>
+                            <Col xs={12}>
+                                <Row>
+                                    <div className="menu-list-detail">
+                                        <ul>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isElectricBoardChecked}
+                                                            onChange={handleElectricBoard}
+                                                            value={'500'}
+                                                        />
+                                                        <div>Electric Surfboard</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 500</div>
+                                                    <div>1 Hour</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isSeaBobChecked}
+                                                            onChange={handleSeaBobChange}
+                                                            value={'200'}
+                                                        />
+                                                        <div>Sea Bob</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 200</div>
+                                                    <div>1 Hour</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isWakeBoardChecked}
+                                                            onChange={handleWakeBoardChange}
+                                                            value={'700'}
+                                                        />
+                                                        <div>Wake Board/Surf</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 700</div>
+                                                    <div>1 Hour</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isBananaBoatChecked}
+                                                            onChange={handleBananaBoatChange}
+                                                            value={'500'}
+                                                        />
+                                                        <div>Banana Boat</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 500</div>
+                                                    <div>1 Hour</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isJetSKIChecked}
+                                                            onChange={handleJetSKIChange}
+                                                            value={'600'}
+                                                        />
+                                                        <div>Jet SKI</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 600</div>
+                                                    <div>1 Hour</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isSkyWalkerChecked}
+                                                            onChange={handleSkyWalkerChange}
+                                                            value={'600'}
+                                                        />
+                                                        <div>Sky Walker Jet Skii 2</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 600</div>
+                                                    <div>1 Hour</div>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </Row>
+                            </Col>
+                        </Col>
+                        <Col xs={12} md={12}>
+                            <Col xs={12}>
+                                <Row className="menu-list">
+                                    <div className="menu-title">
+                                        <ul>
+                                            <li>Yacht Toys</li>
+                                            <li>Unit</li>
+                                            <li>Price</li>
+                                            <li> Describe</li>
+                                        </ul>
+                                    </div>
+                                </Row>
 
-                      </Col>
-                  </Col>
-                  <Col  xs={12} md={12}>
-                      <Col xs={12}>
-                          <Row>
-                              <div className="menu-list-detail">
-                                  <ul>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isSeaToyChecked}
-                                                      onChange={handleSeaToy}
-                                                      value={'500'}
-                                                  />
-                                                  <div>Sea Toy</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 500</div>
-                                              <div>Swimming Pool</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isWaterSlideChecked}
-                                                      onChange={handleWaterSlideChange}
-                                                      value={'500'}
-                                                  />
-                                                  <div>Water Slide</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 500</div>
-                                              <div>Water Slide</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isRockShadeChecked}
-                                                      onChange={handleRockShadeChange}
-                                                      value={'350'}
-                                                  />
-                                                  <div>Sea Toy</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 350</div>
-                                              <div>Rock N Shade Island</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isBreezeIslandChecked}
-                                                      onChange={handleBreezeIslandChange}
-                                                      value={'350'}
-                                                  />
-                                                  <div>Sea Toy</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 350</div>
-                                              <div>Tropical Breeze Island</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isLazyKubeChecked}
-                                                      onChange={handleLazyKubeChange}
-                                                      value={'350'}
-                                                  />
-                                                  <div>Lazy Dayz Kube</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 350</div>
-                                              <div>Lazy Dayz Kube</div>
-                                          </label>
-                                      </li>
-                                      <li>
-                                          <label>
-                                              <div className="checkbox">
-                                                  <input
-                                                      type="checkbox"
-                                                      checked={isRapidQuadChecked}
-                                                      onChange={handleRapidQuadChange}
-                                                      value={'350'}
-                                                  />
-                                                  <div>Sea Toy</div>
-                                              </div>
-                                              <div>1</div>
-                                              <div className="price">AED 350</div>
-                                              <div>Rapid River Quad</div>
-                                          </label>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </Row>
-                      </Col>
-                  </Col>
-                  <Col  xs={12} md={12}>
-                      <Row className="menu-divider">
-                          <Col xs={12}>
-                              <div className="divider"><span>Booking Detail</span>
-                              </div>
-                          </Col>
-                      </Row>
+                            </Col>
+                        </Col>
+                        <Col xs={12} md={12}>
+                            <Col xs={12}>
+                                <Row>
+                                    <div className="menu-list-detail">
+                                        <ul>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isSeaToyChecked}
+                                                            onChange={handleSeaToy}
+                                                            value={'500'}
+                                                        />
+                                                        <div>Sea Toy</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 500</div>
+                                                    <div>Swimming Pool</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isWaterSlideChecked}
+                                                            onChange={handleWaterSlideChange}
+                                                            value={'500'}
+                                                        />
+                                                        <div>Water Slide</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 500</div>
+                                                    <div>Water Slide</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isRockShadeChecked}
+                                                            onChange={handleRockShadeChange}
+                                                            value={'350'}
+                                                        />
+                                                        <div>Sea Toy</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 350</div>
+                                                    <div>Rock N Shade Island</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isBreezeIslandChecked}
+                                                            onChange={handleBreezeIslandChange}
+                                                            value={'350'}
+                                                        />
+                                                        <div>Sea Toy</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 350</div>
+                                                    <div>Tropical Breeze Island</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isLazyKubeChecked}
+                                                            onChange={handleLazyKubeChange}
+                                                            value={'350'}
+                                                        />
+                                                        <div>Lazy Dayz Kube</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 350</div>
+                                                    <div>Lazy Dayz Kube</div>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <div className="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isRapidQuadChecked}
+                                                            onChange={handleRapidQuadChange}
+                                                            value={'350'}
+                                                        />
+                                                        <div>Sea Toy</div>
+                                                    </div>
+                                                    <div>1</div>
+                                                    <div className="price">AED 350</div>
+                                                    <div>Rapid River Quad</div>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </Row>
+                            </Col>
+                        </Col>
+                        <Col xs={12} md={12}>
+                            <Row className="menu-divider">
+                                <Col xs={12}>
+                                    <div className="divider"><span>Booking Detail</span>
+                                    </div>
+                                </Col>
+                            </Row>
 
-                  </Col>
-                  <Col className="booking-detail" xs={12} md={12}>
-                      <div className={'form'}>
-                          <Row>
-                              <Col xs={12}>
-                                  <div className="color-selection">
-                                      <h6 className="text-center text-md-left">Name</h6>
-                                  </div>
-                                  <div className="color-picker date-picker text-center text-md-left">
-                                      <input
-                                          type="text"
-                                          value={inputName}
-                                          onChange={handleFullName}
-                                          placeholder="Enter Full Name..."
-                                      />
-                                  </div>
-                              </Col>
-                          </Row>
-                          <Row>
-                              <Col xs={12}>
-                                  <div className="color-selection">
-                                      <h6 className="text-md-left">Phone</h6>
-                                  </div>
-                                  <div className="color-picker date-picker text-center text-md-left">
-                                      <input
-                                          type="number"
-                                          value={inputPhone}
-                                          onChange={handlePhone}
-                                          placeholder="Enter Phone..."
-                                      />
-                                  </div>
-                              </Col>
-                          </Row>
-                          <Row>
-                              <Col xs={12}>
-                                  <div className="color-selection">
-                                      <h6 className="text-md-left">Email</h6>
-                                  </div>
-                                  <div className="color-picker date-picker text-center text-md-left">
-                                      <input
-                                          type="email"
-                                          value={inputEmail}
-                                          onChange={handleEmail}
-                                          placeholder="Enter Email..."
-                                      />
-                                  </div>
-                              </Col>
-                          </Row>
-                          <Row>
-                              <Col xs={12}>
-                                  <div className="color-selection">
-                                      <h6 className="text-md-left">Departure Date</h6>
-                                  </div>
-                                  <div className="color-picker date-picker text-center text-md-left">
-                                      <input
-                                          type={'text'}
-                                          value={date}
-                                          readOnly={true}
-                                      />
-                                  </div>
-                              </Col>
-                          </Row>
-                          <Row>
-                              <Col xs={12}>
-                                  <div className="color-selection">
-                                      <h6 className="text-md-left">Duration</h6>
-                                  </div>
-                                  <div className="color-picker select-duration text-center text-md-left">
-                                      <input
-                                          type="text"
-                                          value={selectedTime}
-                                          onChange={handleTime}
-                                          placeholder=""
-                                      />
-                                  </div>
-                              </Col>
-                          </Row>
-                          <Row>
-                              <Col xs={12}>
-                                  <div className="color-selection">
-                                      <h6 className="text-md-left">Departure Point</h6>
-                                  </div>
-                                  <div className="color-picker departure-point text-center text-md-left">
-                                      <input
-                                          type="text"
-                                          value={inputDep}
-                                          onChange={handleDeparture}
-                                          placeholder="Enter Location..."
-                                      />
-                                  </div>
-                              </Col>
-                          </Row>
-                          <Row>
-                              <Col xs={12}>
-                                  <div className="color-selection">
-                                      <h6 className="text-md-left">Adult/Childs</h6>
-                                  </div>
-                                  <div className="color-picker passenger-detail text-center text-md-left">
-                                      <div className="passenger-detail">
-                                          <input
-                                              type="number"
-                                              value={inputAdult}
-                                              onChange={handleAdult}
-                                          />
-                                          <input
-                                              type="number"
-                                              value={inputChild}
-                                              onChange={handleChild}
-                                          />
-                                      </div>
-                                  </div>
-                              </Col>
-                          </Row>
-                      </div>
-                      <div className="checkout-summary">
-                          <Row>
-                              <Col xs={12}>
-                                  <div className="total">
-                                      <ul>
-                                          <li>
-                                              <span>Charter</span>
-                                              <span>AED {price}</span>
-                                          </li>
-                                          <li>
-                                              <span>Catering</span>
-                                              <span>AED {getCatering}</span>
-                                          </li>
-                                          <li>
-                                              <span>Extras</span>
-                                              <span>AED {getExtra}</span>
-                                          </li>
-                                          <li className={'total-amount'}>
-                                              <span>TOTAL <span className={'tax'}>(inc. 5% VAT)</span></span>
-                                              <span>AED {price + getCatering + getExtra}</span>
-                                          </li>
-                                      </ul>
-                                      <div className={'col-12 van-checkbox'}>
-                                          <div>
-                                              <input type={'checkbox'} name={'terms'} value={'1'}/>
-                                              <span className="text">
+                        </Col>
+                        <Col className="booking-detail" xs={12} md={12}>
+                            <div className={'form'}>
+                                <Row>
+                                    <Col xs={12}>
+                                        <div className="color-selection">
+                                            <h6 className="text-center text-md-left">Name</h6>
+                                        </div>
+                                        <div className="color-picker date-picker text-center text-md-left">
+                                            <input
+                                                name={'name'}
+                                                type="text"
+                                                value={inputName}
+                                                onChange={handleFullName}
+                                                placeholder="Enter Full Name..."
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs={12}>
+                                        <div className="color-selection">
+                                            <h6 className="text-md-left">Phone</h6>
+                                        </div>
+                                        <div className="color-picker date-picker text-center text-md-left">
+                                            <input
+                                                name={'phone'}
+                                                type="number"
+                                                value={inputPhone}
+                                                onChange={handlePhone}
+                                                placeholder="Enter Phone..."
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs={12}>
+                                        <div className="color-selection">
+                                            <h6 className="text-md-left">Email</h6>
+                                        </div>
+                                        <div className="color-picker date-picker text-center text-md-left">
+                                            <input
+                                                name={'email'}
+                                                type="email"
+                                                value={inputEmail}
+                                                onChange={handleEmail}
+                                                placeholder="Enter Email..."
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs={12}>
+                                        <div className="color-selection">
+                                            <h6 className="text-md-left">Departure Date</h6>
+                                        </div>
+                                        <div className="color-picker date-picker text-center text-md-left">
+                                            <input
+                                                name={'dep_date'}
+                                                type={'text'}
+                                                value={date}
+                                                readOnly={true}
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs={12}>
+                                        <div className="color-selection">
+                                            <h6 className="text-md-left">Duration</h6>
+                                        </div>
+                                        <div className="color-picker select-duration text-center text-md-left">
+                                            <input
+                                                name={'duration'}
+                                                type="text"
+                                                value={selectedTime}
+                                                onChange={handleTime}
+                                                placeholder=""
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs={12}>
+                                        <div className="color-selection">
+                                            <h6 className="text-md-left">Departure Point</h6>
+                                        </div>
+                                        <div className="color-picker departure-point text-center text-md-left">
+                                            <input
+                                                name={'dep_point'}
+                                                type="text"
+                                                value={inputDep}
+                                                onChange={handleDeparture}
+                                                placeholder="Enter Location..."
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs={12}>
+                                        <div className="color-selection">
+                                            <h6 className="text-md-left">Adult/Childs</h6>
+                                        </div>
+                                        <div className="color-picker passenger-detail text-center text-md-left">
+                                            <div className="passenger-detail">
+                                                <input
+                                                    name={'adult'}
+                                                    type="number"
+                                                    value={inputAdult}
+                                                    onChange={handleAdult}
+                                                />
+                                                <input
+                                                    name={'child'}
+                                                    type="number"
+                                                    value={inputChild}
+                                                    onChange={handleChild}
+                                                />
+                                            </div>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>
+                            <div className="checkout-summary">
+                                <Row>
+                                    <Col xs={12}>
+                                        <div className="total">
+                                            <ul>
+                                                <li>
+                                                    <span>Charter</span>
+                                                    <span>AED {price}</span>
+                                                </li>
+                                                <li>
+                                                    <span>Catering</span>
+                                                    <span>AED {getCatering}</span>
+                                                </li>
+                                                <li>
+                                                    <span>Extras</span>
+                                                    <span>AED {getExtra}</span>
+                                                </li>
+                                                <li className={'total-amount'}>
+                                                    <span>TOTAL <span className={'tax'}>(inc. 5% VAT)</span></span>
+                                                    <span>AED {price + getCatering + getExtra}</span>
+                                                </li>
+                                            </ul>
+                                            <div className={'col-12 van-checkbox'}>
+                                                <div>
+                                                    <input type={'checkbox'} name={'terms'} value={'1'}/>
+                                                    <span className="text">
                                                   I have read &amp; agree to the <span>Terms of Service and Conditions</span>
                                               </span>
-                                          </div>
-                                          <div>
-                                              <input type={'checkbox'} name={'cancellation-policy'} value={1}/>
-                                              <span className="text">
+                                                </div>
+                                                <div>
+                                                    <input type={'checkbox'} name={'cancellation-policy'} value={1}/>
+                                                    <span className="text">
                                                   I have read &amp; agree to the <span>Cancellation Policy</span>
                                                  </span>
-                                          </div>
-                                      </div>
-                                      <div className="payment-method">
-                                          <p>Secure payment powered by <img src={paymentMethod}/></p>
-                                      </div>
-                                  </div>
-                              </Col>
-                          </Row>
-                      </div>
-                  </Col>
-                  <Col  className="checkout-detail" xs={12} md={12}>
-                          {(clientSecret) && (
-                              <Elements stripe={stripePromise} options={options}>
-                                  <CheckoutForm/>
-                              </Elements>
-                          )}
-                  </Col>
-              </Row>
-          </Container>
-      </div>
+                                                </div>
+                                            </div>
+                                            <div className="payment-method">
+                                                <p>Secure payment powered by <img src={paymentMethod}/></p>
+                                            </div>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Col>
+                        {(clientSecret) && (
+                            <Col className="checkout-detail" xs={12} md={12}>
+                                <Elements stripe={stripePromise} options={options}>
+                                    <CheckoutForm validation={validation}/>
+                                </Elements>
+                            </Col>
+                        )}
+                    </Row>
+                </Container>
+            </div>
             <Footer/>
             <SideContactBar/>
             <BackToTop/>

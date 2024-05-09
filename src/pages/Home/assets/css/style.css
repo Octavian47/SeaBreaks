@@ -1879,6 +1879,12 @@ header a.logo img {
     .booking-detail span{
         display: inline;
     }
+    .owl-theme .owl-dots{
+        bottom: 40px !important;
+    }
+    #checkout .products {
+        height: 255px !important;
+    }
 }
 
  /*Small devices (landscape phones, 576px and up)*/
@@ -2298,12 +2304,20 @@ input, select, textarea{
 .custom-break-form label{
     color: #030d3c;
 }
+.owl-carousel{
+    position: relative;
+}
 .owl-theme .owl-dots {
-    display:  flex;
-    justify-content: center;
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 .owl-theme .owl-dots span {
-    background: none repeat scroll 0 0 #869791;
+    background: none repeat scroll 0 0 #777575;
     border-radius: 20px;
     display: block;
     height: 12px;
@@ -2554,7 +2568,7 @@ input, select, textarea{
 
 }
 #payment-message {
-    color: rgb(105, 115, 134);
+    color: #ff0000;
     font-size: 16px;
     line-height: 20px;
     padding-top: 12px;
@@ -2564,7 +2578,9 @@ input, select, textarea{
 #payment-element {
     margin-bottom: 24px;
 }
-
+.error{
+    border: 1px solid #ff0000;
+}
 /* spinner/processing state, errors */
 .spinner,
 .spinner:before,
@@ -2628,11 +2644,14 @@ input, select, textarea{
         transform: rotate(360deg);
     }
 }
+#checkout .products{
+    height: 418px;
+}
 #checkout .owl-carousel .owl-item img{
     width: auto;
     margin: auto;
 }
-#checkout .owl-carousel .owl-stage-outer{
-    height: 410px;
+#checkout .owl-theme .owl-dots{
+    bottom: 22px !important;
 }
 /* checkout page css end */
