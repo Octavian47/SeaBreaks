@@ -25,7 +25,8 @@ import { Col, Container, Row, Form, Button} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import {Link} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
 
 const ProductViewModals = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -186,39 +187,40 @@ const ProductViewModals = () => {
         $('body').removeClass('body-overlay');
     });
   };
-
-   const validation = () => {
-        if(getYacht == ''){
-          $("select[name='yacht_size']").addClass('error').focus();
-          return false;
-        }
-        else if(getYacht && getYacht !== 'Compact Yacht' && getOptionDiscount == ''){
-          $("select[name='discount']").addClass('error').focus();
-          return false;
-        }
-        else if(activityOption == ''){
-          $("select[name='yacht_activity']").addClass('error').focus();
-          return false;
-        }
-        else  if(timeOption == ''){
-          $("select[name='yacht_time']").addClass('error').focus();
-          return false;
-        }
-        else{
-          let data = {
-            'yacht': getYacht,
-            'date': selectedDate,
-            'price': (Number(getPrice)+Number(getpremiumYacht))-getDiscount,
-            'discount': getOptionDiscount,
-            'premium_yacht': getpremiumYacht,
-            'activity' : activityOption,
-            'time' : timeOption
-          }
-          localStorage.setItem("cart", JSON.stringify(data));
-          window.location = '/checkout';
-        }
+  const navigate = useNavigate();
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    if(getYacht == ''){
+      $("select[name='yacht_size']").addClass('error').focus();
+      return false;
+    }
+    else if(getYacht && getYacht !== 'Compact Yacht' && getOptionDiscount == ''){
+      $("select[name='discount']").addClass('error').focus();
+      return false;
+    }
+    else if(activityOption == ''){
+      $("select[name='yacht_activity']").addClass('error').focus();
+      return false;
+    }
+    else  if(timeOption == ''){
+      $("select[name='yacht_time']").addClass('error').focus();
+      return false;
+    }
+    else{
+      let data = {
+        'yacht': getYacht,
+        'date': selectedDate,
+        'price': (Number(getPrice)+Number(getpremiumYacht))-getDiscount,
+        'discount': getOptionDiscount,
+        'premium_yacht': getpremiumYacht,
+        'activity' : activityOption,
+        'time' : timeOption
       }
+      localStorage.setItem("cart", JSON.stringify(data));
+      navigate('/checkout')
 
+    }
+  }
   useEffect(() => {
     numberInputCounter();
   }, []);
@@ -628,135 +630,140 @@ const ProductViewModals = () => {
               </Col>
               <Col xs={12} md={12} className="morphic-title">
                 <h3>Classic Sea Break: 2 Days</h3>
-                <Row className="pb-md-4">
-                  <Col xs={12}>
-                    <div className="color-selection">
-                      <h6 className="text-center text-md-left">*CHOOSE CHECK-IN DATE</h6>
-                    </div>
-                    <div className="color-picker text-center text-md-left">
-                      <DatePicker
-                          selected={selectedDate}
-                          onChange={handleDateChange}
-                          dateFormat="MM/dd/yyyy"
-                          className="black-text-datepicker"
-                          minDate={new Date()}
-                          onKeyDown={(e) => {
-                            e.preventDefault();
-                          }}
-                          onBeforeInput={(e) => {
-                            e.preventDefault();
-                          }}
-                      />
-                    </div>
-                  </Col>
-                </Row>
-                <Row className="pb-md-4">
-                  <Col xs={12}>
-                    <div className="color-selection">
-                      <h6 className="text-center text-md-left">*SELECT YACHT CAPACITY</h6>
-                    </div>
-                    <div className="color-picker select-opacity text-center text-md-left">
-                      <select value={getYacht} name={'yacht_size'} onChange={hanleYacht} required>
-                        <option value="">Select Size</option>
-                        <option value="Compact Yacht"
-                                data-text={"Compact Yacht – Up to 2 Guests: €1150 / £980"}
-                                data-price={'1150'}>Compact Yacht – Up to 2 Guests: €1150 / £980
-                        </option>
-                        <option value="Regular Yacht"
-                                data-text={"Regular Yacht – Up to 4 Guests: €1350 / £1155"}
-                                data-price={'1350'}>Regular Yacht – Up to 4 Guests: €1350 / £1155
-                        </option>
-                        <option value="Large Yacht"
-                                data-text={"Large Yacht – Up to 8 Guests: €1750 / £1500"}
-                                data-price={'1750'}>Large Yacht – Up to 8 Guests: €1750 / £1500
-                        </option>
-                      </select>
-                    </div>
-                  </Col>
-                </Row>
-                <Row className={`pb-md-4 ${(getDiscountDropDown)?'':'d-none'}`}>
-                  <Col xs={12}>
-                    <div className="color-selection">
-                      {getDiscountDropDown}
-                      <h6 className="text-center text-md-left">ADD DISCOUNT FOR BOOKINGS UNDER 4 PASSENGERS</h6>
-                    </div>
-                    <div className="color-picker select-opacity text-center text-md-left">
-                      <select value={getOptionDiscount} name={'discount'} onChange={selectDiscount}>
-                        <option value="">Select Number of Passengers
-                        </option>
-                        <option value="15">1 Passenger: -15% Discount
-                        </option>
-                        <option value="10">2 Passengers: -10% Discount
-                        </option>
-                        <option  value="5">3 Passengers: -5% Discount
-                        </option>
-                      </select>
-                    </div>
-                  </Col>
-                </Row>
-                <Row className="pb-md-4">
-                  <Col xs={12}>
-                    <div className="color-selection">
-                      <h6 className="text-center text-md-left">CHOOSE ACTIVITY - INCLUDED</h6>
-                    </div>
-                    <div className="color-picker select-opacity text-center text-md-left">
-                      <select name={'yacht_activity'} onChange={activityChange} required>
-                        <option value="">Select Activity</option>
-                        <option value="Scuba Diving">Scuba Diving</option>
-                        <option value="Parasailing">Parasailing</option>
-                        <option value="Jet Ski">Jet Ski</option>
-                      </select>
-                    </div>
-                  </Col>
-                </Row>
-                <Row className="pb-md-4">
-                  <Col xs={12}>
-                    <div className="color-selection">
-                      <h6 className="text-center text-md-left">START TIME</h6>
-                    </div>
-                    <div className="color-picker select-opacity text-center text-md-left">
-                      <select name={'yacht_time'} onChange={timeChange} required>
-                        <option value="">Any Time</option>
-                        <option value="1st Part of the Day">1st Part of the Day
-                        </option>
-                        <option value="2nd Part of the Day">2nd Part of the Day
-                        </option>
-                      </select>
-                    </div>
-                  </Col>
-                </Row>
-                <Row className="pb-md-4">
-                  <Col xs={12}>
-                    <div className="color-selection">
-                      <h6 className="text-center text-md-left">ADDITIONAL AMENITIES</h6>
-                    </div>
-                    <div className="select-opacity text-center text-md-left">
-                      <label>
-                        <input
-                            type="checkbox"
-                            checked={premiumYachtChecked}
-                            onChange={handlePremiumYachtChange}
-                            value={'2020'}
+                  <Row className="pb-md-4">
+                    <Col xs={12}>
+                      <div className="color-selection">
+                        <h6 className="text-center text-md-left">*CHOOSE CHECK-IN DATE</h6>
+                      </div>
+                      <div className="color-picker text-center text-md-left">
+                        <DatePicker
+                            selected={selectedDate}
+                            onChange={handleDateChange}
+                            dateFormat="MM/dd/yyyy"
+                            className="black-text-datepicker"
+                            minDate={new Date()}
+                            disabledKeyboardNavigation
+                            onKeyDown={(e) => {
+                              e.preventDefault();
+                            }}
+                            onBeforeInput={(e) => {
+                              e.preventDefault();
+                            }}
                         />
-                        Premium Yacht – 550USD / 2020AED
-                      </label>
-                    </div>
-                  </Col>
-                </Row>
-                <Row className="model-bottom">
-                  <Col xs={12} className="price-modal"><h1>€{(Number(getPrice)+Number(getpremiumYacht))-getDiscount}</h1></Col>
-                  <Col xs={12} className="modal-btn">
-                    <Link onClick={validation}  className="btn btn-medium btn-rounded btn-trans text-capitalize">PROCEED</Link></Col>
-                </Row>
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className="pb-md-4">
+                    <Col xs={12}>
+                      <div className="color-selection">
+                        <h6 className="text-center text-md-left">*SELECT YACHT CAPACITY</h6>
+                      </div>
+                      <div className="color-picker select-opacity text-center text-md-left">
+                        <select value={getYacht} name={'yacht_size'} onChange={hanleYacht} required>
+                          <option value="">Select Size</option>
+                          <option value="Compact Yacht"
+                                  data-text={"Compact Yacht – Up to 2 Guests: €1150 / £980"}
+                                  data-price={'1150'}>Compact Yacht – Up to 2 Guests: €1150 / £980
+                          </option>
+                          <option value="Regular Yacht"
+                                  data-text={"Regular Yacht – Up to 4 Guests: €1350 / £1155"}
+                                  data-price={'1350'}>Regular Yacht – Up to 4 Guests: €1350 / £1155
+                          </option>
+                          <option value="Large Yacht"
+                                  data-text={"Large Yacht – Up to 8 Guests: €1750 / £1500"}
+                                  data-price={'1750'}>Large Yacht – Up to 8 Guests: €1750 / £1500
+                          </option>
+                        </select>
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className={`pb-md-4 ${(getDiscountDropDown) ? '' : 'd-none'}`}>
+                    <Col xs={12}>
+                      <div className="color-selection">
+                        {getDiscountDropDown}
+                        <h6 className="text-center text-md-left">ADD DISCOUNT FOR BOOKINGS UNDER 4 PASSENGERS</h6>
+                      </div>
+                      <div className="color-picker select-opacity text-center text-md-left">
+                        <select value={getOptionDiscount} name={'discount'} onChange={selectDiscount}>
+                          <option value="">Select Number of Passengers
+                          </option>
+                          <option value="15">1 Passenger: -15% Discount
+                          </option>
+                          <option value="10">2 Passengers: -10% Discount
+                          </option>
+                          <option value="5">3 Passengers: -5% Discount
+                          </option>
+                        </select>
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className="pb-md-4">
+                    <Col xs={12}>
+                      <div className="color-selection">
+                        <h6 className="text-center text-md-left">CHOOSE ACTIVITY - INCLUDED</h6>
+                      </div>
+                      <div className="color-picker select-opacity text-center text-md-left">
+                        <select name={'yacht_activity'} onChange={activityChange} required>
+                          <option value="">Select Activity</option>
+                          <option value="Scuba Diving">Scuba Diving</option>
+                          <option value="Parasailing">Parasailing</option>
+                          <option value="Jet Ski">Jet Ski</option>
+                        </select>
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className="pb-md-4">
+                    <Col xs={12}>
+                      <div className="color-selection">
+                        <h6 className="text-center text-md-left">START TIME</h6>
+                      </div>
+                      <div className="color-picker select-opacity text-center text-md-left">
+                        <select name={'yacht_time'} onChange={timeChange} required>
+                          <option value="">Any Time</option>
+                          <option value="1st Part of the Day">1st Part of the Day
+                          </option>
+                          <option value="2nd Part of the Day">2nd Part of the Day
+                          </option>
+                        </select>
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className="pb-md-4">
+                    <Col xs={12}>
+                      <div className="color-selection">
+                        <h6 className="text-center text-md-left">ADDITIONAL AMENITIES</h6>
+                      </div>
+                      <div className="select-opacity text-center text-md-left">
+                        <label>
+                          <input
+                              type="checkbox"
+                              checked={premiumYachtChecked}
+                              onChange={handlePremiumYachtChange}
+                              value={'2020'}
+                          />
+                          Premium Yacht – 550USD / 2020AED
+                        </label>
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className="model-bottom">
+                    <Col xs={12} className="price-modal">
+                      <h1>€{(Number(getPrice) + Number(getpremiumYacht)) - getDiscount}</h1></Col>
+                    <Col xs={12} className="modal-btn">
+                      <button type={"button"}  onClick={onSubmitHandler}
+                              className="btn btn-medium btn-rounded btn-trans text-capitalize">PROCEED
+                      </button>
+                    </Col>
+                  </Row>
               </Col>
             </div>
-            </Container>
-          </div>
+          </Container>
         </div>
       </div>
+    </div>
 
 
-      <div className="modal-window" id="morphic-window4">
+    <div className="modal-window" id="morphic-window4">
         <div className="modal-body">
           <header>
             <span className="close-modal"><i /><i /></span>

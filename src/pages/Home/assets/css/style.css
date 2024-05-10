@@ -1712,7 +1712,6 @@ header a.logo img {
 ====================================== */
 
 .all-products{
-    background-image: url("../images/products_bg.jpg");
     height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;
