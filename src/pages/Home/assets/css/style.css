@@ -1880,7 +1880,7 @@ header a.logo img {
         display: inline;
     }
     .owl-theme .owl-dots{
-        bottom: 40px !important;
+        bottom: 30px !important;
     }
     #checkout .products {
         height: 255px !important;
@@ -2317,7 +2317,7 @@ input, select, textarea{
     text-align: center;
 }
 .owl-theme .owl-dots span {
-    background: none repeat scroll 0 0 #777575;
+    background: none repeat scroll 0 0 #080808;
     border-radius: 20px;
     display: block;
     height: 12px;
@@ -2652,6 +2652,6 @@ input, select, textarea{
     margin: auto;
 }
 #checkout .owl-theme .owl-dots{
-    bottom: 22px !important;
+    bottom: 17px !important;
 }
 /* checkout page css end */

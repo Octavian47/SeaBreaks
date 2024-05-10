@@ -308,7 +308,7 @@ const Checkout = () => {
         <>
             <Preloader/>
             <header>
-            <nav className="navbar navbar-top-default navbar-expand-lg navbar-simple nav-line">
+            <nav className="navbar navbar-expand-lg navbar-simple nav-line">
                 <Container>
                     <Link to="/" title="Logo" className="logo scroll">
                         <img src={logo} alt="logo" className="logo-white"/>
