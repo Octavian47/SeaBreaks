@@ -37,12 +37,13 @@ const ProductViewModals = () => {
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
-  const [activityOption, setActivityOption] = useState(null);
+  const [activityOption, setActivityOption] = useState('');
 
   const activityChange = (event) => {
     setActivityOption(event.target.value);
+    $("select[name='yacht_activity']").removeClass('error');
   };
-  const [timeOption, setTimeOption] = useState(null);
+  const [timeOption, setTimeOption] = useState('');
 
   const [getYacht, setYacht] = useState('Compact Yacht');
   const [getPrice, setPrice] = useState('1150');
@@ -52,6 +53,7 @@ const ProductViewModals = () => {
 
   const timeChange = (event) => {
     setTimeOption(event.target.value);
+    $("select[name='yacht_time']").removeClass('error');
   };
   const [premiumYachtChecked, setPremiumYachtChecked] = useState(false);
   const [getpremiumYacht, setPremiumYacht] = useState(0);
@@ -104,7 +106,8 @@ const ProductViewModals = () => {
       let price = e.target[e.target.selectedIndex].getAttribute('data-price');
       setPrice(price)
       setYacht(e.target.value)
-      if(e.target.value !== 'Compact Yacht'){
+      $("select[name='yacht_size']").removeClass('error');
+      if(e.target.value  !== '' && e.target.value !== 'Compact Yacht'){
         setDiscountDropDown(true)
       }
       else{
@@ -117,6 +120,7 @@ const ProductViewModals = () => {
   const selectDiscount = (e) => {
       setOptionDiscount(e.target.value)
       let dis = (getPrice/100)*e.target.value;
+      $("select[name='discount']").removeClass('error')
       setDiscount(dis)
   }
 
@@ -183,6 +187,37 @@ const ProductViewModals = () => {
     });
   };
 
+   const validation = () => {
+        if(getYacht == ''){
+          $("select[name='yacht_size']").addClass('error').focus();
+          return false;
+        }
+        else if(getYacht && getYacht !== 'Compact Yacht' && getOptionDiscount == ''){
+          $("select[name='discount']").addClass('error').focus();
+          return false;
+        }
+        else if(activityOption == ''){
+          $("select[name='yacht_activity']").addClass('error').focus();
+          return false;
+        }
+        else  if(timeOption == ''){
+          $("select[name='yacht_time']").addClass('error').focus();
+          return false;
+        }
+        else{
+          let data = {
+            'yacht': getYacht,
+            'date': selectedDate,
+            'price': (Number(getPrice)+Number(getpremiumYacht))-getDiscount,
+            'discount': getOptionDiscount,
+            'premium_yacht': getpremiumYacht,
+            'activity' : activityOption,
+            'time' : timeOption
+          }
+          localStorage.setItem("cart", JSON.stringify(data));
+          window.location = '/checkout';
+        }
+      }
 
   useEffect(() => {
     numberInputCounter();
@@ -265,7 +300,7 @@ const ProductViewModals = () => {
                             selected={selectedDate}
                             onChange={handleDateChange}
                             dateFormat="MM/dd/yyyy"
-                            className="black-text-datepicker"
+                            className="black-text-datepicker disabled"
                             minDate={new Date()}
                         />
                       </div>
@@ -299,7 +334,7 @@ const ProductViewModals = () => {
                         <h6 className="text-center text-md-left">CHOOSE ACTIVITY - INCLUDED</h6>
                       </div>
                       <div className="color-picker select-opacity text-center text-md-left">
-                        <select value={activityOption} onChange={activityChange} required>
+                        <select value={activityOption} name={'activity'} onChange={activityChange} required>
                           <option value="">Select Activity</option>
                           <option value="Scuba Diving">Scuba Diving
                           </option>
@@ -317,7 +352,7 @@ const ProductViewModals = () => {
                         <h6 className="text-center text-md-left">Start Time</h6>
                       </div>
                       <div className="color-picker select-opacity text-center text-md-left">
-                        <select onChange={timeChange} required>
+                        <select name={'time'} onChange={timeChange} required>
                           <option value="">Select Time</option>
                           <option value="Any Time">Any Time
                           </option>
@@ -548,7 +583,7 @@ const ProductViewModals = () => {
     <div className="modal-window" id="morphic-window3">
       <div className="modal-body">
         <header>
-          <span className="close-modal"  onClick={handleClose}><i/><i/></span>
+          <span className="close-modal" onClick={handleClose}><i/><i/></span>
         </header>
         <div className="morphic-body">
           <Container>
@@ -606,6 +641,9 @@ const ProductViewModals = () => {
                           className="black-text-datepicker"
                           minDate={new Date()}
                           onKeyDown={(e) => {
+                            e.preventDefault();
+                          }}
+                          onBeforeInput={(e) => {
                             e.preventDefault();
                           }}
                       />
@@ -677,7 +715,7 @@ const ProductViewModals = () => {
                       <h6 className="text-center text-md-left">START TIME</h6>
                     </div>
                     <div className="color-picker select-opacity text-center text-md-left">
-                      <select name={'yacht_time'} required>
+                      <select name={'yacht_time'} onChange={timeChange} required>
                         <option value="">Any Time</option>
                         <option value="1st Part of the Day">1st Part of the Day
                         </option>
@@ -708,7 +746,7 @@ const ProductViewModals = () => {
                 <Row className="model-bottom">
                   <Col xs={12} className="price-modal"><h1>€{(Number(getPrice)+Number(getpremiumYacht))-getDiscount}</h1></Col>
                   <Col xs={12} className="modal-btn">
-                    <Link to={'/checkout'} state ={{ price: (Number(getPrice)+Number(getpremiumYacht))-getDiscount, date:selectedDate }} className="btn btn-medium btn-rounded btn-trans text-capitalize">PROCEED</Link></Col>
+                    <Link onClick={validation}  className="btn btn-medium btn-rounded btn-trans text-capitalize">PROCEED</Link></Col>
                 </Row>
               </Col>
             </div>

@@ -36,6 +36,7 @@ const CheckoutForm = ({validation}) => {
                 setMessage("An unexpected error occurred.");
             }
             setIsLoading(false);
+            localStorage.setItem('cart', '')
         }
     };
 

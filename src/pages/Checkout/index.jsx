@@ -11,7 +11,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import classicproduct from "@/pages/Home/assets/img/model-windows/classic-product.jpg";
 import paymentMethod from "@/pages/Home/assets/img/payment-img.png";
 import SideContactBar from "@/pages/Home/components/SideContactBar";
-import {Link, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 import moment from "moment";
 import {loadStripe} from "@stripe/stripe-js";
 import {Elements} from "@stripe/react-stripe-js";
@@ -20,18 +20,14 @@ import '@/pages/Home/assets/css/style.css';
 import modalWindowImg5 from "@/pages/Home/assets/img/model-windows/modal-img-5.png";
 import modalWindowImg2 from "@/pages/Home/assets/img/model-windows/modal-img-2.png";
 import logo from "@/pages/Home/assets/img/sea-breaks-logo.png";
-
+import '@vendor/css/owl.carousel.min.css';
+import '@vendor/js/owl.carousel.min.js';
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_51NMGCzGFJGDu2WV4FCa58ZKE2bhROOhEnSkUjVX8Rt8givG80t7NDJjZ2MbZljY7iMnxJUnacVecP10BgvV8Dxoz00uk4kPDaF');
-
+let price = 0;
+let date = '';
 const Checkout = () => {
-    const location = useLocation()
-    let price = (location.state)?location.state.price:0;
-    let date = (location.state)?moment(location.state.date).format("DD-MM-YYYY"):'';
-    if(price == 0){
-       window.history.back();
-    }
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [selectedTime, setSelectedTime] = useState('');
     const [inputValue, setInputValue] = useState('');
@@ -65,7 +61,15 @@ const Checkout = () => {
     setIsMobile(isMobileNow);
   };
     let [clientSecret, setClientSecret] = useState("");
-
+    let cart = localStorage.getItem('cart') || '{}'
+    if(cart) {
+        cart = JSON.parse(cart);
+        price = cart.price;
+        date = moment(cart.date).format("DD-MM-YYYY");
+    }
+    else{
+        window.history.back();
+    }
     useEffect(() => {
     const width = $(window).width();
     if (width && width > 767) {
@@ -104,6 +108,7 @@ const Checkout = () => {
       setExtra(0);
         // Create PaymentIntent as soon as the page loads
         getStripSecret(price);
+        packageSlider();
         return () => {
             window.removeEventListener('resize', handleResize);
             toggleDocumentAttribute('data-spy', 'scroll', 'body', true);
@@ -114,9 +119,15 @@ const Checkout = () => {
 
     const getStripSecret = async (amount, email = '') => {
         setClientSecret('')
-        const response = await fetch('https://react.sea-breaks.com/stripe/secret?price='+amount+'&email='+email);
-        let {client_secret: secret} = await response.json();
-        setClientSecret(secret)
+        try {
+            const response = await fetch('https://react.sea-breaks.com/stripe/secret?price='+amount+'&email='+email);
+            let {client_secret: secret} = await response.json();
+            setClientSecret(secret)
+
+        } catch (e) {
+            console.log(e)
+        }
+
     }
 
     // Event handler to update the input value when it changes
@@ -254,23 +265,17 @@ const Checkout = () => {
         clientSecret,
         appearance,
     };
-    $(".products").owlCarousel({
-        items: 1,
-        autoPlay: 1500, //Set AutoPlay to 3 seconds
-        dots: true,
-        loop: true
-    });
     const validation = () => {
         if($("input[name='name']").val() == ''){
-            $("input[name='name']").addClass('error');
+            $("input[name='name']").addClass('error').focus();
             return false;
         }
         else if($("input[name='phone']").val() == ''){
-            $("input[name='phone']").addClass('error');
+            $("input[name='phone']").addClass('error').focus();
             return false;
         }
         else  if($("input[name='email']").val() == ''){
-            $("input[name='email']").addClass('error');
+            $("input[name='email']").addClass('error').focus();
             return false;
         }
         else if($("input[name='email']").val()){
@@ -281,42 +286,48 @@ const Checkout = () => {
             }
         }
         else  if($("input[name='dep_date']").val() == ''){
-            $("input[name='dep_date']").addClass('error');
+            $("input[name='dep_date']").addClass('error').focus();
             return false;
         }
         else  if($("input[name='duration']").val() == ''){
-            $("input[name='duration']").addClass('error');
+            $("input[name='duration']").addClass('error').focus();
             return false;
         }
         else if($("input[name='dep_point']").val() == ''){
-            $("input[name='dep_point']").addClass('error');
+            $("input[name='dep_point']").addClass('error').focus();
             return false;
         }
         else  if($("input[name='adult']").val() == ''){
-            $("input[name='adult']").addClass('error');
+            $("input[name='adult']").addClass('error').focus();
             return false;
         }
        else if($("input[name='child']").val() == ''){
-            $("input[name='child']").addClass('error');
+            $("input[name='child']").addClass('error').focus();
             return false;
         }
         else{
             return true;
         }
     }
+    function packageSlider(){
+        $(".products").owlCarousel({
+            items: 1,
+            autoPlay: 1500, //Set AutoPlay to 3 seconds
+            dots: true,
+            loop: true
+        });
+    }
     return (
         <>
             <Preloader/>
-            <header>
-            <nav className="navbar navbar-expand-lg navbar-simple nav-line">
-                <Container>
-                    <Link to="/" title="Logo" className="logo scroll">
-                        <img src={logo} alt="logo" className="logo-white"/>
-                    </Link>
-                </Container>
-            </nav>
-            </header>
             <div id="checkout">
+                <header>
+                    <nav className="navbar">
+                        <Link to="/" title="Logo" className="logo scroll">
+                            <img src={logo} alt="logo" className="logo-white"/>
+                        </Link>
+                    </nav>
+                </header>
                 <Container>
                     <Row className="main-morphic-body detail-page ">
                         <Col xs={12} md={12} className="morphic-img">

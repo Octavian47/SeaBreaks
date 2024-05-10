@@ -1872,19 +1872,6 @@ header a.logo img {
     .portfolio-sec .heading-area .paragraph {
         width: 100%;
     }
-
-    .booking-detail{
-        flex-wrap: wrap;
-    }
-    .booking-detail span{
-        display: inline;
-    }
-    .owl-theme .owl-dots{
-        bottom: 30px !important;
-    }
-    #checkout .products {
-        height: 255px !important;
-    }
 }
 
  /*Small devices (landscape phones, 576px and up)*/
@@ -2648,10 +2635,40 @@ input, select, textarea{
     height: 418px;
 }
 #checkout .owl-carousel .owl-item img{
-    width: auto;
+    width: 600px;
+    height: 402px;
     margin: auto;
 }
 #checkout .owl-theme .owl-dots{
-    bottom: 17px !important;
+    bottom: 17px;
+}
+#checkout .navbar{
+    justify-content: center !important;
 }
 /* checkout page css end */
+
+/* ===================================
+    Media Queries
+   ====================================== */
+
+/*Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {
+    .booking-detail{
+        flex-wrap: wrap;
+    }
+    .booking-detail span{
+        display: inline;
+    }
+    .owl-theme .owl-dots{
+        bottom: 36px;
+    }
+    #checkout .owl-theme .owl-dots{
+        bottom: 10px;
+    }
+    #checkout .owl-carousel .owl-item img{
+        height: 249px;
+    }
+    #checkout .products {
+        height: 255px;
+    }
+}
