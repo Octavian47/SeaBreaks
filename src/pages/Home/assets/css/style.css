@@ -2567,6 +2567,12 @@ input, select, textarea{
 .error{
     border: 1px solid #ff0000;
 }
+.mandatory{
+    display: none;
+    color: #ff0000;
+    font-size: 13px;
+    font-weight: bold;
+}
 /* spinner/processing state, errors */
 .spinner,
 .spinner:before,

@@ -46,7 +46,7 @@ const ProductViewModals = () => {
   };
   const [timeOption, setTimeOption] = useState('');
 
-  const [getYacht, setYacht] = useState('Compact Yacht');
+  const [getYacht, setYacht] = useState('');
   const [getPrice, setPrice] = useState('1150');
   const [getDiscountDropDown, setDiscountDropDown] = useState(false);
   const [getOptionDiscount, setOptionDiscount] = useState('');
@@ -107,7 +107,9 @@ const ProductViewModals = () => {
       let price = e.target[e.target.selectedIndex].getAttribute('data-price');
       setPrice(price)
       setYacht(e.target.value)
+      setOptionDiscount('')
       $("select[name='yacht_size']").removeClass('error');
+      $("select[name='yacht_size']").next('span').hide();
       if(e.target.value  !== '' && e.target.value !== 'Compact Yacht'){
         setDiscountDropDown(true)
       }
@@ -122,6 +124,7 @@ const ProductViewModals = () => {
       setOptionDiscount(e.target.value)
       let dis = (getPrice/100)*e.target.value;
       $("select[name='discount']").removeClass('error')
+      $("select[name='discount']").next('span').hide();
       setDiscount(dis)
   }
 
@@ -192,18 +195,12 @@ const ProductViewModals = () => {
     e.preventDefault();
     if(getYacht == ''){
       $("select[name='yacht_size']").addClass('error').focus();
+      $("select[name='yacht_size']").next('span').show();
       return false;
     }
     else if(getYacht && getYacht !== 'Compact Yacht' && getOptionDiscount == ''){
       $("select[name='discount']").addClass('error').focus();
-      return false;
-    }
-    else if(activityOption == ''){
-      $("select[name='yacht_activity']").addClass('error').focus();
-      return false;
-    }
-    else  if(timeOption == ''){
-      $("select[name='yacht_time']").addClass('error').focus();
+      $("select[name='discount']").next('span').show();
       return false;
     }
     else{
@@ -214,6 +211,7 @@ const ProductViewModals = () => {
         'discount': getOptionDiscount,
         'premium_yacht': getpremiumYacht,
         'activity' : activityOption,
+        'duration' : $("input[name='duration']").val(),
         'time' : timeOption
       }
       localStorage.setItem("cart", JSON.stringify(data));
@@ -222,6 +220,8 @@ const ProductViewModals = () => {
     }
   }
   useEffect(() => {
+    setYacht('')
+    setDiscountDropDown(false)
     numberInputCounter();
   }, []);
   const handleProceed = () => {
@@ -649,6 +649,9 @@ const ProductViewModals = () => {
                             onBeforeInput={(e) => {
                               e.preventDefault();
                             }}
+                            onClick={(e) => {
+                              e.preventDefault();
+                            }}
                         />
                       </div>
                     </Col>
@@ -674,17 +677,17 @@ const ProductViewModals = () => {
                                   data-price={'1750'}>Large Yacht – Up to 8 Guests: €1750 / £1500
                           </option>
                         </select>
+                        <span className={'mandatory'}>please complete the mandatory fields</span>
                       </div>
                     </Col>
                   </Row>
-                  <Row className={`pb-md-4 ${(getDiscountDropDown) ? '' : 'd-none'}`}>
+                <Row className={`pb-md-4 discount-dropdown ${(getDiscountDropDown) ? '' : 'd-none'}`}>
                     <Col xs={12}>
                       <div className="color-selection">
-                        {getDiscountDropDown}
-                        <h6 className="text-center text-md-left">ADD DISCOUNT FOR BOOKINGS UNDER 4 PASSENGERS</h6>
+                        <h6 className="text-center text-md-left">*ADD DISCOUNT FOR BOOKINGS UNDER 4 PASSENGERS</h6>
                       </div>
                       <div className="color-picker select-opacity text-center text-md-left">
-                        <select value={getOptionDiscount} name={'discount'} onChange={selectDiscount}>
+                        <select value={getOptionDiscount} name={'discount'} onChange={selectDiscount} required>
                           <option value="">Select Number of Passengers
                           </option>
                           <option value="15">1 Passenger: -15% Discount
@@ -694,6 +697,7 @@ const ProductViewModals = () => {
                           <option value="5">3 Passengers: -5% Discount
                           </option>
                         </select>
+                        <span className={'mandatory'}>please complete the mandatory fields</span>
                       </div>
                     </Col>
                   </Row>
@@ -703,7 +707,7 @@ const ProductViewModals = () => {
                         <h6 className="text-center text-md-left">CHOOSE ACTIVITY - INCLUDED</h6>
                       </div>
                       <div className="color-picker select-opacity text-center text-md-left">
-                        <select name={'yacht_activity'} onChange={activityChange} required>
+                        <select name={'yacht_activity'} onChange={activityChange}>
                           <option value="">Select Activity</option>
                           <option value="Scuba Diving">Scuba Diving</option>
                           <option value="Parasailing">Parasailing</option>
@@ -718,7 +722,7 @@ const ProductViewModals = () => {
                         <h6 className="text-center text-md-left">START TIME</h6>
                       </div>
                       <div className="color-picker select-opacity text-center text-md-left">
-                        <select name={'yacht_time'} onChange={timeChange} required>
+                        <select name={'yacht_time'} onChange={timeChange}>
                           <option value="">Any Time</option>
                           <option value="1st Part of the Day">1st Part of the Day
                           </option>
@@ -748,7 +752,9 @@ const ProductViewModals = () => {
                   </Row>
                   <Row className="model-bottom">
                     <Col xs={12} className="price-modal">
-                      <h1>€{(Number(getPrice) + Number(getpremiumYacht)) - getDiscount}</h1></Col>
+                      <input type={'hidden'} name={'duration'} />
+                      <h1>€{(Number(getPrice) + Number(getpremiumYacht)) - getDiscount}</h1>
+                      </Col>
                     <Col xs={12} className="modal-btn">
                       <button type={"button"}  onClick={onSubmitHandler}
                               className="btn btn-medium btn-rounded btn-trans text-capitalize">PROCEED

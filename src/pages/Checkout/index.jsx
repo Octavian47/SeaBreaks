@@ -56,7 +56,9 @@ const Checkout = () => {
     const [isRapidQuadChecked, setRapidQuadChecked] = useState(false);
     const [getCatering, setCatering] = useState(0);
     const [getExtra, setExtra] = useState(0);
-  const handleResize = () => {
+    const [activityOption, setActivityOption] = useState('');
+
+    const handleResize = () => {
     const isMobileNow = window.innerWidth < 768;
     setIsMobile(isMobileNow);
   };
@@ -107,7 +109,9 @@ const Checkout = () => {
       setCatering(0);
       setExtra(0);
         // Create PaymentIntent as soon as the page loads
-        getStripSecret(price);
+        getStripSecret(cart.activity);
+        setSelectedTime(cart.duration);
+        setActivityOption(cart.activity);
         packageSlider();
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -161,6 +165,10 @@ const Checkout = () => {
     const handleTime = (event) => {
         setSelectedTime(event.target.value);
         $("input[name='duration']").removeClass('error');
+    };
+    const activityChange = (event) => {
+        setActivityOption(event.target.value);
+        $("select[name='activity']").removeClass('error');
     };
 
     const calCatering = (event) => {
@@ -293,6 +301,10 @@ const Checkout = () => {
             $("input[name='duration']").addClass('error').focus();
             return false;
         }
+        else  if($("input[name='activity']").val() == ''){
+            $("input[name='activity']").addClass('error').focus();
+            return false;
+        }
         else if($("input[name='dep_point']").val() == ''){
             $("input[name='dep_point']").addClass('error').focus();
             return false;
@@ -320,7 +332,7 @@ const Checkout = () => {
     return (
         <>
             <Preloader/>
-            <div id="checkout">
+            <div id="checkout" autoFocus>
                 <header>
                     <nav className="navbar">
                         <Link to="/" title="Logo" className="logo scroll">
@@ -723,7 +735,7 @@ const Checkout = () => {
                                 <Row>
                                     <Col xs={12}>
                                         <div className="color-selection">
-                                            <h6 className="text-center text-md-left">Name</h6>
+                                            <h6 className="text-md-left">Name</h6>
                                         </div>
                                         <div className="color-picker date-picker text-center text-md-left">
                                             <input
@@ -795,6 +807,24 @@ const Checkout = () => {
                                                 value={selectedTime}
                                                 onChange={handleTime}
                                                 placeholder=""
+                                                readOnly={true}
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs={12}>
+                                        <div className="color-selection">
+                                            <h6 className="text-md-left">Activity</h6>
+                                        </div>
+                                        <div className="color-picker select-duration text-center text-md-left">
+                                            <input
+                                                name={'activity'}
+                                                type="text"
+                                                value={activityOption}
+                                                onChange={activityChange}
+                                                placeholder=""
+                                                readOnly={true}
                                             />
                                         </div>
                                     </Col>
@@ -818,7 +848,7 @@ const Checkout = () => {
                                 <Row>
                                     <Col xs={12}>
                                         <div className="color-selection">
-                                            <h6 className="text-md-left">Adult/Childs</h6>
+                                            <h6 className="text-md-left">Guests</h6>
                                         </div>
                                         <div className="color-picker passenger-detail text-center text-md-left">
                                             <div className="passenger-detail">
@@ -827,12 +857,14 @@ const Checkout = () => {
                                                     type="number"
                                                     value={inputAdult}
                                                     onChange={handleAdult}
+                                                    placeholder={'Adult'}
                                                 />
                                                 <input
                                                     name={'child'}
                                                     type="number"
                                                     value={inputChild}
                                                     onChange={handleChild}
+                                                    placeholder={'Child'}
                                                 />
                                             </div>
                                         </div>
