@@ -3,6 +3,7 @@ import '../assets/css/HeroSlider.css';
 import { useTranslation } from 'react-i18next';
 //import sliderImg1 from '../assets/img/slider-1.jpg';
 import sliderImg1 from '../assets/img/book-title.jpg';
+import sliderVideo1 from '../assets/img/HeroSlider/video-boat.mp4';
 const HeroSlider = () => {
 
   //For multiple languages
@@ -32,11 +33,13 @@ const HeroSlider = () => {
 
         <div id="vertical-bullets" className="rev_slider fullwidthabanner white vertical-tpb min-vh-100 position-relative">
 
-          <img src={sliderImg1} className="rev-slidebg min-vw-100 vh-100" style={{
+        <video autoPlay loop muted className="rev-slidebg min-vw-100 vh-100" style={{
           objectFit: 'cover',
           opacity: 0.6,
           mixBlendMode: 'difference'
-        }} />
+        }}>
+            <source src={sliderVideo1} type="video/mp4" />
+          </video>
 
           <div className='slider-content position-absolute' style={{
           top: '45%',
