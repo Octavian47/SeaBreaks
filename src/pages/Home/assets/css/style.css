@@ -2270,7 +2270,7 @@ input[type=checkbox]{
     padding: 10px;
 }
 .morphic-title h3{
-    font-size: 22px;
+    font-size: 22px !important;
 }
 .morphic-title .pb-md-4 {
     padding-bottom: 0.5em !important;
