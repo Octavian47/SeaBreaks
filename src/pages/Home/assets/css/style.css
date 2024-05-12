@@ -2682,7 +2682,12 @@ input, select, textarea{
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
-    padding: 25px;
+    padding: 20px 15px;
+}
+.checkout-form h3{
+    font-size: 17px;
+    color: #2b2b2b;
+    padding-bottom: 10px;
 }
 .checkout-form .product-detail{
     width: 100%;
