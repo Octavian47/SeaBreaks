@@ -5686,11 +5686,11 @@ section.ui-block-25 {
 .ui-block-29.about-us .about-list li .a-icon{
     font-size: 25px;
     margin-right: 15px;
-    color:#02aeb3;
+    color:#020b3b;
 }
 
 .ui-block-29.about-us .main-color {
-    color: #02aeb3;
+    color: #020b3b;
 }
 
 .ui-block-29.about-us h1, .ui-block-29.about-us h2, .ui-block-29.about-us h3, .ui-block-29.about-us h4, .ui-block-29.about-us h5, .ui-block-29.about-us h6 {
@@ -21000,7 +21000,7 @@ section.ui-block-25 {
 }
 
 .ui-block-10.team-section .team-ul li a:hover {
-    background-color: #02aeb3;
+    background-color: #020b3b;
     color: #ffffff !important;
 }
 
@@ -21019,7 +21019,7 @@ section.ui-block-25 {
 }
 
 .ui-block-10.team-section .main-color {
-    color: #02aeb3;
+    color: #020b3b;
 }
 
 .ui-block-10.team-section .paragraph {
@@ -24692,7 +24692,7 @@ section.ui-block-25 {
 .ui-block-16.testimonial-sec .testimonial .pic{
     width: 120px;
     height: 120px;
-    border: 5px double #02aeb3;
+    border: 5px double #020b3b;
     margin: 0 auto;
     position: absolute;
     top: -60px;
@@ -24717,7 +24717,7 @@ section.ui-block-25 {
     content: "\E989";
     font-family: "LineIcons";
     font-size: 32px;
-    color: #02aeb3;
+    color: #020b3b;
     position: absolute;
     top: -15px;
     left: -35px;
@@ -24732,7 +24732,7 @@ section.ui-block-25 {
     content: "";
     width: 50px;
     height: 2px;
-    background: #02aeb3;
+    background: #020b3b;
     margin: 0 auto;
     position: absolute;
     bottom: -10px;
@@ -24774,15 +24774,15 @@ section.ui-block-25 {
     width: 25px;
     height: 12px;
     border-radius: 25%;
-    background:#02aeb3;
+    background:#020b3b;
 }
 
 .ui-block-16.testimonial-sec .owl-carousel .owl-dots .owl-dot:hover{
-    background:#02aeb3;
+    background:#020b3b;
 }
 
 .ui-block-16.testimonial-sec .main-color {
-    color: #02aeb3;
+    color: #020b3b;
 }
 
 .ui-block-16.testimonial-sec .heading-area .title{
@@ -26048,7 +26048,7 @@ section,.section-padding {position: relative;padding: 7.5rem 0;overflow: hidden;
 }
 
 .ui-block-02.quote .bg-main {
-    background: #02aeb3;
+    background: #020b3b;
 }
 
 .ui-block-02.quote .opacity-7 {
@@ -32492,9 +32492,9 @@ section.main-page {position: relative; padding: 7.5rem 0; overflow: hidden;}
 
 .ui-block-23.button .btn.btn-large {font-size:14px; padding: 9px 34px; line-height: 1.8em;}
 
-.ui-block-23.button .btn.btn-purple {background: #02aeb3; border-color: #02aeb3; color: #ffffff}
+.ui-block-23.button .btn.btn-purple {background: #020b3b; border-color: #020b3b; color: #ffffff}
 
-.ui-block-23.button .btn.btn-purple:hover, .ui-block-23.button .btn.btn-purple:focus {background: transparent !important; border-color: #02aeb3; color: #02aeb3 !important}
+.ui-block-23.button .btn.btn-purple:hover, .ui-block-23.button .btn.btn-purple:focus {background: transparent !important; border-color: #020b3b; color: #020b3b !important}
 
 /* ===================================
      UI-Block-24

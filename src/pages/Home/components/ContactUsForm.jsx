@@ -1,12 +1,18 @@
 import { Col, Container, Row } from "react-bootstrap";
+import { useTranslation } from 'react-i18next';
 const ContactUsForm = () => {
+
+  //For multiple languages
+  const { t } = useTranslation();
+
+
   return <section id="contact">
       <Container>
         <Row>
           <Col md={12} className="text-center">
             <div className="heading-area mx-570 pb-5">
-              <h6 className="sub-title main-color">For Support Contact Us</h6>
-              <h2 className="title m-0">Let's Get In Touch</h2>
+              <h6 className="sub-title main-color">{t('contact1')}</h6>
+              <h2 className="title m-0">{t('contact2')}</h2>
             </div>
           </Col>
         </Row>

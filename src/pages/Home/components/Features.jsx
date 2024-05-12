@@ -1,34 +1,34 @@
 import { Col, Container, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import servicesImg from '../assets/img/services.png';
+
 const Features = () => {
-  return <section className="features" id="app">
+  // For multiple languages
+  const { t } = useTranslation();
+
+  return (
+    <section className="features" id="app">
       <Container>
         <Row>
-          <Col xs={12} md={10} lg={8} className="offset-md-1 offset-lg-2 text-center wow fadeIn" style={{
-          visibility: 'visible',
-          animationName: 'fadeIn'
-        }}>
+          <Col xs={12} md={10} lg={8} className="offset-md-1 offset-lg-2 text-center wow fadeIn" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
             <div className="heading-area d-inline-block">
-              <h6 className="sub-title main-color">Towards Wind &amp; Waves</h6>
-              <h2 className="title">We Serve Best</h2>
-              <p className="paragraph">There are many variations of passages of Lorem Ipsum available be the majority have suffered alteration in some form, by injected humour or randomised words.
-              </p></div>
+              <h6 className="sub-title main-color">{t('serives1')}</h6>
+              <h2 className="title">{t('serives2')}</h2>
+              <p className="paragraph">{t('serives3')}</p>
+            </div>
           </Col>
         </Row>
         <Row className="align-items-center text-center">
-          <Col lg={4} className="wow fadeInLeft mb-5 mb-lg-0" style={{
-          visibility: 'visible',
-          animationName: 'fadeInLeft'
-        }}>
+          <Col lg={4} className="wow fadeInLeft mb-5 mb-lg-0" style={{ visibility: 'visible', animationName: 'fadeInLeft' }}>
             <div className="app-feature">
               <i className="lni lni-book gradient-text1" />
-              <h4 className="mb-3">Beginners Tuition</h4>
-              <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit Suspendisse in orci enim gravida nibh.</p>
+              <h4 className="mb-3">{t('serives4')}</h4>
+              <p>{t('serives5')}</p>
             </div>
             <div className="app-feature">
               <i className="lni lni-home gradient-text1" />
-              <h4 className="mb-3">Accommodation</h4>
-              <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit Suspendisse in orci enim gravida nibh.</p>
+              <h4 className="mb-3">{t('serives6')}</h4>
+              <p>{t('serives7')}</p>
             </div>
           </Col>
           <Col lg={4} className="wow fadeInUp mb-5 mb-lg-0">
@@ -36,19 +36,16 @@ const Features = () => {
               <img src={servicesImg} alt="image" />
             </div>
           </Col>
-          <Col lg={4} className="wow fadeInRight" style={{
-          visibility: 'visible',
-          animationName: 'fadeInRight'
-        }}>
+          <Col lg={4} className="wow fadeInRight" style={{ visibility: 'visible', animationName: 'fadeInRight' }}>
             <div className="app-feature">
               <i className="lni lni-direction gradient-text1" />
-              <h4 className="mb-3">Location</h4>
-              <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit Suspendisse in orci enim gravida nibh.</p>
+              <h4 className="mb-3">{t('serives8')}</h4>
+              <p>{t('serives9')}</p>
             </div>
             <div className="app-feature">
               <i className="lni lni-drop gradient-text1" />
-              <h4 className="mb-3">Windsurfing</h4>
-              <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit Suspendisse in orci enim gravida nibh.</p>
+              <h4 className="mb-3">{t('serives10')}</h4>
+              <p>{t('serives11')}</p>
             </div>
           </Col>
         </Row>
@@ -57,6 +54,8 @@ const Features = () => {
         <div className="wave" />
         <div className="wave" />
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Features;

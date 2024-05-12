@@ -108,8 +108,8 @@
 .language-modal-button {
   display: block;
   width: 100%;
-  color: #02aeb3; /* Text color */
-  border-color: #02aeb3; /* Border color */
+  color: #020b3b; /* Text color */
+  border-color: #020b3b; /* Border color */
   background-color: white; /* Background color */
   text-align: left; /* Align text to the left */
   border-radius: 0.25rem; /* Optional: for rounded corners */
@@ -119,12 +119,12 @@
 /* Remove the hover background color change */
 .language-modal-button:hover {
   background-color: transparent; /* Keep the background transparent */
-  color: #02aeb3; /* Keep the text color the same as non-hover */
+  color: #020b3b; /* Keep the text color the same as non-hover */
 }
 
 /* If you want to keep the hover effect for the border only */
 .language-modal-button:hover {
-  border-color: #02aeb3; /* Change the border color on hover if desired */
+  border-color: #020b3b; /* Change the border color on hover if desired */
 }
 
 /* Style the flag images */
@@ -143,5 +143,5 @@
 /* Style the close button and title specifically for this modal */
 .language-modal .close,
 .language-modal .modal-title {
-  color: #02aeb3;
+  color: #020b3b;
 }

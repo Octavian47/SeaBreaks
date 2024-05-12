@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import testimonialImg1 from '../assets/img/test1.jpg';
 import testimonialImg2 from '../assets/img/test2.jpg';
 import testimonialImg3 from '../assets/img/test3.jpg';
@@ -8,6 +9,11 @@ import '@vendor/css/owl.carousel.min.css';
 import '@vendor/js/owl.carousel.min.js';
 import { Col, Container, Row } from 'react-bootstrap';
 const Testimonials = () => {
+
+   //For multiple languages
+   const { t } = useTranslation();
+
+
   useEffect(() => {
     $("#testimonial-slider").owlCarousel({
       items: 2,
@@ -46,9 +52,9 @@ const Testimonials = () => {
           animationName: 'fadeIn'
         }}>
             <div className="heading-area d-inline-block">
-              <h6 className="sub-title main-color">Our valuable customer </h6>
-              <h2 className="title">testimonial</h2>
-              <p className="paragraph">There are many variations of passages of Lorem Ipsum available be the majority have suffered alteration in some form, by injected humour or randomised words.
+              <h6 className="sub-title main-color">{t('testimonials1')}</h6>
+              <h2 className="title">{t('testimonials2')}</h2>
+              <p className="paragraph">{t('testimonials3')}
               </p></div>
           </div>
         </Row>

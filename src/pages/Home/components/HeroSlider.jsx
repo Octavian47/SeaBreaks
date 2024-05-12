@@ -1,8 +1,22 @@
 import { useEffect } from 'react';
 import '../assets/css/HeroSlider.css';
+import { useTranslation } from 'react-i18next';
 //import sliderImg1 from '../assets/img/slider-1.jpg';
 import sliderImg1 from '../assets/img/book-title.jpg';
+import sliderVideo1 from '../assets/img/HeroSlider/video-boat.mp4';
 const HeroSlider = () => {
+
+  //For multiple languages
+  const { t } = useTranslation();
+
+  // Function to redirect to the packages section
+  const redirectToPackages = () => {
+    const packagesSection = document.getElementById('packages');
+    if (packagesSection) {
+      packagesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     $(".slider-btn").on("click", function (event) {
       event.preventDefault();
@@ -19,11 +33,13 @@ const HeroSlider = () => {
 
         <div id="vertical-bullets" className="rev_slider fullwidthabanner white vertical-tpb min-vh-100 position-relative">
 
-          <img src={sliderImg1} className="rev-slidebg min-vw-100 vh-100" style={{
+        <video autoPlay loop muted className="rev-slidebg min-vw-100 vh-100" style={{
           objectFit: 'cover',
           opacity: 0.6,
           mixBlendMode: 'difference'
-        }} />
+        }}>
+            <source src={sliderVideo1} type="video/mp4" />
+          </video>
 
           <div className='slider-content position-absolute' style={{
           top: '45%',
@@ -31,19 +47,19 @@ const HeroSlider = () => {
         }}>
 
             <div className="tp-caption tp-resizeme">
-              <h2 className="text-capitalize font-xlight whitecolor heading-title-small">WIND,WATER,SURF</h2>
+              <h2 className="text-capitalize font-xlight whitecolor heading-title-small">{t('heroSlider1')}</h2>
             </div>
 
             <div className="tp-caption tp-resizeme">
-              <h1 className="text-capitalize font-xlight defaultcolor-slider heading-title-large">SURF LIKE PRO</h1>
+              <h1 className="text-capitalize font-xlight defaultcolor-slider heading-title-large">{t('heroSlider2')}</h1>
             </div>
 
             <div className="tp-caption tp-resizeme">
-              <p className="text-capitalize font-xlight whitecolor">Lorem ipsum dolor sit amet, consectetur adipiscing <br />elit. Etiam eget velit interdum, sodales erat <br />commodo, faucibus urna.</p>
+              <p className="text-capitalize font-xlight whitecolor">{t('heroSlider3')}</p>
             </div>
 
             <div className="tp-caption tp-resizeme mt-3">
-              <a href="#about-us" className="btn white-tran-blue-btn slider-btn slider-btn">Learn More</a>
+              <a href="#packages" onClick={redirectToPackages}  className="btn white-tran-blue-btn slider-btn slider-btn">{t('heroSlider4')}</a>
             </div>
           </div>
 
