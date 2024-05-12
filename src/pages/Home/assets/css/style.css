@@ -2315,6 +2315,16 @@ input, select, textarea{
     width: 12px;
     display: none;
 }
+
+#data-modal .products{
+    height: 304px;
+}
+#data-modal .products.owl-carousel .owl-item img {
+    height: 307px;
+}
+#data-modal .products.owl-theme .owl-dots{
+    bottom: 0px;
+}
 #checkout .owl-carousel .owl-dots .owl-dot,
 #data-modal .owl-carousel .owl-dots .owl-dot{
     background: #2b2b2bcf;
@@ -2681,7 +2691,7 @@ input, select, textarea{
     margin: auto;
 }
 #checkout .owl-theme .owl-dots{
-    bottom: 0;
+    bottom: 4px;
 }
 #checkout .navbar{
     justify-content: center !important;
@@ -2739,11 +2749,17 @@ input, select, textarea{
     .booking-detail span{
         display: inline;
     }
-    .owl-theme .owl-dots{
-        bottom: 36px;
+    #data-modal .owl-theme .owl-dots{
+        bottom: 0px;
     }
     #checkout .owl-carousel .owl-item img{
         height: 249px;
+    }
+    #data-modal .products{
+        height: 240px;
+    }
+    #data-modal .products.owl-carousel .owl-item img {
+        height: 243px;
     }
     #checkout .products {
         height: 249px;
