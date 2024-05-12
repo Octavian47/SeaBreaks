@@ -2313,6 +2313,7 @@ input, select, textarea{
     margin: 5px 7px;
     opacity: 0.5;
     width: 12px;
+    display: none;
 }
 /* checkout page css */
 

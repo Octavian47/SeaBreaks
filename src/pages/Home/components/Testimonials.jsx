@@ -16,7 +16,7 @@ const Testimonials = () => {
 
   useEffect(() => {
     $("#testimonial-slider").owlCarousel({
-      items: 2,
+      items: 4,
       autoplay: 1500,
       smartSpeed: 1500,
       autoplayHoverPause: true,
@@ -27,7 +27,7 @@ const Testimonials = () => {
       nav: false,
       responsive: {
         1200: {
-          items: 2
+          items: 4
         },
         768: {
           items: 2

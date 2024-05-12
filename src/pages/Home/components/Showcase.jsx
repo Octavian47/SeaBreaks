@@ -16,7 +16,7 @@ const Showcase = () => {
 
   useEffect(() => {
     $('.portfolio-items').owlCarousel({
-      items: 2,
+      items: 6,
       autoplay: true,
       autoplayTimeout: 3000,
       smartSpeed: 1500,
