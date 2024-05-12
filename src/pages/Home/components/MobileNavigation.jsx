@@ -139,10 +139,10 @@ const MobileNavigationBar = ({ headerClassName }) => {
                 <a className="nav-link scroll" href="#about-us" onClick={handleNavLinkClick}>About Us</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#packages" onClick={handleNavLinkClick}>Services</a>
+                <a className="nav-link scroll" href="#features" onClick={handleNavLinkClick}>Services</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link scroll" href="#team-section" onClick={handleNavLinkClick}>Yacht Gateways</a>
+                <a className="nav-link scroll" href="#packages" onClick={handleNavLinkClick}>Yacht Gateways</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link scroll" href="#showcases" onClick={handleNavLinkClick}>Showcases</a>

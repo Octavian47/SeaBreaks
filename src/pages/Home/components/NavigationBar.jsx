@@ -71,9 +71,9 @@ const NavigationBar = ({
               <a className={`nav-link scroll ${activeLink === '#about-us' ? 'active' : ''}`}
                  href="#about-us" onClick={handleNavLinkClick}>About Us</a>
               <a className={`nav-link scroll ${activeLink === '#packages' ? 'active' : ''}`}
-                 href="#packages" onClick={handleNavLinkClick}>Services</a>
+                 href="#features" onClick={handleNavLinkClick}>Services</a>
               <a className={`nav-link scroll ${activeLink === '#team-section' ? 'active' : ''}`}
-                 href="#team-section" onClick={handleNavLinkClick}>Yacht Gateways</a>
+                 href="#packages" onClick={handleNavLinkClick}>Yacht Gateways</a>
               <a className={`nav-link scroll ${activeLink === '#showcases' ? 'active' : ''}`}
                  href="#showcases" onClick={handleNavLinkClick}>Showcases</a>
               <a className={`nav-link scroll ${activeLink === '#reviews' ? 'active' : ''}`}

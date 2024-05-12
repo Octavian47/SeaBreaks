@@ -67,8 +67,10 @@ const Home = () => {
       </div>
 
       <Advertisement />
-
+      
+      <div id="features">
       <Features />
+      </div>
 
       <ReadMoreParallax />
 
