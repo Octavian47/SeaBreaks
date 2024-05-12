@@ -1,6 +1,6 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import aboutUsImg from '../assets/img/about-us.png';
+import aboutUsImg from '../assets/img/AboutUs/about-us.png';
 
 const AboutUs = () => {
   // For multiple languages
