@@ -7,7 +7,7 @@ import img4 from '../assets/img/ImageGrid/package-4.jpg';
 
 const ImageGrid = () => {
   const yachtInfo = [
-    { name: "EXPRESS SEA BREAK: 5H", duration:"5H", length: "62FT", capacity: "25", price: "1300", modelYear: "2023 MODEL", imageName: "package-1.jpg", modalId: 'morphic-window1' },
+    { name: "EXPRESS SEA BREAK: 4H", duration:"4H", length: "62FT", capacity: "25", price: "1300", modelYear: "2023 MODEL", imageName: "package-1.jpg", modalId: 'morphic-window1' },
     { name: "SHORT SEA BREAK: 1 DAY", duration:"1 DAY", length: "62FT", capacity: "25", price: "1300", modelYear: "2023 MODEL", imageName: "package-2.jpg", modalId: 'morphic-window2' },
     { name: "CLASSIC SEA BREAK: 2 DAYS",duration:"2 DAYS", length: "52FT", capacity: "17", price: "850", modelYear: "2022 MODEL", imageName: "package-3.jpg", modalId: 'morphic-window3' },
     { name: "CUSTOM SEA BREAK", duration:"", length: "52FT", capacity: "17", price: "850", modelYear: "2022 MODEL", imageName: "package-4.jpg", modalId: 'morphic-window4' }
