@@ -2315,6 +2315,15 @@ input, select, textarea{
     width: 12px;
     display: none;
 }
+#checkout .owl-carousel .owl-dots .owl-dot,
+#data-modal .owl-carousel .owl-dots .owl-dot{
+    background: #2b2b2bcf;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 5px;
+    transition: background .3s ease;
+}
 /* checkout page css */
 
 .detail-page .color-selection h6{
@@ -2331,10 +2340,7 @@ input, select, textarea{
     text-transform: capitalize !important;
 }
 .detail-page .morphic-title {
-    padding-bottom: 0px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 0px;
+    padding: 0px 15px;
 }
 .detail-page .morphic-title .col-12{
     display: flex;

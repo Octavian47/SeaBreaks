@@ -287,7 +287,19 @@ const Checkout = () => {
     }
     const validation = () => {
         let filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if($("input[name='name']").val() == ''){
+        if($("input[name='dep_point']").val() == ''){
+            $("input[name='dep_point']").addClass('error').focus();
+            return false;
+        }
+        else if($("input[name='adult']").val() == ''){
+            $("input[name='adult']").addClass('error').focus();
+            return false;
+        }
+        else if($("input[name='child']").val() == ''){
+            $("input[name='child']").addClass('error').focus();
+            return false;
+        }
+        else if($("input[name='name']").val() == ''){
             $("input[name='name']").addClass('error').focus();
             console.log('name')
             return false;
@@ -306,19 +318,6 @@ const Checkout = () => {
             !filter.test($("input[name='email']").val())){
                 alert('Please provide a valid email address');
                 return false;
-        }
-        else if($("input[name='dep_point']").val() == ''){
-            console.log('ff')
-            $("input[name='dep_point']").addClass('error').focus();
-            return false;
-        }
-        else if($("input[name='adult']").val() == ''){
-            $("input[name='adult']").addClass('error').focus();
-            return false;
-        }
-       else if($("input[name='child']").val() == ''){
-            $("input[name='child']").addClass('error').focus();
-            return false;
         }
         else if(!$("input[name='terms']").is(":checked")){
             $("label[for='terms']").addClass('error').focus();
