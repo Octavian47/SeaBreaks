@@ -15,7 +15,7 @@
   }
   
   .side-contact-bar a, .side-contact-bar .flag-dropdown {
-    color: #02aeb3; /* Applying the teal color */
+    color: #020b3b; /* Applying the teal color */
     margin: 10px 0; /* Less space between items */
     text-decoration: none;
     display: flex; /* Ensure center alignment of children */
