@@ -2332,6 +2332,9 @@ input, select, textarea{
 }
 .detail-page .morphic-title {
     padding-bottom: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 0px;
 }
 .detail-page .morphic-title .col-12{
     display: flex;
