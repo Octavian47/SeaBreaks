@@ -24,7 +24,7 @@
 }
 
 .custom-carousel-item h3 {
-  font-size: 0.6em;
+  font-size: 0.9em;
   opacity: 0.5;
   text-align: center;
   margin: 0;
@@ -34,7 +34,7 @@
 }
 
 .custom-carousel-item h3.selected {
-  font-size: 0.7em;
+  font-size: 1em;
   opacity: 1;
   text-decoration: underline;
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next'; 
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../assets/css/MobileNavigation.css';
@@ -14,6 +15,11 @@ import France_Round from '../assets/img/Flags/France_Round.png';
 
 
 const MobileNavigationBar = ({ headerClassName }) => {
+
+  const {i18n} = useTranslation();
+
+
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('en');
@@ -36,6 +42,7 @@ const MobileNavigationBar = ({ headerClassName }) => {
 
   const handleSelectLanguage = (language) => {
     setSelectedLanguage(language);
+    i18n.changeLanguage(language);
     handleCloseModal();
   };
 
