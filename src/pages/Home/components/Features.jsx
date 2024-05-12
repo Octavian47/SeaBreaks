@@ -1,6 +1,6 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import servicesImg from '../assets/img/services.png';
+import servicesImg from '../assets/img/Services/services.png';
 
 const Features = () => {
   // For multiple languages
