@@ -671,7 +671,6 @@ header a.logo img {
    ====================================== */
 
 .slider-section{
-    overflow-x: hidden;
     position: relative;
 }
 
