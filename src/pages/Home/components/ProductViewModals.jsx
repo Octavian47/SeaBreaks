@@ -205,6 +205,7 @@ const ProductViewModals = () => {
     }
     else{
       let data = {
+        'name' : $("input[name='name']").val(),
         'yacht': getYacht,
         'date': selectedDate,
         'price': (Number(getPrice)+Number(getpremiumYacht))-getDiscount,
@@ -212,6 +213,8 @@ const ProductViewModals = () => {
         'premium_yacht': getpremiumYacht,
         'activity' : activityOption,
         'duration' : $("input[name='duration']").val(),
+        'yacht_length' : $("input[name='length']").val(),
+        'capacity' : $("input[name='capacity']").val(),
         'time' : timeOption
       }
       localStorage.setItem("cart", JSON.stringify(data));
@@ -752,9 +755,12 @@ const ProductViewModals = () => {
                   </Row>
                   <Row className="model-bottom">
                     <Col xs={12} className="price-modal">
-                      <input type={'hidden'} name={'duration'} />
+                      <input type={'hidden'} name={'name'}/>
+                      <input type={'hidden'} name={'duration'}/>
+                      <input type={'hidden'} name={'length'}/>
+                      <input type={'hidden'} name={'capacity'}/>
                       <h1>€{(Number(getPrice) + Number(getpremiumYacht)) - getDiscount}</h1>
-                      </Col>
+                    </Col>
                     <Col xs={12} className="modal-btn">
                       <button type={"button"}  onClick={onSubmitHandler}
                               className="btn btn-medium btn-rounded btn-trans text-capitalize">PROCEED

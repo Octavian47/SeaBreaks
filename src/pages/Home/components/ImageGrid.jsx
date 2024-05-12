@@ -23,8 +23,12 @@ const ImageGrid = () => {
       });
       $("select[name='yacht_size'], select[name='discount']").removeClass('error').val('').change();
       $("select[name='yacht_size'], select[name='discount']").next('span').hide();
+      $("input[name='name']").val(selectedProduct[0].name)
       $("input[name='duration']").val(selectedProduct[0].duration)
+      $("input[name='length']").val(selectedProduct[0].length)
+      $("input[name='capacity']").val(selectedProduct[0].capacity)
       $(".discount-dropdown").addClass('d-none');
+      $(".morphic-title h3").html(selectedProduct[0].name)
       modalElement.style.display = 'block'; // Or another method to display the modal
       document.body.classList.add('show-modal'); // Optionally add a class to body to show modal is active
       packageSlider();
