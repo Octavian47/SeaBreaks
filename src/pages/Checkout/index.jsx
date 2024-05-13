@@ -22,21 +22,23 @@ import modalWindowImg2 from "@/pages/Home/assets/img/model-windows/modal-img-2.p
 import logo from "@/pages/Home/assets/img/sea-breaks-logo.png";
 import '@vendor/css/owl.carousel.min.css';
 import '@vendor/js/owl.carousel.min.js';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_51NMGCzGFJGDu2WV4FCa58ZKE2bhROOhEnSkUjVX8Rt8givG80t7NDJjZ2MbZljY7iMnxJUnacVecP10BgvV8Dxoz00uk4kPDaF');
 let price = 0;
-let date = '';
 let name = '';
 let yacht_length = '';
 let capacity = '';
+let yacht_type = 'Standard'
 const Checkout = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [selectedTime, setSelectedTime] = useState('');
     const [inputValue, setInputValue] = useState('');
     const [inputAdult, setInputAdult] = useState('');
     const [inputChild, setInputChild] = useState('');
-    const [inputDep, setInputDep] = useState('');
+    const [inputDep, setInputDep] = useState('Marina Ibiza');
     const [inputName, setInputName] = useState('');
     const [inputPhone, setInputPhone] = useState('');
     const [inputEmail, setInputEmail] = useState('');
@@ -60,6 +62,7 @@ const Checkout = () => {
     const [getCatering, setCatering] = useState(0);
     const [getExtra, setExtra] = useState(0);
     const [activityOption, setActivityOption] = useState('');
+    const [date, setSelectedDate] = useState();
 
     const handleResize = () => {
     const isMobileNow = window.innerWidth < 768;
@@ -70,16 +73,17 @@ const Checkout = () => {
     if(cart) {
         cart = JSON.parse(cart);
         price = cart.price;
-        date = moment(cart.date).format("DD-MM-YYYY");
         name = cart.name;
         yacht_length = cart.yacht_length;
         capacity = cart.capacity;
+        yacht_type = (cart.premium_yacht)?'Premium':'Standard';
     }
     else{
         window.history.back();
     }
     useEffect(() => {
-    const width = $(window).width();
+        setSelectedDate(cart.date);
+        const width = $(window).width();
     if (width && width > 767) {
       new WOW({
         boxClass: 'wow',
@@ -174,7 +178,7 @@ const Checkout = () => {
     };
     const activityChange = (event) => {
         setActivityOption(event.target.value);
-        $("select[name='activity']").removeClass('error');
+        $("select[name='yacht_activity']").removeClass('error');
     };
 
     const calCatering = (event) => {
@@ -285,11 +289,18 @@ const Checkout = () => {
     const selectPolicy = () =>{
         $("label[for='cancellation_policy']").removeClass('error');
     }
+    const handleDateChange = (date) =>{
+        setSelectedDate(moment(date).format("MM/DD/YYYY"));
+    }
     const validation = () => {
         let filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if($("input[name='dep_point']").val() == ''){
             $("input[name='dep_point']").addClass('error').focus();
             return false;
+        }
+        else if($("select[name='yacht_activity']").val() == ''){
+            $("select[name='yacht_activity']").addClass('error').focus();
+             return false;
         }
         else if($("input[name='adult']").val() == ''){
             $("input[name='adult']").addClass('error').focus();
@@ -386,18 +397,33 @@ const Checkout = () => {
                                                 <div>CAPACITY</div>
                                                 <div>{capacity}</div>
                                             </div>
+                                            <div className={'sub-detail'}>
+                                                <div>YACHT TYPE</div>
+                                                <div>{yacht_type}</div>
+                                            </div>
                                         </div>
                                         <div className={'form'}>
                                             <div>
                                                 <div className="color-selection">
-                                                    <h6 className="text-md-left">Departure Date</h6>
+                                                <h6 className="text-md-left">Departure Date</h6>
                                                 </div>
                                                 <div className="color-picker date-picker text-center text-md-left">
-                                                    <input
-                                                        name={'dep_date'}
-                                                        type={'text'}
-                                                        value={date}
-                                                        readOnly={true}
+                                                    <DatePicker
+                                                        selected={date}
+                                                        onChange={handleDateChange}
+                                                        dateFormat="MM/dd/yyyy"
+                                                        className="black-text-datepicker"
+                                                        minDate={new Date()}
+                                                        disabledKeyboardNavigation
+                                                        onKeyDown={(e) => {
+                                                            e.preventDefault();
+                                                        }}
+                                                        onBeforeInput={(e) => {
+                                                            e.preventDefault();
+                                                        }}
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                        }}
                                                     />
                                                 </div>
                                             </div>
@@ -420,15 +446,13 @@ const Checkout = () => {
                                                 <div className="color-selection">
                                                     <h6 className="text-md-left">Activity</h6>
                                                 </div>
-                                                <div className="color-picker select-duration text-center text-md-left">
-                                                    <input
-                                                        name={'activity'}
-                                                        type="text"
-                                                        value={activityOption}
-                                                        onChange={activityChange}
-                                                        placeholder=""
-                                                        readOnly={true}
-                                                    />
+                                                <div className="w-100 color-picker select-opacity text-center text-md-left">
+                                                    <select value={activityOption} name={'yacht_activity'} onChange={activityChange}>
+                                                        <option value="">Select Activity</option>
+                                                        <option value="Scuba Diving">Scuba Diving</option>
+                                                        <option value="Parasailing">Parasailing</option>
+                                                        <option value="Jet Ski">Jet Ski</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div>
@@ -442,6 +466,7 @@ const Checkout = () => {
                                                         value={inputDep}
                                                         onChange={handleDeparture}
                                                         placeholder="Enter Location..."
+                                                        readOnly={true}
                                                     />
                                                 </div>
                                             </div>

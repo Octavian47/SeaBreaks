@@ -42,7 +42,6 @@ const ProductViewModals = () => {
 
   const activityChange = (event) => {
     setActivityOption(event.target.value);
-    $("select[name='yacht_activity']").removeClass('error');
   };
   const [timeOption, setTimeOption] = useState('');
 
