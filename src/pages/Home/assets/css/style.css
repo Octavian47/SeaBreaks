@@ -1890,15 +1890,15 @@ header a.logo img {
     .portfolio-sec .heading-area .paragraph {
         width: 100%;
     }
+    #checkout{
+        width: 600px;
+        margin: auto;
+    }
 }
 
 /*Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
 
-    #checkout{
-        width: 600px;
-        margin: auto;
-    }
 }
 
 @media (min-width: 991px) and (max-width: 1069px) {
@@ -2335,7 +2335,9 @@ input, select, textarea{
     transition: background .3s ease;
 }
 /* checkout page css */
-
+.desktop-line-top{
+    position: relative;
+}
 .detail-page .color-selection h6{
     white-space: nowrap;
     text-align: right;
@@ -2389,12 +2391,23 @@ input, select, textarea{
 .divider{
     width: 100%;
     background-color: #020b3b;
-    border-radius: 50px 0 0 50px;
+    border-radius: 50px;
     margin: .26667rem auto;
     position: relative;
     padding-left: 2rem;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+.divider:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    left: -1.15625rem;
+    width: 1.15625rem;
+    height: .02083rem;
+    background-color: #ffcc69;
 }
 .divider:before{
     content: "";
@@ -2472,12 +2485,15 @@ input, select, textarea{
 .menu-list-detail li{
     border-bottom: 1px solid rgb(204, 204, 204);
 }
-.booking-detail {
+.booking-detail, .booking-summary{
     background-color: #020b3b;
-    padding-top: 15px;
-    padding-bottom: 5px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding: 15px 10px 5px;
+}
+.booking-summary{
+    margin: 0 48px;
+}
+.desktop-design{
+    padding: 0 33px;
 }
 .detail-page .booking-detail .color-selection h6{
     background-color: #ffc967;
@@ -2488,9 +2504,6 @@ input, select, textarea{
     display: flex;
     justify-content: space-between;
 
-}
-.booking-detail.summary-space{
-    margin-top: 10px;
 }
 .checkout-summary{
     padding-bottom: 10px;
@@ -2684,10 +2697,10 @@ input, select, textarea{
     }
 }
 #checkout .products{
-    height: 402px;
+    height: 330px;
 }
 #checkout .owl-carousel .owl-item img{
-    height: 402px;
+    height: 330px;
     margin: auto;
 }
 #checkout .owl-theme .owl-dots{
@@ -2735,6 +2748,15 @@ input, select, textarea{
     padding-left: 15px;
     padding-right: 15px;
 }
+.desktop-left-line:after{
+    content: "";
+    width: .02083rem;
+    height: calc(100% - 4rem);
+    background-color: #ffcc69;
+    position: absolute;
+    left: -1.15625rem;
+    top: 2rem;
+}
 /* checkout page css end */
 
 /* ===================================
@@ -2743,9 +2765,6 @@ input, select, textarea{
 
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
-    .booking-detail{
-        flex-wrap: wrap;
-    }
     .booking-detail span{
         display: inline;
     }
@@ -2766,5 +2785,24 @@ input, select, textarea{
     }
     .van-checkbox {
         font-size: 10px;
+    }
+    .summary-space{
+        width: 100%;
+        height: 10px;
+        background: #ffffff;
+    }
+    .booking-summary{
+        background: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+    .desktop-design{
+        padding: 0;
+    }
+    .divider {
+        border-radius: 50px 0 0 50px;
+    }
+    .desktop-left-line:after,  .divider:after{
+        background-color: #ffffff;
     }
 }
