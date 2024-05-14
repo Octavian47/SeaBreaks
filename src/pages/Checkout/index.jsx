@@ -277,7 +277,24 @@ const Checkout = () => {
         calExtra(event);
     };
     const appearance = {
-        theme: 'stripe',
+        theme: 'night',
+        variables: {
+            fontFamily: 'Sohne, system-ui, sans-serif',
+            fontWeightNormal: '500',
+            borderRadius: '8px',
+            colorPrimary: '#EFC078',
+            colorText: 'white',
+            colorTextSecondary: '#0A2540',
+            colorTextPlaceholder: '#ABB2BF',
+            logoColor: 'dark'
+        },
+        rules: {
+            '.Input': {
+                backgroundColor: '#ffffff',
+                border: '1px solid var(--colorPrimary)',
+                color: 'var(--colorTextSecondary)'
+            }
+        }
     };
     const options = {
         clientSecret,
