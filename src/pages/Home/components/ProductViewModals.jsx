@@ -48,7 +48,7 @@ const ProductViewModals = () => {
   const [getYacht, setYacht] = useState('');
   const [getPrice, setPrice] = useState('1150');
   const [getDiscountDropDown, setDiscountDropDown] = useState(false);
-  const [getOptionDiscount, setOptionDiscount] = useState('');
+  const [getGuest, setGuest] = useState('');
   const [getDiscount, setDiscount] = useState(0);
 
   const timeChange = (event) => {
@@ -106,22 +106,23 @@ const ProductViewModals = () => {
       let price = e.target[e.target.selectedIndex].getAttribute('data-price');
       setPrice(price)
       setYacht(e.target.value)
-      setOptionDiscount('')
+      setGuest('')
       $("select[name='yacht_size']").removeClass('error');
       $("select[name='yacht_size']").next('span').hide();
-      if(e.target.value  !== '' && e.target.value !== 'Compact Yacht'){
+      if(e.target.value  !== '' && e.target.value !== 'compact'){
         setDiscountDropDown(true)
       }
       else{
         setDiscountDropDown(false)
         setDiscount(0)
-        setOptionDiscount('')
+        setGuest('')
       }
   }
 
   const selectDiscount = (e) => {
-      setOptionDiscount(e.target.value)
-      let dis = (getPrice/100)*e.target.value;
+    let discount = e.target[e.target.selectedIndex].getAttribute('data-discount');
+    setGuest(e.target.value)
+      let dis = (getPrice/100)*discount;
       $("select[name='discount']").removeClass('error')
       $("select[name='discount']").next('span').hide();
       setDiscount(dis)
@@ -197,7 +198,7 @@ const ProductViewModals = () => {
       $("select[name='yacht_size']").next('span').show();
       return false;
     }
-    else if(getYacht && getYacht !== 'Compact Yacht' && getOptionDiscount == ''){
+    else if(getYacht && getYacht !== 'compact' && getGuest == ''){
       $("select[name='discount']").addClass('error').focus();
       $("select[name='discount']").next('span').show();
       return false;
@@ -207,14 +208,14 @@ const ProductViewModals = () => {
         'name' : $("input[name='name']").val(),
         'yacht': getYacht,
         'date': selectedDate,
-        'price': (Number(getPrice)+Number(getpremiumYacht))-getDiscount,
-        'discount': getOptionDiscount,
+        'price': Number(getPrice),
+        'total_price': (Number(getPrice)+Number(getpremiumYacht))-getDiscount,
+        'guest': getGuest,
         'premium_yacht': getpremiumYacht,
         'activity' : activityOption,
         'duration' : $("input[name='duration']").val(),
-        'yacht_length' : $("input[name='length']").val(),
-        'capacity' : $("input[name='capacity']").val(),
-        'time' : timeOption
+        'time' : timeOption,
+        'apply_coupon': false
       }
       localStorage.setItem("cart", JSON.stringify(data));
       navigate('/checkout')
@@ -666,15 +667,15 @@ const ProductViewModals = () => {
                       <div className="color-picker select-opacity text-center text-md-left">
                         <select value={getYacht} name={'yacht_size'} onChange={hanleYacht} required>
                           <option value="">Select Size</option>
-                          <option value="Compact Yacht"
+                          <option value="compact"
                                   data-text={"Compact Yacht – Up to 2 Guests: €1150 / £980"}
                                   data-price={'1150'}>Compact Yacht – Up to 2 Guests: €1150 / £980
                           </option>
-                          <option value="Regular Yacht"
+                          <option value="regular"
                                   data-text={"Regular Yacht – Up to 4 Guests: €1350 / £1155"}
                                   data-price={'1350'}>Regular Yacht – Up to 4 Guests: €1350 / £1155
                           </option>
-                          <option value="Large Yacht"
+                          <option value="large"
                                   data-text={"Large Yacht – Up to 8 Guests: €1750 / £1500"}
                                   data-price={'1750'}>Large Yacht – Up to 8 Guests: €1750 / £1500
                           </option>
@@ -689,14 +690,14 @@ const ProductViewModals = () => {
                         <h6 className="text-center text-md-left">*ADD DISCOUNT FOR BOOKINGS UNDER 4 PASSENGERS</h6>
                       </div>
                       <div className="color-picker select-opacity text-center text-md-left">
-                        <select value={getOptionDiscount} name={'discount'} onChange={selectDiscount} required>
+                        <select value={getGuest} name={'discount'} onChange={selectDiscount} required>
                           <option value="">Select Number of Passengers
                           </option>
-                          <option value="15">1 Passenger: -15% Discount
+                          <option value="1" data-discount={'15'}>1 Passenger: -15% Discount
                           </option>
-                          <option value="10">2 Passengers: -10% Discount
+                          <option value="2" data-discount={'10'}>2 Passengers: -10% Discount
                           </option>
-                          <option value="5">3 Passengers: -5% Discount
+                          <option value="3" data-discount={'5'}>3 Passengers: -5% Discount
                           </option>
                         </select>
                         <span className={'mandatory'}>please complete the mandatory fields</span>

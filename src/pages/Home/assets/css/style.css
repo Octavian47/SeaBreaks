@@ -2435,6 +2435,7 @@ input, select, textarea{
 .menu-title ul{
     list-style: none;
     display: flex;
+    justify-content: space-between;
     margin-bottom: 0px;
 }
 
@@ -2458,6 +2459,7 @@ input, select, textarea{
 }
 .menu-list-detail label{
     display: flex;
+    justify-content: space-between;
 }
 .menu-list-detail .checkbox input{
     width: auto;
@@ -2757,6 +2759,40 @@ input, select, textarea{
     left: -1.15625rem;
     top: 2rem;
 }
+
+.formbold-email-subscription-form {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+.formbold-email-subscription-form div{
+    gap: 10px;
+}
+.formbold-form-input {
+    padding: 13px !important;
+    border-radius: 6px;
+    border: 1px solid #DDE3EC;
+    background: white;
+    font-weight: 500;
+    font-size: 16px;
+    color: #536387;
+    outline: none;
+    resize: none;
+}
+
+.formbold-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 13px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #ffc764;
+    color: #212529;
+}
+
 /* checkout page css end */
 
 /* ===================================
@@ -2765,7 +2801,7 @@ input, select, textarea{
 
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
-    .booking-detail span{
+    .booking-detail .van-checkbox{
         display: inline;
     }
     #data-modal .owl-theme .owl-dots{
