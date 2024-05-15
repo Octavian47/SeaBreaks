@@ -1,6 +1,5 @@
 import { toggleDocumentAttribute } from '@/utils';
 import { useEffect, useState } from 'react';
-import WOW from 'wow.js';
 import Preloader from '../Home/components/Preloader';
 import Footer from '../Home/components/Footer';
 import BackToTop from '../Home/components/BackToTop';
@@ -37,9 +36,7 @@ let yacht_capacity = { 'compact': 2, 'regular': 4, 'large': 8};
 let cabin_length = { 'premium': {'length':'15m+','cabin': '2-3'}, 'standard':{'length':'10m+', 'cabin': '1-2'}};
 let coupon_code = { 'XACIO': '5', 'VCFIO': '15', 'SFRUI': '25'};
 const Checkout = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [selectedTime, setSelectedTime] = useState('');
-    const [inputValue, setInputValue] = useState('');
     const [inputGuest, setInputGuest] = useState('');
     const [inputDep, setInputDep] = useState('Marina Ibiza');
     const [inputName, setInputName] = useState('');
@@ -68,10 +65,7 @@ const Checkout = () => {
     const [date, setSelectedDate] = useState();
     const [applyDiscount,  setCoupon] = useState(false)
     const [totalPrice, setTotal] = useState(0)
-    const handleResize = () => {
-    const isMobileNow = window.innerWidth < 768;
-    setIsMobile(isMobileNow);
-  };
+
     let [clientSecret, setClientSecret] = useState("");
     let cart = localStorage.getItem('cart') || '{}'
     if(cart) {
@@ -100,22 +94,10 @@ const Checkout = () => {
             guest = yacht_capacity[cart.yacht];
         }
         setInputGuest(guest);
-        const width = $(window).width();
-    if (width && width > 767) {
-      new WOW({
-        boxClass: 'wow',
-        animateClass: 'animated',
-        offset: 0,
-        mobile: false,
-        live: true
-      }).init();
-    }
     toggleDocumentAttribute('data-spy', 'scroll', 'body');
     toggleDocumentAttribute('data-target', '.navbar', 'body');
     toggleDocumentAttribute('data-offset', '90', 'body');
 
-    // Event listener for window resize
-    window.addEventListener('resize', handleResize);
       setIsBbqChecked(false);
       setIsBreakfastChecked(false);
       setIsHotDogsChecked(false);
@@ -140,12 +122,6 @@ const Checkout = () => {
         setSelectedTime(cart.duration);
         setActivityOption(cart.activity);
         packageSlider();
-        return () => {
-            window.removeEventListener('resize', handleResize);
-            toggleDocumentAttribute('data-spy', 'scroll', 'body', true);
-            toggleDocumentAttribute('data-target', '.navbar', 'body', true);
-            toggleDocumentAttribute('data-offset', '90', 'body', true);
-        };
   }, []);
 
     const getStripSecret = async (amount, email = '') => {
@@ -1057,7 +1033,7 @@ const Checkout = () => {
                                             <ul>
                                                 <li>
                                                     <span>Charter</span>
-                                                    <span>€ {price}</span>
+                                                    <span>€ {totalPrice}</span>
                                                 </li>
                                                 <li>
                                                     <span>Catering</span>
