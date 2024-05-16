@@ -65,6 +65,7 @@ const Checkout = () => {
     const [date, setSelectedDate] = useState(new Date());
     const [applyDiscount,  setCoupon] = useState(false)
     const [totalPrice, setTotal] = useState(0)
+    const [datePickerOpen, setDatePickerOpen] = useState(false)
 
     let [clientSecret, setClientSecret] = useState("");
     let cart = localStorage.getItem('cart') || '{}'
@@ -333,6 +334,7 @@ const Checkout = () => {
     }
     const handleDateChange = (date) =>{
         setSelectedDate(moment(date).format("MM/DD/YYYY"));
+        setDatePickerOpen(false)
     }
     const validation = () => {
         let filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -428,19 +430,20 @@ const Checkout = () => {
                                 {/*chekcout form*/}
                                 <Col sm={12} md={6} className="morphic-title">
                                     <div className={'checkout-form'}>
-                                        <h3>{name + ` €${price}`}</h3>
+                                        <h3>{name}</h3>
+                                        <div className={'price font-weight-bold'}>Price: €{price}</div>
                                         <div className={'product-detail'}>
-                                            <div className={'sub-detail'}>
+                                            <div className={'sub-detail yacht-block'}>
                                                 <div>LENGTH</div>
                                                 <div>{yacht_length}</div>
                                             </div>
-                                            <div className={'sub-detail'}>
-                                                <div>CABIN</div>
-                                                <div>{cabin}</div>
-                                            </div>
-                                            <div className={'sub-detail'}>
+                                            <div className={'sub-detail yacht-block'}>
                                                 <div>YACHT TYPE</div>
                                                 <div>{yacht_type}</div>
+                                            </div>
+                                            <div className={'sub-detail yacht-block'}>
+                                                <div>CABIN</div>
+                                                <div>{cabin}</div>
                                             </div>
                                         </div>
                                         <div className={'form'}>
@@ -448,13 +451,15 @@ const Checkout = () => {
                                                 <div className="color-selection">
                                                     <h6 className="text-md-left">Departure Date</h6>
                                                 </div>
-                                                <div className="color-picker date-picker text-center text-md-left">
+                                                <div className="color-picker date-picker text-center text-md-left" onClick={() => setDatePickerOpen(!datePickerOpen)}>
                                                     <DatePicker
                                                         selected={date}
+                                                        readOnly={true}
                                                         onChange={handleDateChange}
-                                                        dateFormat="MM/dd/yyyy"
-                                                        className="black-text-datepicker"
+                                                        onClickOutside={() => setDatePickerOpen(false)}
+                                                        open={datePickerOpen}
                                                         minDate={new Date()}
+                                                        className="black-text-datepicker"
                                                     />
                                                 </div>
                                             </div>
@@ -478,7 +483,7 @@ const Checkout = () => {
                                                     <h6 className="text-md-left">Activity</h6>
                                                 </div>
                                                 <div
-                                                    className="w-100 color-picker select-opacity text-center text-md-left">
+                                                    className="w-100 color-picker select-opacity font-weight-500 text-center text-md-left">
                                                     <select value={activityOption} name={'yacht_activity'}
                                                             onChange={activityChange}>
                                                         <option value="">Select Activity</option>
@@ -505,32 +510,33 @@ const Checkout = () => {
                                             </div>
                                             <div>
                                                 <div className="color-selection">
-                                                    <h6 className="text-md-left">Guests</h6>
+                                                    <h6 className="text-md-left">YACHT Capacity</h6>
                                                 </div>
-                                                <div className="color-picker passenger-detail flex-wrap text-center text-md-left">
-                                                        <input
-                                                            name={'guest'}
-                                                            type="number"
-                                                            value={inputGuest}
-                                                            onChange={handleGuest}
-                                                            placeholder={'Guest'}
-                                                            min={1}
-                                                            max={capacity}
-                                                        />
-                                                    <span className={'mandatory'}>Your selected guest number greater than capacity.</span>
+                                                <div className="color-picker passenger-detail text-center text-md-left">
+                                                    <input
+                                                        name={'capacity'}
+                                                        type="number"
+                                                        value={capacity}
+                                                        readOnly={true}
+                                                    />
                                                 </div>
                                             </div>
                                             <div>
                                                 <div className="color-selection">
-                                                    <h6 className="text-md-left">Capacity</h6>
+                                                    <h6 className="text-md-left">Guests</h6>
                                                 </div>
-                                                <div className="color-picker passenger-detail text-center text-md-left">
-                                                        <input
-                                                            name={'capacity'}
-                                                            type="number"
-                                                            value={capacity}
-                                                            readOnly={true}
-                                                        />
+                                                <div
+                                                    className="color-picker passenger-detail flex-wrap text-center text-md-left">
+                                                    <input
+                                                        name={'guest'}
+                                                        type="number"
+                                                        value={inputGuest}
+                                                        onChange={handleGuest}
+                                                        placeholder={'Guest'}
+                                                        min={1}
+                                                        max={capacity}
+                                                    />
+                                                    <span className={'mandatory'}>Your selected guest number greater than capacity.</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -551,9 +557,8 @@ const Checkout = () => {
                                         <Row className="menu-list">
                                             <div className="menu-title">
                                                 <ul>
-                                                    <li>Menus</li>
-                                                    <li>Details</li>
-                                                    <li>Price</li>
+                                                <li>Menus</li>
+                                                <li>Price</li>
                                                 </ul>
                                             </div>
                                         </Row>
@@ -576,7 +581,6 @@ const Checkout = () => {
                                                                 />
                                                                 <div>BBQ</div>
                                                             </div>
-                                                            <div>Live BBQ</div>
                                                             <div className="price">€ 180pp</div>
                                                         </label>
                                                     </li>
@@ -591,7 +595,6 @@ const Checkout = () => {
                                                                 />
                                                                 <div>Breakfast</div>
                                                             </div>
-                                                            <div>Breakfast</div>
                                                             <div className="price">€ 75pp</div>
                                                         </label>
                                                     </li>
@@ -606,7 +609,6 @@ const Checkout = () => {
                                                                 />
                                                                 <div>Hotdogs & Burgers</div>
                                                             </div>
-                                                            <div>Hotdogs & Burgers</div>
                                                             <div className="price">€ 95pp</div>
                                                         </label>
                                                     </li>
@@ -621,7 +623,6 @@ const Checkout = () => {
                                                                 />
                                                                 <div>Veggie</div>
                                                             </div>
-                                                            <div>Veggie</div>
                                                             <div className="price">€ 120pp</div>
                                                         </label>
                                                     </li>
@@ -636,7 +637,6 @@ const Checkout = () => {
                                                                 />
                                                                 <div>Wraps</div>
                                                             </div>
-                                                            <div>Wraps</div>
                                                             <div className="price">€ 120pp</div>
                                                         </label>
                                                     </li>
@@ -768,7 +768,6 @@ const Checkout = () => {
                                             <div className="menu-title">
                                                 <ul>
                                                     <li>Yacht Toys</li>
-                                                    <li>Describe</li>
                                                     <li>Price</li>
                                                 </ul>
                                             </div>
@@ -792,7 +791,6 @@ const Checkout = () => {
                                                                 />
                                                                 <div>Sea Toy</div>
                                                             </div>
-                                                            <div>Swimming Pool</div>
                                                             <div className="price">€ 500</div>
                                                         </label>
                                                     </li>
@@ -807,7 +805,6 @@ const Checkout = () => {
                                                                 />
                                                                 <div>Water Slide</div>
                                                             </div>
-                                                            <div>Water Slide</div>
                                                             <div className="price">€ 500</div>
                                                         </label>
                                                     </li>
@@ -822,7 +819,6 @@ const Checkout = () => {
                                                                 />
                                                                 <div>Sea Toy</div>
                                                             </div>
-                                                            <div>Rock N Shade Island</div>
                                                             <div className="price">€ 350</div>
                                                         </label>
                                                     </li>
@@ -837,7 +833,6 @@ const Checkout = () => {
                                                                 />
                                                                 <div>Sea Toy</div>
                                                             </div>
-                                                            <div>Tropical Breeze Island</div>
                                                             <div className="price">€ 350</div>
                                                         </label>
                                                     </li>
@@ -852,7 +847,6 @@ const Checkout = () => {
                                                                 />
                                                                 <div>Lazy Dayz Kube</div>
                                                             </div>
-                                                            <div>Lazy Dayz Kube</div>
                                                             <div className="price">€ 350</div>
                                                         </label>
                                                     </li>
@@ -867,7 +861,6 @@ const Checkout = () => {
                                                                 />
                                                                 <div>Sea Toy</div>
                                                             </div>
-                                                            <div>Rapid River Quad</div>
                                                             <div className="price">€ 350</div>
                                                         </label>
                                                     </li>

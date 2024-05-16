@@ -30,8 +30,10 @@ import { useNavigate } from 'react-router-dom';
 
 const ProductViewModals = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [datePickerOpen, setDatePickerOpen] = useState(false)
   const handleDateChange = (date) =>{
     setSelectedDate(date);
+    setDatePickerOpen(false)
   }
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -227,8 +229,6 @@ const ProductViewModals = () => {
     setDiscountDropDown(false)
     numberInputCounter();
   }, []);
-  const handleProceed = () => {
-  };
   return <div id="data-modal">
 
       <div className="modal-window" id="morphic-window1">
@@ -594,17 +594,17 @@ const ProductViewModals = () => {
           <Container>
             <div className="row main-morphic-body ">
               <Col xs={12} md={12} className="morphic-img">
-                 <div className="products owl-carousel owl-theme">
-                    <div className="item active">
-                      <img className="d-block w-100" src={classicproduct} alt="First slide"/>
-                    </div>
-                    <div className="item">
-                      <img className="d-block w-100" src={modalWindowImg5} alt="Second slide"/>
-                    </div>
-                    <div className="item">
-                      <img className="d-block w-100" src={modalWindowImg2} alt="Third slide"/>
-                    </div>
+                <div className="products owl-carousel owl-theme">
+                  <div className="item active">
+                    <img className="d-block w-100" src={classicproduct} alt="First slide"/>
                   </div>
+                  <div className="item">
+                    <img className="d-block w-100" src={modalWindowImg5} alt="Second slide"/>
+                  </div>
+                  <div className="item">
+                    <img className="d-block w-100" src={modalWindowImg2} alt="Third slide"/>
+                  </div>
+                </div>
                 <div className="product-description">
                   <strong>DESCRIPTION</strong>
                   <p> Embark on a two-day yachting retreat, beginning with pick-up and transfer to the yacht, where
@@ -612,60 +612,53 @@ const ProductViewModals = () => {
                   <div className="product-inner-detail">
                     <strong>Day 1:</strong>
                     <ul>
-                    <li>Enjoy breakfast on board.</li>
-                    <li>Set sail around Ibiza and Formentera.</li>
-                    <li>Have lunch onboard, then choose activities like snorkeling, Jet Skiing, or Parasailing.</li>
-                    <li>Dinner and champagne in the evening, followed by the ‘Sleep In’ experience on the yacht.</li>
-                  </ul>
-                  <strong>Day 2:</strong>
-                  <ul>
-                    <li>Wake up to breakfast on the yacht.</li>
-                    <li>Spend the morning exploring Formentera’s beaches.</li>
-                    <li>Lunch as we cruise back to Ibiza.</li>
-                    <li>Disembark in the afternoon, rejuvenated from the journey.</li>
-                    Cap off this retreat with the unique ‘Sleep In’ experience, ensuring a perfect blend of serenity
-                    and exploration.
-                  </ul>
-                  <strong className="download-brochure"><a style={{color: "#d1b36f"}}
-                             href={classicBrochure}
-                             target="_blank" rel="noopener">Download Brochure</a></strong></div>
+                      <li>Enjoy breakfast on board.</li>
+                      <li>Set sail around Ibiza and Formentera.</li>
+                      <li>Have lunch onboard, then choose activities like snorkeling, Jet Skiing, or Parasailing.</li>
+                      <li>Dinner and champagne in the evening, followed by the ‘Sleep In’ experience on the yacht.</li>
+                    </ul>
+                    <strong>Day 2:</strong>
+                    <ul>
+                      <li>Wake up to breakfast on the yacht.</li>
+                      <li>Spend the morning exploring Formentera’s beaches.</li>
+                      <li>Lunch as we cruise back to Ibiza.</li>
+                      <li>Disembark in the afternoon, rejuvenated from the journey.</li>
+                      Cap off this retreat with the unique ‘Sleep In’ experience, ensuring a perfect blend of serenity
+                      and exploration.
+                    </ul>
+                    <strong className="download-brochure"><a style={{color: "#d1b36f"}}
+                                                             href={classicBrochure}
+                                                             target="_blank" rel="noopener">Download
+                      Brochure</a></strong></div>
                 </div>
               </Col>
               <Col xs={12} md={12} className="morphic-title">
                 <h3>Classic Sea Break: 2 Days</h3>
-                  <Row className="pb-md-4">
-                    <Col xs={12}>
-                      <div className="color-selection">
-                        <h6 className="text-center text-md-left">*CHOOSE CHECK-IN DATE</h6>
-                      </div>
-                      <div className="color-picker text-center text-md-left">
-                        <DatePicker
-                            selected={selectedDate}
-                            onChange={handleDateChange}
-                            dateFormat="MM/dd/yyyy"
-                            className="black-text-datepicker"
-                            minDate={new Date()}
-                            disabledKeyboardNavigation
-                            onKeyDown={(e) => {
-                              e.preventDefault();
-                            }}
-                            onBeforeInput={(e) => {
-                              e.preventDefault();
-                            }}
-                            onClick={(e) => {
-                              e.preventDefault();
-                            }}
-                        />
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="pb-md-4">
-                    <Col xs={12}>
-                      <div className="color-selection">
-                        <h6 className="text-center text-md-left">*SELECT YACHT CAPACITY</h6>
-                      </div>
-                      <div className="color-picker select-opacity text-center text-md-left">
-                        <select value={getYacht} name={'yacht_size'} onChange={hanleYacht} required>
+                <Row className="pb-md-4">
+                  <Col xs={12}>
+                    <div className="color-selection">
+                      <h6 className="text-center text-md-left">*CHOOSE CHECK-IN DATE</h6>
+                    </div>
+                    <div className="color-picker text-center text-md-left" onClick={() => setDatePickerOpen(!datePickerOpen)}>
+                      <DatePicker
+                          selected={selectedDate}
+                          readOnly={true}
+                          onChange={handleDateChange}
+                          onClickOutside={() => setDatePickerOpen(false)}
+                          open={datePickerOpen}
+                          minDate={new Date()}
+                          className="black-text-datepicker"
+                      />
+            </div>
+          </Col>
+        </Row>
+        <Row className="pb-md-4">
+          <Col xs={12}>
+            <div className="color-selection">
+              <h6 className="text-center text-md-left">*SELECT YACHT CAPACITY</h6>
+            </div>
+            <div className="color-picker select-opacity text-center text-md-left">
+              <select value={getYacht} name={'yacht_size'} onChange={hanleYacht} required>
                           <option value="">Select Size</option>
                           <option value="compact"
                                   data-text={"Compact Yacht – Up to 2 Guests: €1150 / £980"}

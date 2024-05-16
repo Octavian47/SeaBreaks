@@ -2449,7 +2449,7 @@ input, select, textarea{
     text-align: center
 }
 .menu-list-detail .checkbox{
-    width: 40%;
+    width: 80%;
     display: flex;
 }
 
@@ -2468,12 +2468,9 @@ input, select, textarea{
     width: 20%;
     text-align: center;
     font-size: 14px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
 }
 .menu-list-detail .checkbox div{
-    width: 40%;
+    width:100%;
     text-align: left;
     font-style: italic;
 }
@@ -2722,7 +2719,17 @@ input, select, textarea{
 .checkout-form h3{
     font-size: 17px !important;
     color: #2b2b2b !important;
-    padding-bottom: 10px;
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+}
+.checkout-form .price{
+    font-size: 17px !important;
+    color: #2b2b2b !important;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
 }
 .checkout-form .product-detail{
     width: 100%;
@@ -2734,8 +2741,16 @@ input, select, textarea{
 .checkout-form .product-detail .sub-detail{
     background: #000b3b;
     text-align: center;
-    width: 50%;
-    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.checkout-form .product-detail .yacht-block{
+    width: 300px;
+}
+.checkout-form .product-detail .yacht-block div{
+    width: 100%;
 }
 .checkout-form .form{
     width: 100%;
@@ -2840,5 +2855,8 @@ input, select, textarea{
     }
     .desktop-left-line:after,  .divider:after{
         background-color: #ffffff;
+    }
+    .checkout-form .product-detail .yacht-block div {
+        font-size: 12px;
     }
 }
