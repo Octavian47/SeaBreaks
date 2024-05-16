@@ -62,7 +62,7 @@ const Checkout = () => {
     const [getCatering, setCatering] = useState(0);
     const [getExtra, setExtra] = useState(0);
     const [activityOption, setActivityOption] = useState('');
-    const [date, setSelectedDate] = useState();
+    const [date, setSelectedDate] = useState(new Date());
     const [applyDiscount,  setCoupon] = useState(false)
     const [totalPrice, setTotal] = useState(0)
 
@@ -83,7 +83,7 @@ const Checkout = () => {
     useEffect(() => {
         setTotal(cart.total_price)
         setCoupon(cart.apply_coupon)
-        setSelectedDate(new Date(cart.date).toLocaleDateString());
+        setSelectedDate(moment(cart.date).format("MM/DD/YYYY"));
         let guest = '';
         if(cart.yacht.toLowerCase() != 'compact')
         {
@@ -455,16 +455,6 @@ const Checkout = () => {
                                                         dateFormat="MM/dd/yyyy"
                                                         className="black-text-datepicker"
                                                         minDate={new Date()}
-                                                        disabledKeyboardNavigation
-                                                        onKeyDown={(e) => {
-                                                            e.preventDefault();
-                                                        }}
-                                                        onBeforeInput={(e) => {
-                                                            e.preventDefault();
-                                                        }}
-                                                        onClick={(e) => {
-                                                            e.preventDefault();
-                                                        }}
                                                     />
                                                 </div>
                                             </div>

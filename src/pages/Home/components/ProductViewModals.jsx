@@ -778,7 +778,7 @@ const ProductViewModals = () => {
     <div className="modal-window" id="morphic-window4">
         <div className="modal-body">
           <header>
-            <span className="close-modal"><i /><i /></span>
+            <span className="close-modal" onClick={handleClose}><i /><i /></span>
           </header>
           <div className="morphic-body">
             <Container>

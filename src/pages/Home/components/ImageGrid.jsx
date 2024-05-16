@@ -7,8 +7,8 @@ import img4 from '../assets/img/ImageGrid/package-4.jpg';
 
 const ImageGrid = () => {
   const yachtInfo = [
-    { name: "EXPRESS SEA BREAK: 4H", duration:"4H", length: "62FT", capacity: "25", price: "1300", modelYear: "2023 MODEL", imageName: "package-1.jpg", modalId: 'morphic-window1' },
-    { name: "SHORT SEA BREAK: 1 DAY", duration:"1 DAY", length: "62FT", capacity: "25", price: "1300", modelYear: "2023 MODEL", imageName: "package-2.jpg", modalId: 'morphic-window2' },
+    { name: "EXPRESS SEA BREAK: 4H", duration:"4H", length: "62FT", capacity: "25", price: "1300", modelYear: "2023 MODEL", imageName: "package-1.jpg", modalId: 'morphic-window3' },
+    { name: "SHORT SEA BREAK: 1 DAY", duration:"1 DAY", length: "62FT", capacity: "25", price: "1300", modelYear: "2023 MODEL", imageName: "package-2.jpg", modalId: 'morphic-window3' },
     { name: "CLASSIC SEA BREAK: 2 DAYS",duration:"2 DAYS", length: "52FT", capacity: "17", price: "850", modelYear: "2022 MODEL", imageName: "package-3.jpg", modalId: 'morphic-window3' },
     { name: "CUSTOM SEA BREAK", duration:"", length: "52FT", capacity: "17", price: "850", modelYear: "2022 MODEL", imageName: "package-4.jpg", modalId: 'morphic-window4' }
   ];
@@ -16,7 +16,7 @@ const ImageGrid = () => {
   // Function to open modal based on the provided modal ID
   const morphicWindow = (modalId) => {
     // Example to show modal, adjust based on your project's implementation
-    const modalElement = document.getElementById('morphic-window3');
+    const modalElement = document.getElementById(modalId);
     if (modalElement) {
      let selectedProduct = yachtInfo.filter(function (e) {
         return e.modalId == modalId;
