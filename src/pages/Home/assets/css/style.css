@@ -1335,6 +1335,28 @@ header a.logo img {
     color: #fff;
 }
 
+.email-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  /* Success message */
+  .email-message.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+  }
+  
+  /* Error message */
+  .email-message.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+
 
 /* ===================================
    Partner
@@ -2100,6 +2122,7 @@ header a.logo img {
     }
 
     /* Contact */
+
     .contact-sec .heading {
         font-size: 42px;
     }
