@@ -27,7 +27,22 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 
-
+let discoun_passengers = {
+  'compact': [
+      {'passenger': 1, 'discount': 15},
+      {'passenger': 2, 'discount': 10},
+      {'passenger': 3,'discount': 5}
+  ],
+  'regular': [
+      {'passenger': 5, 'discount': 15},
+      {'passenger': 6, 'discount': 10},
+      {'passenger': 7,'discount': 5}
+  ],
+  'large': [
+      {'passenger': 9, 'discount': 15},
+      {'passenger': 10, 'discount': 10},
+      {'passenger': 11,'discount': 5}]
+};
 const ProductViewModals = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [datePickerOpen, setDatePickerOpen] = useState(false)
@@ -48,7 +63,7 @@ const ProductViewModals = () => {
   const [timeOption, setTimeOption] = useState('');
 
   const [getYacht, setYacht] = useState('');
-  const [getPrice, setPrice] = useState('1150');
+  const [getPrice, setPrice] = useState('');
   const [getDiscountDropDown, setDiscountDropDown] = useState(false);
   const [getGuest, setGuest] = useState('');
   const [getDiscount, setDiscount] = useState(0);
@@ -111,7 +126,7 @@ const ProductViewModals = () => {
       setGuest('')
       $("select[name='yacht_size']").removeClass('error');
       $("select[name='yacht_size']").next('span').hide();
-      if(e.target.value  !== '' && e.target.value !== 'compact'){
+      if(e.target.value  !== ''){
         setDiscountDropDown(true)
       }
       else{
@@ -200,18 +215,20 @@ const ProductViewModals = () => {
       $("select[name='yacht_size']").next('span').show();
       return false;
     }
-    else if(getYacht && getYacht !== 'compact' && getGuest == ''){
+    else if(getYacht && getGuest == ''){
       $("select[name='discount']").addClass('error').focus();
       $("select[name='discount']").next('span').show();
       return false;
     }
     else{
+      let yacht_capacity = { 'compact': 4, 'regular': 8, 'large': 12};
       let data = {
         'name' : $("input[name='name']").val(),
         'yacht': getYacht,
         'date': selectedDate,
         'price': Number(getPrice),
         'total_price': (Number(getPrice)+Number(getpremiumYacht))-getDiscount,
+        'capacity': yacht_capacity[getYacht],
         'guest': getGuest,
         'premium_yacht': getpremiumYacht,
         'activity' : activityOption,
@@ -230,360 +247,6 @@ const ProductViewModals = () => {
     numberInputCounter();
   }, []);
   return <div id="data-modal">
-
-      <div className="modal-window" id="morphic-window1">
-        <div className="modal-body">
-          <header>
-            <span className="close-modal"><i /><i /></span>
-          </header>
-          <div className="morphic-body">
-            <Container>
-              <Row className="main-morphic-body ">
-                <Col xs={12} md={12} className="morphic-img">
-                  <div id="carousel-thumb" className="carousel slide carousel-fade carousel-thumbnails"
-                       data-ride="carousel">
-
-                    <div className="carousel-inner" role="listbox">
-                      <div className="carousel-item active">
-                        <img className="d-block w-100" src={expressProduct} alt="First slide"/>
-                      </div>
-                      <div className="carousel-item">
-                        <img className="d-block w-100" src={classicproduct} alt="Second slide"/>
-                      </div>
-                      <div className="carousel-item">
-                        <img className="d-block w-100" src={modalWindowImg6} alt="Third slide"/>
-                      </div>
-                    </div>
-
-                    <ol className="carousel-indicators">
-                      <li data-target="#carousel-thumb" data-slide-to={0} className="active">
-                        <img className="d-block w-100 img-fluid" src={expressProductSub1} alt="First slide"/>
-                      </li>
-                      <li data-target="#carousel-thumb" data-slide-to={1}>
-                        <img className="d-block w-100 img-fluid" src={expressProductSub2} alt="Second slide"/>
-                      </li>
-                      <li data-target="#carousel-thumb" data-slide-to={2}>
-                        <img className="d-block w-100 img-fluid" src={expressProductSub3} alt="Third slide"/>
-                      </li>
-                      <li data-target="#carousel-thumb" data-slide-to={2}>
-                        <img className="d-block w-100 img-fluid" src={expressProductSub4} alt="Forth slide"/>
-                      </li>
-                    </ol>
-                  </div>
-                  <div className="product-description">
-                    <strong>DESCRIPTION</strong>
-                    <p> Embark on a 5-hour nautical excursion from Ibiza to Formentera, the perfect escape to break free from urban life. Your journey begins with a seamless pick-up and transport to our luxury yacht. As we set sail, indulge in a light breakfast and soak in the tranquility of the Mediterranean.
-                    </p>
-                    <div className="product-inner-detail">
-                    <strong>Our itinerary includes:</strong>
-                    <ul>
-                      <li>A scenic cruise from Ibiza to the serene shores of Formentera.</li>
-                      <li>Water activities: Dive into the clear blue waters for some snorkeling, feel the thrill with Jet Skiing, or soar above the waves while Parasailing.</li>
-                      <li>A stop at a secluded cove where you can disconnect and bask in nature’s beauty.</li>
-                      <li>Savor a lunch of fresh, locally-sourced seafood prepared on board, offering a true taste of the Mediterranean.
-                      </li>
-                    </ul>
-                 <p>This 6-hour journey is more than just a boat ride; it’s an opportunity to disconnect from the rush of daily life and immerse yourself in the simple pleasures of sea, sun, and relaxation. We’ll conclude with a leisurely cruise back to Ibiza, leaving you rejuvenated and carrying memories of an idyllic day spent at sea.
-
-                 </p>
-
-                    <strong className="download-brochure"><a style={{color: "#d1b36f"}}
-                               href={expressBrochure}
-                               target="_blank"
-                               rel="noopener">Download Brochure</a></strong></div>
-                  </div>
-                </Col>
-                <Col xs={12} md={12} className="morphic-title">
-                  <h3>EXPRESS SEA BREAK: 5H</h3>
-                  <Row className="pb-md-4">
-                    <Col xs={12}>
-                      <div className="color-selection">
-                        <h6 className="text-center text-md-left">*CHOOSE CHECK-IN DATE</h6>
-                      </div>
-                      <div className="color-picker text-center text-md-left">
-                        <DatePicker
-                            selected={selectedDate}
-                            onChange={handleDateChange}
-                            dateFormat="MM/dd/yyyy"
-                            className="black-text-datepicker disabled"
-                            minDate={new Date()}
-                        />
-                      </div>
-                    </Col>
-                  </Row>
-
-                  <Row className="pb-md-4">
-                    <Col xs={12}>
-                      <div className="color-selection">
-                        <h6 className="text-center text-md-left">*SELECT YACHT CAPACITY</h6>
-                      </div>
-                      <div className="color-picker select-opacity text-center text-md-left">
-                        <select value={selectedOption} onChange={handleChange} required>
-                          <option value="">Select Size</option>
-                          <option value="Compact Yacht - Up to 2 Guests: €1150 / £980">Compact Yacht - Up to 2 Guests:
-                            €1150 / £980
-                          </option>
-                          <option value="Regular Yacht – Up to 4 Guests: €1350 / £1155">Regular Yacht – Up to 4 Guests:
-                            €1350 / £1155
-                          </option>
-                          <option value="Large Yacht – Up to 8 Guests: €1750 / £1500">Large Yacht – Up to 8 Guests:
-                            €1750 / £1500
-                          </option>
-                        </select>
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="pb-md-4">
-                    <Col xs={12}>
-                      <div className="color-selection">
-                        <h6 className="text-center text-md-left">CHOOSE ACTIVITY - INCLUDED</h6>
-                      </div>
-                      <div className="color-picker select-opacity text-center text-md-left">
-                        <select value={activityOption} name={'activity'} onChange={activityChange} required>
-                          <option value="">Select Activity</option>
-                          <option value="Scuba Diving">Scuba Diving
-                          </option>
-                          <option value="Parasailing">Parasailing
-                          </option>
-                          <option value="Jet Ski">Jet Ski
-                          </option>
-                        </select>
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="pb-md-4">
-                    <Col xs={12}>
-                      <div className="color-selection">
-                        <h6 className="text-center text-md-left">Start Time</h6>
-                      </div>
-                      <div className="color-picker select-opacity text-center text-md-left">
-                        <select name={'time'} onChange={timeChange} required>
-                          <option value="">Select Time</option>
-                          <option value="Any Time">Any Time
-                          </option>
-                          <option value="1st Part of the Day">1st Part of the Day
-                          </option>
-                          <option value="2nd Part of the Day">2nd Part of the Day
-                          </option>
-                        </select>
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="pb-md-4">
-                    <Col xs={12}>
-                      <div className="color-selection">
-                        <h6 className="text-center text-md-left">ADDITIONAL AMENITIES</h6>
-                      </div>
-                      <div className="select-opacity text-center text-md-left">
-                        <label>
-                          <input
-                              type="checkbox"
-                              checked={premiumYachtChecked}
-                              onChange={handlePremiumYachtChange}
-                          />
-                          Premium Yacht: €650 / £555
-                        </label>
-
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="model-bottom">
-                    <Col xs={12} className="price-modal"><h1>$220.00</h1></Col>
-                    <Col xs={12} className="modal-btn"><a target="_blank" href="https://www.amazon.com/"
-                                                          className="btn btn-medium btn-rounded btn-trans text-capitalize">Procceed</a></Col>
-                  </Row>
-                </Col>
-              </Row>
-
-              <Row className="justify-content-end arrows">
-              <div className="d-none d-md-block left-arrow-sec text-center mt-auto mb-auto">
-                  <a className="d-flex justify-content-center" onClick={() => prevWindow('morphic-window6')}><i className="fa fa-angle-left" /></a>
-                </div>
-                <div className="d-none d-md-block right-arrow-sec text-center mt-auto mb-auto">
-                  <a className="d-flex justify-content-center" onClick={() => nextWindow('morphic-window2')}><i className="fa fa-angle-right" /></a>
-                </div>
-              </Row>
-            </Container>
-          </div>
-        </div>
-      </div>
-
-      <div className="modal-window" id="morphic-window2">
-        <div className="modal-body">
-          <header>
-            <span className="close-modal"><i/><i/></span>
-          </header>
-          <div className="morphic-body">
-            <Container>
-              <div className="row main-morphic-body ">
-                <Col xs={12} md={12} className="morphic-img">
-
-                  <div id="carousel-thumb3" className="carousel slide carousel-fade carousel-thumbnails"
-                       data-ride="carousel">
-
-                    <div className="carousel-inner" role="listbox">
-                      <div className="carousel-item active">
-                        <img className="d-block w-100" src={classicproduct} alt="First slide"/>
-                      </div>
-                      <div className="carousel-item">
-                        <img className="d-block w-100" src={modalWindowImg5} alt="Second slide"/>
-                      </div>
-                      <div className="carousel-item">
-                        <img className="d-block w-100" src={modalWindowImg2} alt="Third slide"/>
-                      </div>
-                    </div>
-
-                    <ol className="carousel-indicators">
-                      <li data-target="#carousel-thumb3" data-slide-to={0} className="active">
-                        <img className="d-block w-100 img-fluid" src={shortProductSub1} alt="First slide"/>
-                      </li>
-                      <li data-target="#carousel-thumb3" data-slide-to={1}>
-                        <img className="d-block w-100 img-fluid" src={shortProductSub2} alt="Second slide"/>
-                      </li>
-                      <li data-target="#carousel-thumb3" data-slide-to={2}>
-                        <img className="d-block w-100 img-fluid" src={shortProductSub3} alt="Third slide"/>
-                      </li>
-                      <li data-target="#carousel-thumb4" data-slide-to={3}>
-                        <img className="d-block w-100 img-fluid" src={shortProductSub4} alt="Forth slide"/>
-                      </li>
-                    </ol>
-                  </div>
-                  <div className="product-description">
-                    <strong>DESCRIPTION</strong>
-                    <p> Embark on a full-day maritime journey from Ibiza to Formentera, an ideal retreat from the hustle
-                      of city life. Your adventure starts with convenient transportation to our luxury yacht. As we set
-                      sail, enjoy a freshly prepared breakfast and embrace the calm of the open sea.
-                    </p>
-                    <div className="product-inner-detail"><strong>Our full-day itinerary includes:</strong>
-                      <ul>
-                      <li>A leisurely cruise to Formentera, gliding through the picturesque Mediterranean waters.</li>
-                      <li>Engage in a variety of water sports: Try snorkeling in crystal-clear coves, experience the
-                        adrenaline of Jet Skiing, or take to the skies with Parasailing.
-                      </li>
-                      <li>Visit exclusive spots around Formentera, perfect for relaxation and soaking up the sun.</li>
-                      <li>Lunch on board, featuring a sumptuous spread of the freshest seafood and local delicacies,
-                        capturing the essence of the region’s flavors.
-                      </li>
-                      <li>Time to explore Formentera: Stroll along the pristine beaches, visit quaint villages, or
-                        simply unwind on the yacht’s deck.
-                      </li>
-                      <li>Late afternoon activities: Choose from a relaxed swim in tranquil waters or further
-                        exploration of hidden bays.
-                      </li>
-                      <li>As the day winds down, enjoy a sunset cocktail followed by a delightful dinner under the
-                        stars, celebrating the day’s adventures.
-                      </li>
-                    </ul>
-                    <p>We return to Ibiza as night falls, bringing to a close a day filled with luxury, relaxation, and
-                      unforgettable moments. This all-day excursion is more than a trip; it’s a chance to truly
-                      disconnect and immerse yourself in the joy and serenity of life at sea.
-
-                    </p>
-                    <strong className="download-brochure"><a style={{color: "#d1b36f"}}
-                               href={expressBrochure}
-                               target="_blank"
-                                                             rel="noopener">Download Brochure</a></strong></div>
-                  </div>
-                </Col>
-                <Col xs={12} md={12} className="morphic-title">
-                  <h3>Short Sea Break: 1 Day</h3>
-                  <Row className="pb-md-4">
-                    <Col xs={12}>
-                      <div className="color-selection">
-                        <h6 className="text-center text-md-left">*CHOOSE CHECK-IN DATE</h6>
-                      </div>
-                      <div className="color-picker text-center text-md-left">
-                        <DatePicker
-                            selected={selectedDate}
-                            onChange={handleDateChange}
-                            dateFormat="MM/dd/yyyy"
-                            className="black-text-datepicker"
-                            minDate={new Date()}
-                        />
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="pb-md-4">
-                    <Col xs={12}>
-                      <div className="color-selection">
-                        <h6 className="text-center text-md-left">*SELECT YACHT CAPACITY</h6>
-                      </div>
-                      <div className="color-picker select-opacity text-center text-md-left">
-                        <select value={selectedOption} onChange={handleChange} required>
-                          <option value="">Select Size</option>
-                          <option value="Compact Yacht – Up to 2 Guests: €1650 / £1410">Compact Yacht – Up to 2 Guests:
-                            €1650 / £1410
-                          </option>
-                          <option value="Regular Yacht – Up to 4 Guests: €1950 / £1670">Regular Yacht – Up to 4 Guests:
-                            €1950 / £1670
-                          </option>
-                          <option value="Large Yacht – Up to 8 Guests: €2250/ £1925">Large Yacht – Up to 8 Guests:
-                            €2250/ £1925
-                          </option>
-                        </select>
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="pb-md-4">
-                    <Col xs={12}>
-                      <div className="color-selection">
-                        <h6 className="text-center text-md-left">CHOOSE ACTIVITY - INCLUDED</h6>
-                      </div>
-                      <div className="color-picker select-opacity text-center text-md-left">
-                        <select value={activityOption} onChange={activityChange} required>
-                          <option value="">Select Activity</option>
-                          <option value="Scuba Diving">Scuba Diving
-                          </option>
-                          <option value="Parasailing">Parasailing
-                          </option>
-                          <option value="Jet Ski">Jet Ski
-                          </option>
-                        </select>
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="pb-md-4">
-                    <Col xs={12}>
-                      <div className="color-selection">
-                        <h6 className="text-center text-md-left">ADDITIONAL AMENITIES</h6>
-                      </div>
-                      <div className="select-opacity text-center text-md-left">
-                        <label>
-                          <input
-                              type="checkbox"
-                              checked={premiumYachtChecked}
-                              onChange={handlePremiumYachtChange}
-                          />
-                          Premium Yacht: €750 / £640
-                        </label>
-
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="model-bottom">
-                    <Col xs={12} className="price-modal"><h1>$220.00</h1></Col>
-                    <Col xs={12} className="modal-btn"><a target="_blank" href="https://www.amazon.com/"
-                                                          className="btn btn-medium btn-rounded btn-trans text-capitalize">Buy
-                      Now</a></Col>
-                  </Row>
-                </Col>
-              </div>
-
-              <Row className="justify-content-end arrows">
-                <div className="d-none d-md-block left-arrow-sec text-center mt-auto mb-auto">
-                  <a className="d-flex justify-content-center" onClick={() => prevWindow('morphic-window2')}><i
-                      className="fa fa-angle-left"/></a>
-                </div>
-                <div className="d-none d-md-block right-arrow-sec text-center mt-auto mb-auto">
-                  <a className="d-flex justify-content-center" onClick={() => nextWindow('morphic-window4')}><i
-                      className="fa fa-angle-right"/></a>
-                </div>
-              </Row>
-            </Container>
-          </div>
-        </div>
-      </div>
-
 
     <div className="modal-window" id="morphic-window3">
       <div className="modal-body">
@@ -628,28 +291,26 @@ const ProductViewModals = () => {
                     </ul>
                     <strong className="download-brochure"><a style={{color: "#d1b36f"}}
                                                              href={classicBrochure}
-                                                             target="_blank" rel="noopener">Download
-                      Brochure</a></strong></div>
+                                                             target="_blank" rel="noopener">Download Brochure</a></strong></div>
                 </div>
               </Col>
               <Col xs={12} md={12} className="morphic-title">
-                <h3>Classic Sea Break: 2 Days</h3>
+                <h3 className={'product-name'}>Classic Sea Break: 2 Days</h3>
                 <Row className="pb-md-4">
-                  <Col xs={12}>
+                  <Col className={'position-relative'} xs={12}>
                     <div className="color-selection">
                       <h6 className="text-center text-md-left">*CHOOSE CHECK-IN DATE</h6>
                     </div>
-                    <div className="color-picker text-center text-md-left" onClick={() => setDatePickerOpen(!datePickerOpen)}>
-                      <DatePicker
-                          selected={selectedDate}
-                          readOnly={true}
-                          onChange={handleDateChange}
-                          onClickOutside={() => setDatePickerOpen(false)}
-                          open={datePickerOpen}
-                          minDate={new Date()}
-                          className="black-text-datepicker"
-                      />
-            </div>
+                    <div className="datepicket-handler" onClick={() => setDatePickerOpen(!datePickerOpen)}></div>
+                    <DatePicker
+                        selected={selectedDate}
+                        readOnly={true}
+                        onChange={handleDateChange}
+                        onClickOutside={() => setDatePickerOpen(false)}
+                        open={datePickerOpen}
+                        minDate={new Date()}
+                        className="black-text-datepicker"
+                    />
           </Col>
         </Row>
         <Row className="pb-md-4">
@@ -661,16 +322,16 @@ const ProductViewModals = () => {
               <select value={getYacht} name={'yacht_size'} onChange={hanleYacht} required>
                           <option value="">Select Size</option>
                           <option value="compact"
-                                  data-text={"Compact Yacht – Up to 2 Guests: €1150 / £980"}
-                                  data-price={'1150'}>Compact Yacht – Up to 2 Guests: €1150 / £980
+                                  data-text={"Compact Yacht – Up to 4 Guests: €1150 / £980"}
+                                  data-price={'1150'}>Compact Yacht – Up to 4 Guests: €1150 / £980
                           </option>
                           <option value="regular"
-                                  data-text={"Regular Yacht – Up to 4 Guests: €1350 / £1155"}
-                                  data-price={'1350'}>Regular Yacht – Up to 4 Guests: €1350 / £1155
+                                  data-text={"Regular Yacht – Up to 8 Guests: €1350 / £1155"}
+                                  data-price={'1350'}>Regular Yacht – Up to 8 Guests: €1350 / £1155
                           </option>
                           <option value="large"
-                                  data-text={"Large Yacht – Up to 8 Guests: €1750 / £1500"}
-                                  data-price={'1750'}>Large Yacht – Up to 8 Guests: €1750 / £1500
+                                  data-text={"Large Yacht – Up to 12 Guests: €1750 / £1500"}
+                                  data-price={'1750'}>Large Yacht – Up to 12 Guests: €1750 / £1500
                           </option>
                         </select>
                         <span className={'mandatory'}>please complete the mandatory fields</span>
@@ -684,14 +345,12 @@ const ProductViewModals = () => {
                       </div>
                       <div className="color-picker select-opacity text-center text-md-left">
                         <select value={getGuest} name={'discount'} onChange={selectDiscount} required>
-                          <option value="">Select Number of Passengers
-                          </option>
-                          <option value="1" data-discount={'15'}>1 Passenger: -15% Discount
-                          </option>
-                          <option value="2" data-discount={'10'}>2 Passengers: -10% Discount
-                          </option>
-                          <option value="3" data-discount={'5'}>3 Passengers: -5% Discount
-                          </option>
+                          <option value="">Select Number of Passengers</option>
+                          {
+                              (getYacht) &&  discoun_passengers[getYacht].map((value, index)  =>
+                              <option key={index} value={value.passenger} data-discount={value.discount}>{value.passenger} Passenger: -{value.discount}% Discount</option>
+                            )
+                          }
                         </select>
                         <span className={'mandatory'}>please complete the mandatory fields</span>
                       </div>
@@ -712,7 +371,7 @@ const ProductViewModals = () => {
                       </div>
                     </Col>
                   </Row>
-                  <Row className="pb-md-4">
+                  <Row className={`pb-md-4 express-time`} style={{Display:'none'}}>
                     <Col xs={12}>
                       <div className="color-selection">
                         <h6 className="text-center text-md-left">START TIME</h6>

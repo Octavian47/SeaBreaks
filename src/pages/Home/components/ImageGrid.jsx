@@ -7,26 +7,41 @@ import img4 from '../assets/img/ImageGrid/package-4.jpg';
 
 const ImageGrid = () => {
   const yachtInfo = [
-    { name: "EXPRESS SEA BREAK: 4H", duration:"4H", length: "62FT", capacity: "25", price: "1300", modelYear: "2023 MODEL", imageName: "package-1.jpg", modalId: 'morphic-window3' },
-    { name: "SHORT SEA BREAK: 1 DAY", duration:"1 DAY", length: "62FT", capacity: "25", price: "1300", modelYear: "2023 MODEL", imageName: "package-2.jpg", modalId: 'morphic-window3' },
-    { name: "CLASSIC SEA BREAK: 2 DAYS",duration:"2 DAYS", length: "52FT", capacity: "17", price: "850", modelYear: "2022 MODEL", imageName: "package-3.jpg", modalId: 'morphic-window3' },
-    { name: "CUSTOM SEA BREAK", duration:"", length: "52FT", capacity: "17", price: "850", modelYear: "2022 MODEL", imageName: "package-4.jpg", modalId: 'morphic-window4' }
+    { name: "EXPRESS SEA BREAK: 4H", duration:"4H", length: "62FT", capacity: "25", price: "1300", modelYear: "2023 MODEL", imageName: "package-1.jpg", productId: '1', startTime: true},
+    { name: "SHORT SEA BREAK: 1 DAY", duration:"1 DAY", length: "62FT", capacity: "25", price: "1300", modelYear: "2023 MODEL", imageName: "package-2.jpg", productId: '2', startTime: false },
+    { name: "CLASSIC SEA BREAK: 2 DAYS",duration:"2 DAYS", length: "52FT", capacity: "17", price: "850", modelYear: "2022 MODEL", imageName: "package-3.jpg", productId: '3', startTime: false },
+    { name: "CUSTOM SEA BREAK", duration:"", length: "52FT", capacity: "17", price: "850", modelYear: "2022 MODEL", imageName: "package-4.jpg", productId: '4' }
   ];
 
   // Function to open modal based on the provided modal ID
-  const morphicWindow = (modalId) => {
+  const morphicWindow = (productId) => {
     // Example to show modal, adjust based on your project's implementation
-    const modalElement = document.getElementById(modalId);
+      let modal = 'morphic-window3';
+      if(productId == 4)
+      {
+            modal = 'morphic-window4';
+      }
+    const modalElement = document.getElementById(modal);
     if (modalElement) {
-     let selectedProduct = yachtInfo.filter(function (e) {
-        return e.modalId == modalId;
-      });
-      $("select[name='yacht_size'], select[name='discount']").removeClass('error').val('').change();
-      $("select[name='yacht_size'], select[name='discount']").next('span').hide();
-      $("input[name='name']").val(selectedProduct[0].name)
-      $("input[name='duration']").val(selectedProduct[0].duration)
-      $(".discount-dropdown").addClass('d-none');
-      $(".morphic-title h3").html(selectedProduct[0].name)
+        if(productId != 4)
+        {
+            let selectedProduct = yachtInfo.filter(function (e) {
+                return e.productId == productId;
+            });
+            if(selectedProduct[0].startTime){
+                $('.express-time').show();
+            }
+            else{
+                $('.express-time').hide();
+            }
+            $(".product-name").html(selectedProduct[0].name)
+            $("select[name='yacht_size'], select[name='discount']").removeClass('error').val('').change();
+            $("select[name='yacht_size'], select[name='discount']").next('span').hide();
+            $("input[name='name']").val(selectedProduct[0].name)
+            $("input[name='duration']").val(selectedProduct[0].duration)
+            $(".discount-dropdown").addClass('d-none');
+            $(".morphic-title h3").html(selectedProduct[0].name)
+        }
       modalElement.style.display = 'block'; // Or another method to display the modal
       document.body.classList.add('show-modal'); // Optionally add a class to body to show modal is active
       packageSlider();
@@ -55,7 +70,7 @@ const ImageGrid = () => {
                 <h3>{yacht.name}</h3>
                 <div className="book-now-container">
                  {/* Replace button with an anchor tag if needed, or use button with onClick */}
-                 <button className="book-now-btn" onClick={() => morphicWindow(yacht.modalId)}>BOOK NOW</button>
+                 <button className="book-now-btn" onClick={() => morphicWindow(yacht.productId)}>BOOK NOW</button>
                 </div>
               </div>
               <div className="details-row">

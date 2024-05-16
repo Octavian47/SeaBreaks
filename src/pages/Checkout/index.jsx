@@ -32,7 +32,6 @@ let yacht_length = '';
 let capacity = '';
 let cabin = '';
 let yacht_type = 'Standard';
-let yacht_capacity = { 'compact': 2, 'regular': 4, 'large': 8};
 let cabin_length = { 'premium': {'length':'15m+','cabin': '2-3'}, 'standard':{'length':'10m+', 'cabin': '1-2'}};
 let coupon_code = { 'XACIO': '5', 'VCFIO': '15', 'SFRUI': '25'};
 const Checkout = () => {
@@ -73,7 +72,7 @@ const Checkout = () => {
         cart = JSON.parse(cart);
         price = cart.price;
         name = cart.name;
-        capacity = yacht_capacity[cart.yacht];
+        capacity = cart.capacity;
         yacht_type = (cart.premium_yacht)?'Premium':'Standard';
         yacht_length = cabin_length[yacht_type.toLowerCase()]['length'];
         cabin = cabin_length[yacht_type.toLowerCase()]['cabin'];
@@ -85,16 +84,7 @@ const Checkout = () => {
         setTotal(cart.total_price)
         setCoupon(cart.apply_coupon)
         setSelectedDate(moment(cart.date).format("MM/DD/YYYY"));
-        let guest = '';
-        if(cart.yacht.toLowerCase() != 'compact')
-        {
-            guest = cart.guest;
-        }
-        else
-        {
-            guest = yacht_capacity[cart.yacht];
-        }
-        setInputGuest(guest);
+        setInputGuest(cart.guest);
     toggleDocumentAttribute('data-spy', 'scroll', 'body');
     toggleDocumentAttribute('data-target', '.navbar', 'body');
     toggleDocumentAttribute('data-offset', '90', 'body');
@@ -303,15 +293,13 @@ const Checkout = () => {
         }
     }
     const appearance = {
-        theme: 'night',
+        theme: 'stripe',
         variables: {
-            fontFamily: 'Sohne, system-ui, sans-serif',
-            fontWeightNormal: '500',
             borderRadius: '8px',
             colorPrimary: '#EFC078',
             colorText: 'white',
-            colorTextSecondary: '#0A2540',
-            colorTextPlaceholder: '#ABB2BF',
+            colorTextSecondary: '#000000',
+            colorTextPlaceholder: '#000000',
             logoColor: 'dark'
         },
         rules: {
@@ -319,6 +307,23 @@ const Checkout = () => {
                 backgroundColor: '#ffffff',
                 border: '1px solid var(--colorPrimary)',
                 color: 'var(--colorTextSecondary)'
+            },
+            '.Tab': {
+                border: '1px solid #E0E6EB',
+                boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(18, 42, 66, 0.02)',
+            },
+
+            '.Tab:hover': {
+                color: 'var(--colorText)',
+            },
+
+            '.Tab--selected': {
+                borderColor: '#E0E6EB',
+                boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(18, 42, 66, 0.02), 0 0 0 2px var(--colorPrimary)',
+            },
+
+            '.Input--invalid': {
+                boxShadow: '0 1px 1px 0 rgba(0, 0, 0, 0.07), 0 0 0 2px var(--colorDanger)',
             }
         }
     };
@@ -386,6 +391,7 @@ const Checkout = () => {
         }
     }
     function packageSlider(){
+        $(".black-text-datepicker").focus();
         $(".products").owlCarousel({
             items: 1,
             autoPlay: 1500, //Set AutoPlay to 3 seconds
@@ -396,7 +402,7 @@ const Checkout = () => {
     return (
         <>
             <Preloader/>
-            <div id="checkout" autoFocus>
+            <div id="checkout">
                 <header>
                     <nav className="navbar">
                         <Link to="/" title="Logo" className="logo scroll">
@@ -431,7 +437,7 @@ const Checkout = () => {
                                 <Col sm={12} md={6} className="morphic-title">
                                     <div className={'checkout-form'}>
                                         <h3>{name}</h3>
-                                        <div className={'price font-weight-bold'}>Price: €{price}</div>
+                                        <div className={'price font-weight-bold'}>Price: €{totalPrice}</div>
                                         <div className={'product-detail'}>
                                             <div className={'sub-detail yacht-block'}>
                                                 <div>LENGTH</div>
@@ -451,17 +457,18 @@ const Checkout = () => {
                                                 <div className="color-selection">
                                                     <h6 className="text-md-left">Departure Date</h6>
                                                 </div>
-                                                <div className="color-picker date-picker text-center text-md-left" onClick={() => setDatePickerOpen(!datePickerOpen)}>
-                                                    <DatePicker
-                                                        selected={date}
-                                                        readOnly={true}
-                                                        onChange={handleDateChange}
-                                                        onClickOutside={() => setDatePickerOpen(false)}
-                                                        open={datePickerOpen}
-                                                        minDate={new Date()}
-                                                        className="black-text-datepicker"
-                                                    />
-                                                </div>
+                                               <div className={'position-relative'}>
+                                                <div className="datepicket-handler" onClick={() => setDatePickerOpen(!datePickerOpen)}></div>
+                                                <DatePicker
+                                                    selected={date}
+                                                    readOnly={true}
+                                                    onChange={handleDateChange}
+                                                    onClickOutside={() => setDatePickerOpen(false)}
+                                                    open={datePickerOpen}
+                                                    minDate={new Date()}
+                                                    className="black-text-datepicker"
+                                                />
+                                               </div>
                                             </div>
                                             <div>
                                                 <div className="color-selection">

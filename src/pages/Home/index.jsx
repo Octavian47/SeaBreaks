@@ -32,7 +32,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const width = $(window).width();
+      localStorage.setItem('cart', '')
+      const width = $(window).width();
     if (width && width > 767) {
       new WOW({
         boxClass: 'wow',
