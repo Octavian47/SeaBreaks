@@ -2816,7 +2816,7 @@ input, select, textarea{
 
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
-    .booking-detail .van-checkbox{
+    .booking-detail .van-checkbox span{
         display: inline;
     }
     #data-modal .owl-theme .owl-dots{
