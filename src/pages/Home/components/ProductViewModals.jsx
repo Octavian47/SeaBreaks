@@ -31,17 +31,21 @@ let discoun_passengers = {
   'compact': [
       {'passenger': 1, 'discount': 15},
       {'passenger': 2, 'discount': 10},
-      {'passenger': 3,'discount': 5}
+      {'passenger': 3,'discount': 5},
+      {'passenger': 4,'discount': 0}
   ],
   'regular': [
       {'passenger': 5, 'discount': 15},
       {'passenger': 6, 'discount': 10},
-      {'passenger': 7,'discount': 5}
+      {'passenger': 7,'discount': 5},
+      {'passenger': 8,'discount': 0}
   ],
   'large': [
       {'passenger': 9, 'discount': 15},
       {'passenger': 10, 'discount': 10},
-      {'passenger': 11,'discount': 5}]
+      {'passenger': 11,'discount': 5},
+      {'passenger': 12,'discount': 0}
+  ]
 };
 const ProductViewModals = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -230,11 +234,14 @@ const ProductViewModals = () => {
         'total_price': (Number(getPrice)+Number(getpremiumYacht))-getDiscount,
         'capacity': yacht_capacity[getYacht],
         'guest': getGuest,
-        'premium_yacht': getpremiumYacht,
+        'premium_yacht': premiumYachtChecked,
         'activity' : activityOption,
         'duration' : $("input[name='duration']").val(),
         'time' : timeOption,
-        'apply_coupon': false
+        'apply_coupon': false,
+        'coupon_code': '',
+        'catering': [],
+        'extra': []
       }
       localStorage.setItem("cart", JSON.stringify(data));
       navigate('/checkout')
@@ -348,7 +355,7 @@ const ProductViewModals = () => {
                           <option value="">Select Number of Passengers</option>
                           {
                               (getYacht) &&  discoun_passengers[getYacht].map((value, index)  =>
-                              <option key={index} value={value.passenger} data-discount={value.discount}>{value.passenger} Passenger: -{value.discount}% Discount</option>
+                              <option key={index} value={value.passenger} data-discount={value.discount}>{value.passenger} Passenger {(value.discount)?`: -${value.discount}'% Discount`:''}</option>
                             )
                           }
                         </select>

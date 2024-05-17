@@ -34,6 +34,8 @@ let cabin = '';
 let yacht_type = 'Standard';
 let cabin_length = { 'premium': {'length':'15m+','cabin': '2-3'}, 'standard':{'length':'10m+', 'cabin': '1-2'}};
 let coupon_code = { 'XACIO': '5', 'VCFIO': '15', 'SFRUI': '25'};
+let extra_option = [];
+let catering_option = [];
 const Checkout = () => {
     const [selectedTime, setSelectedTime] = useState('');
     const [inputGuest, setInputGuest] = useState('');
@@ -81,47 +83,62 @@ const Checkout = () => {
         window.history.back();
     }
     useEffect(() => {
+        $(".black-text-datepicker").focus();
         setTotal(cart.total_price)
         setCoupon(cart.apply_coupon)
         setSelectedDate(moment(cart.date).format("MM/DD/YYYY"));
         setInputGuest(cart.guest);
-    toggleDocumentAttribute('data-spy', 'scroll', 'body');
-    toggleDocumentAttribute('data-target', '.navbar', 'body');
-    toggleDocumentAttribute('data-offset', '90', 'body');
 
-      setIsBbqChecked(false);
-      setIsBreakfastChecked(false);
-      setIsHotDogsChecked(false);
-      setIsVeggieChecked(false);
-      setIsWrapsChecked(false);
-      setElectricBoardChecked(false);
-      setSeaBobChecked(false);
-      setWakeBoardChecked(false);
-      setBananaBoatChecked(false);
-      setJetSKIChecked(false);
-      setSkyWalkerChecked(false);
-      setSeaToyChecked(false);
-      setWaterSlideChecked(false);
-      setRockShadeChecked(false);
-      setBreezeIslandChecked(false);
-      setLazyKubeChecked(false);
-      setRapidQuadChecked(false);
-      setCatering(0);
-      setExtra(0);
         // Create PaymentIntent as soon as the page loads
-        getStripSecret(cart.total_price);
         setSelectedTime(cart.duration);
         setActivityOption(cart.activity);
         packageSlider();
-  }, []);
+        setCheckboxChecked();
+    }, []);
 
-    const getStripSecret = async (amount, email = '') => {
+    const setCheckboxChecked = () =>{
+        let catering_total = 0;
+        let extra_total = 0;
+        if(cart['extra'].length) {
+            extra_option = new Array();
+            {cart['extra'].map((e, index) => {
+                let func = $("input[name='"+e.name+"'][value='"+e.price+"']").attr('data-function');
+                eval(func+"(true)")
+                extra_total +=Number(e.price);
+                extra_option.push(e.name)
+            })}
+            setExtra(Number(extra_total));
+        }
+        if(cart['catering'].length) {
+            {
+                catering_option = new Array();
+                cart['catering'].map((ele, index) => {
+                    let func = $("input[name='" + ele.name + "'][value='" + ele.price + "']").attr('data-function');
+                    eval(func + "(true)")
+                    catering_total += Number(ele.price);
+                    catering_option.push(ele.name)
+                })
+            }
+            setCatering(Number(catering_total));
+        }
+        let total  = Number(cart.total_price)+Number(catering_total)+Number(extra_total)
+            getStripSecret(total);
+    };
+
+    const getStripSecret = async (total = 0) => {
         setClientSecret('')
         try {
-            const response = await fetch('https://react.sea-breaks.com/stripe/secret?price='+amount+'&email='+email);
+            let guest = $("input[name='guest']").val();
+            total = (total)?total:Number(totalPrice)+Number(getCatering)+Number(getExtra);
+            const response = await fetch('http://localhost:4242/secret?price='+total
+                +'&email='+$("input[name='email']").val()+'&guest='+inputGuest+'&date='+date
+                +'&product_name=' +cart.name +'&yacht_type='+yacht_type +'&activity='+cart.activity
+                +'&extra_option='+extra_option.join(", ") +'&catering_option='+catering_option.join(", ")
+                +'&phone='+$("input[name='phone']").val() +'&name='+$("input[name='name']").val()
+                +'&unit_price='+cart.price
+            );
             let {client_secret: secret} = await response.json();
             setClientSecret(secret)
-
         } catch (e) {
             console.log(e)
         }
@@ -132,21 +149,27 @@ const Checkout = () => {
     const handleFullName = (event) => {
         setInputName(event.target.value);
         $("input[name='name']").removeClass('error');
+        getStripSecret();
     };
     const handlePhone = (event) => {
         setInputPhone(event.target.value);
         $("input[name='phone']").removeClass('error');
+        getStripSecret();
     };
     const handleEmail = (event) => {
         setInputEmail(event.target.value);
-        getStripSecret(totalPrice+getCatering+getExtra, event.target.value);
         $("input[name='email']").removeClass('error');
+        getStripSecret();
     };
     const handleGuest = (event) => {
         setInputGuest(event.target.value);
         $("input[name='guest']").removeClass('error').next('span').hide();
         if($("input[name='guest']").val() > capacity){
             $("input[name='guest']").addClass('error').next('span').show();
+        }
+        else
+        {
+            getStripSecret();
         }
     };
 
@@ -163,6 +186,7 @@ const Checkout = () => {
     const activityChange = (event) => {
         setActivityOption(event.target.value);
         $("select[name='yacht_activity']").removeClass('error');
+        getStripSecret();
     };
 
     const calCatering = (event) => {
@@ -170,12 +194,18 @@ const Checkout = () => {
         if(event.target.checked){
             amount = Number(getCatering)+Number(event.target.value);
             setCatering(amount);
+            cart['catering'].push({'name': event.target.name, 'price': event.target.value})
         }
         else{
             amount = Number(getCatering)-Number(event.target.value);
             setCatering(amount);
+            let remove_extra_index = cart['extra'].findIndex(function(el) {
+                return el.name === event.target.name && Number(el.price) === Number(event.target.value);
+            });
+            cart['catering'].splice(remove_extra_index, 1)
         }
-        getStripSecret(totalPrice+amount+getExtra);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        setCheckboxChecked()
     };
 
     const calExtra = (event) => {
@@ -183,12 +213,19 @@ const Checkout = () => {
         if(event.target.checked){
             amount = Number(getExtra)+Number(event.target.value);
             setExtra(amount);
+            cart['extra'].push({'name': event.target.name, 'price': event.target.value})
         }
         else{
             amount = Number(getExtra)-Number(event.target.value);
             setExtra(amount);
+            let remove_extra_index = cart['extra'].findIndex(function(el) {
+                return el.name === event.target.name && Number(el.price) === Number(event.target.value);
+            });
+            cart['extra'].splice(remove_extra_index, 1)
         }
-        getStripSecret(totalPrice+amount+getCatering);
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        setCheckboxChecked()
     }
 
     const handleBBQChange = (event) => {
@@ -243,15 +280,6 @@ const Checkout = () => {
         setWaterSlideChecked(!isWaterSlideChecked);
         calExtra(event);
     };
-    const handleRockShadeChange = (event) => {
-        setRockShadeChecked(!isRockShadeChecked);
-        calExtra(event);
-
-    };
-    const handleBreezeIslandChange = (event) => {
-        setBreezeIslandChecked(!isBreezeIslandChecked);
-        calExtra(event);
-    };
     const handleLazyKubeChange = (event) => {
         setLazyKubeChecked(!isLazyKubeChecked);
         calExtra(event);
@@ -275,13 +303,14 @@ const Checkout = () => {
                     local_storage = JSON.parse(local_storage);
                     local_storage['apply_coupon'] = true;
                     local_storage['total_price'] = total_price;
+                    local_storage['coupon_code'] = coupon;
                     localStorage.setItem("cart", JSON.stringify(local_storage));
                     $('input[name="discount_code"]').val('');
                     let email = '';
                     if($("input[name='email']").val() && !filter.test($("input[name='email']").val())){
                         email = $("input[name='email']").val();
                     }
-                    getStripSecret(total_price,email);
+                    getStripSecret();
                 }
             } else {
                 $(".coupon-error").show();
@@ -355,11 +384,10 @@ const Checkout = () => {
             $("input[name='guest']").addClass('error').focus();
             return false;
         }
-        else if($("input[name='guest']").val()){
-            if($("input[name='guest']").val() > capacity){
+        else if($("input[name='guest']").val() &&
+            $("input[name='guest']").val() > capacity){
                 $("input[name='guest']").addClass('error').focus().next('span').show();
-            }
-            return false;
+                return false;
         }
         else if($("input[name='name']").val() == ''){
             $("input[name='name']").addClass('error').focus();
@@ -391,7 +419,6 @@ const Checkout = () => {
         }
     }
     function packageSlider(){
-        $(".black-text-datepicker").focus();
         $(".products").owlCarousel({
             items: 1,
             autoPlay: 1500, //Set AutoPlay to 3 seconds
@@ -581,7 +608,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'BBQ'}
                                                                     type="checkbox"
+                                                                    data-function={'setIsBbqChecked'}
                                                                     checked={isBbqChecked}
                                                                     onChange={handleBBQChange}
                                                                     value={'180'}
@@ -595,7 +624,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Breakfast'}
                                                                     type="checkbox"
+                                                                    data-function={'setIsBreakfastChecked'}
                                                                     checked={isBreakfastChecked}
                                                                     onChange={handleBreakfastChange}
                                                                     value={'75'}
@@ -609,7 +640,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Hotdogs & Burgers'}
                                                                     type="checkbox"
+                                                                    data-function={'setIsHotDogsChecked'}
                                                                     checked={isHotDogsChecked}
                                                                     onChange={handleHotDogChange}
                                                                     value={'95'}
@@ -623,7 +656,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Veggie'}
                                                                     type="checkbox"
+                                                                    data-function={'setIsVeggieChecked'}
                                                                     checked={isVeggieChecked}
                                                                     onChange={handleVeggieChange}
                                                                     value={'120'}
@@ -637,7 +672,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Wraps'}
                                                                     type="checkbox"
+                                                                    data-function={'setIsWrapsChecked'}
                                                                     checked={isWrapsChecked}
                                                                     onChange={handleWrapsChange}
                                                                     value={'120'}
@@ -684,7 +721,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Electric Surfboard'}
                                                                     type="checkbox"
+                                                                    data-function={'setElectricBoardChecked'}
                                                                     checked={isElectricBoardChecked}
                                                                     onChange={handleElectricBoard}
                                                                     value={'500'}
@@ -698,7 +737,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Sea Bob'}
                                                                     type="checkbox"
+                                                                    data-function={'setSeaBobChecked'}
                                                                     checked={isSeaBobChecked}
                                                                     onChange={handleSeaBobChange}
                                                                     value={'200'}
@@ -712,7 +753,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Wake Board/Surf'}
                                                                     type="checkbox"
+                                                                    data-function={'setWakeBoardChecked'}
                                                                     checked={isWakeBoardChecked}
                                                                     onChange={handleWakeBoardChange}
                                                                     value={'700'}
@@ -726,7 +769,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Banana Boat'}
                                                                     type="checkbox"
+                                                                    data-function={'setBananaBoatChecked'}
                                                                     checked={isBananaBoatChecked}
                                                                     onChange={handleBananaBoatChange}
                                                                     value={'500'}
@@ -740,7 +785,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Jet SKI'}
                                                                     type="checkbox"
+                                                                    data-function={'setJetSKIChecked'}
                                                                     checked={isJetSKIChecked}
                                                                     onChange={handleJetSKIChange}
                                                                     value={'600'}
@@ -754,7 +801,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Sky Walker Jet Skii 2'}
                                                                     type="checkbox"
+                                                                    data-function={'setSkyWalkerChecked'}
                                                                     checked={isSkyWalkerChecked}
                                                                     onChange={handleSkyWalkerChange}
                                                                     value={'600'}
@@ -791,7 +840,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Sea Toy'}
                                                                     type="checkbox"
+                                                                    data-function={'setSeaToyChecked'}
                                                                     checked={isSeaToyChecked}
                                                                     onChange={handleSeaToy}
                                                                     value={'500'}
@@ -805,7 +856,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'BBQ'}
                                                                     type="checkbox"
+                                                                    data-function={'setWaterSlideChecked'}
                                                                     checked={isWaterSlideChecked}
                                                                     onChange={handleWaterSlideChange}
                                                                     value={'500'}
@@ -819,35 +872,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Lazy Dayz Kube'}
                                                                     type="checkbox"
-                                                                    checked={isRockShadeChecked}
-                                                                    onChange={handleRockShadeChange}
-                                                                    value={'350'}
-                                                                />
-                                                                <div>Sea Toy</div>
-                                                            </div>
-                                                            <div className="price">€ 350</div>
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label>
-                                                            <div className="checkbox">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    checked={isBreezeIslandChecked}
-                                                                    onChange={handleBreezeIslandChange}
-                                                                    value={'350'}
-                                                                />
-                                                                <div>Sea Toy</div>
-                                                            </div>
-                                                            <div className="price">€ 350</div>
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label>
-                                                            <div className="checkbox">
-                                                                <input
-                                                                    type="checkbox"
+                                                                    data-function={'setLazyKubeChecked'}
                                                                     checked={isLazyKubeChecked}
                                                                     onChange={handleLazyKubeChange}
                                                                     value={'350'}
@@ -861,7 +888,9 @@ const Checkout = () => {
                                                         <label>
                                                             <div className="checkbox">
                                                                 <input
+                                                                    name={'Sea Toy'}
                                                                     type="checkbox"
+                                                                    data-function={'setRapidQuadChecked'}
                                                                     checked={isRapidQuadChecked}
                                                                     onChange={handleRapidQuadChange}
                                                                     value={'350'}
