@@ -130,12 +130,12 @@ const Checkout = () => {
         try {
             let guest = $("input[name='guest']").val();
             total = (total)?total:Number(totalPrice)+Number(getCatering)+Number(getExtra);
-            const response = await fetch('http://localhost:4242/secret?price='+total
+            const response = await fetch('https://react.sea-breaks.com/stripe/secret?price='+total
                 +'&email='+$("input[name='email']").val()+'&guest='+inputGuest+'&date='+date
                 +'&product_name=' +cart.name +'&yacht_type='+yacht_type +'&activity='+cart.activity
                 +'&extra_option='+extra_option.join(", ") +'&catering_option='+catering_option.join(", ")
                 +'&phone='+$("input[name='phone']").val() +'&name='+$("input[name='name']").val()
-                +'&unit_price='+totalPrice
+                +'&unit_price='+cart.total_price
             );
             let {client_secret: secret} = await response.json();
             setClientSecret(secret)
